@@ -2,7 +2,8 @@ export default function TodoItem(title) {
     const article = document.createElement("article")
 
     article.innerHTML = `
-    <h1 class="font-bold">${title}<h1/>
+
+    <label> <input type="checkbox"> ${title}<label/>
     `
     return article
 }
