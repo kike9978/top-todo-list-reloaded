@@ -113,7 +113,7 @@ function resetInput() {
 function handleAddTaskClick() {
 
     // Add new task to tasks
-    tasks = [...tasks, new Task(nextId++, nextTask, false)]
+    tasks = [new Task(nextId++, nextTask, false), ...tasks]
 
     // Trigger a rerender
     // Update task list UI
