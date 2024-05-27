@@ -21,12 +21,6 @@ let nextTask = ""
 let nextId = 2
 
 
-let pendingTasks = TaskService.getPendingTasks(tasks)
-let completedTasks = TaskService.getCompletedTasks(tasks)
-
-
-
-
 // elems
 const body = document.querySelector("body")
 const pendingTasksSection = document.createElement("section")
@@ -39,11 +33,12 @@ const addNewTaskInput = document.createElement("input")
 const addNewTaskButton = document.createElement("button")
 
 
+
+// build Dom
 body.appendChild(addNewTaskInput)
 body.appendChild(addNewTaskButton)
 body.appendChild(pendingTasksSection)
 body.appendChild(completedTasksSection)
-
 pendingTasksSection.appendChild(pendingTasksHeading)
 pendingTasksSection.appendChild(pendingTasksContainer)
 completedTasksSection.appendChild(completedTasksHeading)
@@ -54,24 +49,22 @@ addNewTaskButton.innerText = "Add task"
 pendingTasksHeading.innerText = "Pending tasks"
 completedTasksHeading.innerText = "Completed tasks"
 
+
+//Initial render
 renderPendingTasks()
 renderCompletedTasks()
 
 
-
-
-
-
 function renderPendingTasks() {
     clearElemChildren(pendingTasksContainer)
-    pendingTasks = TaskService.getPendingTasks(tasks)
+    const pendingTasks = TaskService.getPendingTasks(tasks)
     pendingTasks.forEach(task => {
         pendingTasksContainer.appendChild(TodoItem(task, handleTodoChange))
     })
 }
 function renderCompletedTasks() {
     clearElemChildren(completedTasksContainer)
-    completedTasks = TaskService.getCompletedTasks(tasks)
+    const completedTasks = TaskService.getCompletedTasks(tasks)
     completedTasks.forEach(task => {
         completedTasksContainer.appendChild(TodoItem(task, handleTodoChange))
     })
@@ -94,29 +87,30 @@ function handleTodoChange(value, taskId) {
     )
 
 
-    updateTasksArrays()
+    updateTasks()
 }
 
 function handleAddTaskInput(e) {
     nextTask = e.target.value
 }
-function resetInput() {
-    addNewTaskInput.value = nextTask;
-}
+
 
 function handleAddTaskClick() {
 
     // Add new task to tasks
+
+    if (nextId.trim() === "") return;
+
     tasks = [new Task(nextId++, nextTask, false), ...tasks]
 
     // Trigger a rerender
     // Update task list UI
     renderPendingTasks()
     nextTask = ""
-    resetInput();
+    addNewTaskInput.value = "";
 }
 
-function updateTasksArrays() {
+function updateTasks() {
     renderPendingTasks()
     renderCompletedTasks()
 }
