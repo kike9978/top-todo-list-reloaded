@@ -15,6 +15,10 @@ class Task {
         return this.isCompleted
     }
 
+    changeCompleted() {
+        this.isCompleted = !this.getIsCompleted
+    }
+
 }
 
 export default Task

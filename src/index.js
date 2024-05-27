@@ -19,7 +19,7 @@ let tasks = data.map(d => new Task(d.id, d.title, d.isCompleted))
 
 
 let pendingTasks = []
-const completedTasks = tasks.filter(d => d.isCompleted === true)
+let completedTasks = tasks.filter(d => d.isCompleted === true)
 filterPendingTasks()
 
 
@@ -55,14 +55,16 @@ pendingTasksHeading.innerText = "Pending tasks"
 completedTasksHeading.innerText = "Completed tasks"
 
 renderPendingTasks()
+renderCompletedTasks()
 
-completedTasks.forEach(task => {
-    completedTasksContainer.appendChild(TodoItem(task, handleTodoChange))
-})
 
 function filterPendingTasks() {
-    pendingTasks = tasks.filter(d => d.isCompleted === false)
+    pendingTasks = tasks.filter(d => d.getIsCompleted() === false)
 
+}
+
+function filterCompletedTasks() {
+    completedTasks = tasks.filter(t => t.getIsCompleted() === true)
 }
 
 function renderPendingTasks() {
@@ -72,13 +74,33 @@ function renderPendingTasks() {
         pendingTasksContainer.appendChild(TodoItem(task, handleTodoChange))
     })
 }
+function renderCompletedTasks() {
+    clearElemChildren(completedTasksContainer)
+    filterCompletedTasks()
+    completedTasks.forEach(task => {
+        completedTasksContainer.appendChild(TodoItem(task, handleTodoChange))
+    })
+}
 
 function clearElemChildren(el) {
     el.innerHTML = ""
 }
 
-function handleTodoChange(value) {
-    console.log(value)
+function handleTodoChange(value, taskId) {
+
+    tasks = tasks.map(t => {
+        if (taskId === t.getId()) {
+            return new Task(taskId, t.getTitle(), value)
+        }
+        else {
+            return t
+        }
+    }
+    )
+
+
+    renderPendingTasks()
+    renderCompletedTasks()
 }
 
 function handleAddTaskInput(e) {
@@ -91,16 +113,18 @@ function resetInput() {
 function handleAddTaskClick() {
 
     // Add new task to tasks
-    /*     tasks = [...tasks, { id: nextId++, title: nextTask, isCompleted: false }] */
     tasks = [...tasks, new Task(nextId++, nextTask, false)]
 
+    // Trigger a rerender
+    // Update task list UI
     renderPendingTasks()
-    console.table(tasks)
     nextTask = ""
     resetInput();
-    // Create new todoItem
-    // Update task list UI
-    // Trigger a rerender
+}
+
+function updateTasksArrays() {
+    renderPendingTasks()
+    renderCompletedTasks()
 }
 
 addNewTaskInput.addEventListener("input", handleAddTaskInput)
