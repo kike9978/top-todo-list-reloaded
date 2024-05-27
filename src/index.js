@@ -84,6 +84,9 @@ function handleTodoChange(value) {
 function handleAddTaskInput(e) {
     nextTask = e.target.value
 }
+function resetInput() {
+    addNewTaskInput.value = nextTask;
+}
 
 function handleAddTaskClick() {
 
@@ -93,6 +96,8 @@ function handleAddTaskClick() {
 
     renderPendingTasks()
     console.table(tasks)
+    nextTask = ""
+    resetInput();
     // Create new todoItem
     // Update task list UI
     // Trigger a rerender
