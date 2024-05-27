@@ -2,6 +2,7 @@
 import "./styles/style.css"
 import TodoItem from "./components/TodoItem";
 import Task from "./models/Task"
+import TaskService from "./services/taskService";
 
 const data = [
     {
@@ -18,9 +19,8 @@ const data = [
 let tasks = data.map(d => new Task(d.id, d.title, d.isCompleted))
 
 
-let pendingTasks = []
-let completedTasks = tasks.filter(d => d.isCompleted === true)
-filterPendingTasks()
+let pendingTasks = TaskService.filterPendingTasks(tasks)
+let completedTasks = TaskService.filterCompletedTasks(tasks)
 
 
 
@@ -58,25 +58,20 @@ renderPendingTasks()
 renderCompletedTasks()
 
 
-function filterPendingTasks() {
-    pendingTasks = tasks.filter(d => d.getIsCompleted() === false)
 
-}
 
-function filterCompletedTasks() {
-    completedTasks = tasks.filter(t => t.getIsCompleted() === true)
-}
+
 
 function renderPendingTasks() {
     clearElemChildren(pendingTasksContainer)
-    filterPendingTasks()
+    pendingTasks = TaskService.filterPendingTasks(tasks)
     pendingTasks.forEach(task => {
         pendingTasksContainer.appendChild(TodoItem(task, handleTodoChange))
     })
 }
 function renderCompletedTasks() {
     clearElemChildren(completedTasksContainer)
-    filterCompletedTasks()
+    completedTasks = TaskService.filterCompletedTasks(tasks)
     completedTasks.forEach(task => {
         completedTasksContainer.appendChild(TodoItem(task, handleTodoChange))
     })
