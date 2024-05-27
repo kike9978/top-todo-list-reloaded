@@ -17,6 +17,8 @@ const data = [
     },
 ]
 let tasks = data.map(d => new Task(d.id, d.title, d.isCompleted))
+let nextTask = ""
+let nextId = 2
 
 
 let pendingTasks = TaskService.getPendingTasks(tasks)
@@ -24,8 +26,6 @@ let completedTasks = TaskService.getCompletedTasks(tasks)
 
 
 
-let nextTask = ""
-let nextId = 2
 
 // elems
 const body = document.querySelector("body")
