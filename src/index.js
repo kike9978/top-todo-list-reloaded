@@ -1,6 +1,7 @@
 
 import "./styles/style.css"
 import TodoItem from "./components/TodoItem";
+import Task from "./models/Task"
 
 const data = [
     {
@@ -14,7 +15,8 @@ const data = [
         isCompleted: true
     },
 ]
-let tasks = data
+let tasks = data.map(d => new Task(d.id, d.title, d.isCompleted))
+
 
 let pendingTasks = []
 const completedTasks = tasks.filter(d => d.isCompleted === true)
@@ -86,7 +88,9 @@ function handleAddTaskInput(e) {
 function handleAddTaskClick() {
 
     // Add new task to tasks
-    tasks = [...tasks, { id: nextId++, title: nextTask, isCompleted: false }]
+    /*     tasks = [...tasks, { id: nextId++, title: nextTask, isCompleted: false }] */
+    tasks = [...tasks, new Task(nextId++, nextTask, false)]
+
     renderPendingTasks()
     console.table(tasks)
     // Create new todoItem
