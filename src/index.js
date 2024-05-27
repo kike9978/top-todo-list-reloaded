@@ -16,8 +16,10 @@ const data = [
 ]
 let tasks = data
 
+let pendingTasks = []
 const completedTasks = tasks.filter(d => d.isCompleted === true)
-const pendingTasks = tasks.filter(d => d.isCompleted === false)
+filterPendingTasks()
+
 
 
 let nextTask = ""
@@ -27,8 +29,10 @@ let nextId = 2
 const body = document.querySelector("body")
 const pendingTasksSection = document.createElement("section")
 const pendingTasksHeading = document.createElement("h2")
+const pendingTasksContainer = document.createElement("div")
 const completedTasksSection = document.createElement("section")
 const completedTasksHeading = document.createElement("h2")
+const completedTasksContainer = document.createElement("div")
 const addNewTaskInput = document.createElement("input")
 const addNewTaskButton = document.createElement("button")
 
@@ -39,22 +43,37 @@ body.appendChild(pendingTasksSection)
 body.appendChild(completedTasksSection)
 
 pendingTasksSection.appendChild(pendingTasksHeading)
+pendingTasksSection.appendChild(pendingTasksContainer)
 completedTasksSection.appendChild(completedTasksHeading)
+completedTasksSection.appendChild(completedTasksContainer)
 
 
 addNewTaskButton.innerText = "Add task"
 pendingTasksHeading.innerText = "Pending tasks"
 completedTasksHeading.innerText = "Completed tasks"
 
-pendingTasks.forEach(task => {
-    pendingTasksSection.appendChild(TodoItem(task, handleTodoChange))
-})
+renderPendingTasks()
 
 completedTasks.forEach(task => {
-    completedTasksSection.appendChild(TodoItem(task, handleTodoChange))
+    completedTasksContainer.appendChild(TodoItem(task, handleTodoChange))
 })
 
+function filterPendingTasks() {
+    pendingTasks = tasks.filter(d => d.isCompleted === false)
 
+}
+
+function renderPendingTasks() {
+    clearElemChildren(pendingTasksContainer)
+    filterPendingTasks()
+    pendingTasks.forEach(task => {
+        pendingTasksContainer.appendChild(TodoItem(task, handleTodoChange))
+    })
+}
+
+function clearElemChildren(el) {
+    el.innerHTML = ""
+}
 
 function handleTodoChange(value) {
     console.log(value)
@@ -68,6 +87,7 @@ function handleAddTaskClick() {
 
     // Add new task to tasks
     tasks = [...tasks, { id: nextId++, title: nextTask, isCompleted: false }]
+    renderPendingTasks()
     console.table(tasks)
     // Create new todoItem
     // Update task list UI
