@@ -19,8 +19,8 @@ const data = [
 let tasks = data.map(d => new Task(d.id, d.title, d.isCompleted))
 
 
-let pendingTasks = TaskService.filterPendingTasks(tasks)
-let completedTasks = TaskService.filterCompletedTasks(tasks)
+let pendingTasks = TaskService.getPendingTasks(tasks)
+let completedTasks = TaskService.getCompletedTasks(tasks)
 
 
 
@@ -64,14 +64,14 @@ renderCompletedTasks()
 
 function renderPendingTasks() {
     clearElemChildren(pendingTasksContainer)
-    pendingTasks = TaskService.filterPendingTasks(tasks)
+    pendingTasks = TaskService.getPendingTasks(tasks)
     pendingTasks.forEach(task => {
         pendingTasksContainer.appendChild(TodoItem(task, handleTodoChange))
     })
 }
 function renderCompletedTasks() {
     clearElemChildren(completedTasksContainer)
-    completedTasks = TaskService.filterCompletedTasks(tasks)
+    completedTasks = TaskService.getCompletedTasks(tasks)
     completedTasks.forEach(task => {
         completedTasksContainer.appendChild(TodoItem(task, handleTodoChange))
     })
@@ -94,8 +94,7 @@ function handleTodoChange(value, taskId) {
     )
 
 
-    renderPendingTasks()
-    renderCompletedTasks()
+    updateTasksArrays()
 }
 
 function handleAddTaskInput(e) {

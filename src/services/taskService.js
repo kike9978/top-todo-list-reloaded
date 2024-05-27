@@ -1,13 +1,11 @@
 export default class TaskService {
-    static filterPendingTasks(tasks) {
+    static getPendingTasks(tasks) {
 
-        const pendingTasks = tasks.filter(d => d.getIsCompleted() === false)
-        return pendingTasks
+        return tasks.filter(d => d.getIsCompleted() === false)
     }
 
-    static filterCompletedTasks(tasks) {
-        const completedTasks = tasks.filter(t => t.getIsCompleted() === true)
-        return completedTasks
+    static getCompletedTasks(tasks) {
+        return tasks.filter(t => t.getIsCompleted() === true)
     }
 
 
