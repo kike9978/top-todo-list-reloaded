@@ -1,7 +1,7 @@
 import TodoItem from "./TodoItem";
 import Task from "../models/Task";
 import TaskService from "../services/taskService";
-
+import ProjectService from "../services/projectService";
 
 
 
@@ -84,6 +84,7 @@ export default function MainTasksContainer(data) {
 
 
     function handleAddTaskClick() {
+        console.log(tasks)
 
         // Add new task to tasks
 
@@ -114,13 +115,3 @@ export default function MainTasksContainer(data) {
 
     return mainTasksContainer
 }
-
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,7 @@
 
 import "./styles/style.css"
 import MainTasksContainer from "./components/TasksContainer"
+import ProjectService from "./services/projectService"
 
 const data = {
     tasks: [
@@ -27,19 +28,23 @@ const data = {
             title: "Proyecto 1",
             assignedTasksIds: [0, 2]
 
-        }
+        },
+        {
+            id: 1,
+            title: "Proyecto 2",
+            assignedTasksIds: [1]
+
+        },
     ]
 }
 
 
-const currentTasks = data.tasks.filter(task => data.projects[0].assignedTasksIds.indexOf(task.id) >= 0)
+const currentTasks = data.tasks.filter(task => data.projects[ProjectService.getCurrentProjectId()].assignedTasksIds.includes(task.id))
 // elems
 const body = document.querySelector("body")
-
 const projectsSidebar = document.createElement("aside")
 
 body.appendChild(projectsSidebar)
-
 body.appendChild(MainTasksContainer(currentTasks))
 
 function ProjectItem(project) {
@@ -48,8 +53,24 @@ function ProjectItem(project) {
         <p>${project.title}</p>
     
     `
+    article.addEventListener("click", () => {
+        ProjectService.setCurrentProjectId(project.id)
+        console.log(ProjectService.getCurrentProjectId())
+        updateTaskDisplay()
+
+    })
 
     return article
 }
 
 data.projects.forEach(project => projectsSidebar.appendChild(ProjectItem(project)))
+
+function updateTaskDisplay() {
+    const currentProject = data.projects[ProjectService.getCurrentProjectId()];
+    const currentTasks = data.tasks.filter(task => currentProject.assignedTasksIds.includes(task.id))
+    const mainTasksContainer = document.querySelector("main")
+    const newMainTasksContainer = MainTasksContainer(currentTasks)
+    console.log(body.children)
+    body.replaceChild(newMainTasksContainer, mainTasksContainer)
+
+}
