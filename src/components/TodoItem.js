@@ -5,7 +5,7 @@ export default function TodoItem(task, onChange) {
     article.innerHTML = `
 
     <label > 
-    <input type="checkbox" ${task.getIsCompleted() && "checked"}> 
+    <input type="checkbox" ${task.getIsCompleted() ? "checked" : ""}> 
     ${task.getTitle()}
     <label/>
     `

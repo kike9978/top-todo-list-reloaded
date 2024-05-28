@@ -39,10 +39,10 @@ const data = {
     ]
 }
 
+
+
 const projects = data.projects.map(project => new Project(project.id, project.title, project.assignedTasksIds))
-
-
-const currentTasks = data.tasks.filter(task => projects[ProjectService.getCurrentProjectId()].assignedTasksIds.includes(task.id))
+let currentTasks = getCurrentProjectTasks()
 // elems
 const body = document.querySelector("body")
 const projectsSidebar = document.createElement("aside")
@@ -50,11 +50,15 @@ const projectsSidebar = document.createElement("aside")
 body.appendChild(projectsSidebar)
 body.appendChild(MainTasksContainer(currentTasks))
 
+function getCurrentProjectTasks() {
+    return data.tasks.filter(task => projects[ProjectService.getCurrentProjectId()].assignedTasksIds.includes(task.id))
+}
+
 function ProjectItem(project) {
     const article = document.createElement("article")
     article.innerHTML = `
         <p>${project.title}</p>
-    
+        <p>${project.assignedTasksIds.length}</p>
     `
     article.addEventListener("click", () => {
         ProjectService.setCurrentProjectId(project.id)
