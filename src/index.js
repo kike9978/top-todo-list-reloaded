@@ -2,6 +2,7 @@
 import "./styles/style.css"
 import MainTasksContainer from "./components/TasksContainer"
 import ProjectService from "./services/projectService"
+import Project from "./models/Project"
 
 const data = {
     tasks: [
@@ -38,8 +39,10 @@ const data = {
     ]
 }
 
+const projects = data.projects.map(project => new Project(project.id, project.title, project.assignedTasksIds))
 
-const currentTasks = data.tasks.filter(task => data.projects[ProjectService.getCurrentProjectId()].assignedTasksIds.includes(task.id))
+
+const currentTasks = data.tasks.filter(task => projects[ProjectService.getCurrentProjectId()].assignedTasksIds.includes(task.id))
 // elems
 const body = document.querySelector("body")
 const projectsSidebar = document.createElement("aside")
@@ -63,10 +66,10 @@ function ProjectItem(project) {
     return article
 }
 
-data.projects.forEach(project => projectsSidebar.appendChild(ProjectItem(project)))
+projects.forEach(project => projectsSidebar.appendChild(ProjectItem(project)))
 
 function updateTaskDisplay() {
-    const currentProject = data.projects[ProjectService.getCurrentProjectId()];
+    const currentProject = projects[ProjectService.getCurrentProjectId()];
     const currentTasks = data.tasks.filter(task => currentProject.assignedTasksIds.includes(task.id))
     const mainTasksContainer = document.querySelector("main")
     const newMainTasksContainer = MainTasksContainer(currentTasks)

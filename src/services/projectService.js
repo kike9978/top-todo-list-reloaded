@@ -10,8 +10,4 @@ export default class ProjectService {
         ProjectService.currentProjectId = nextId
     }
 
-    /*  static addTaskToProject(projects,projectId, taskId) {
-         const project = project.find(p=> project.id === projectId)
-     } */
-
 }

@@ -1,24 +1,19 @@
 import TodoItem from "./TodoItem";
 import Task from "../models/Task";
 import TaskService from "../services/taskService";
-import ProjectService from "../services/projectService";
 
 
 
 export default function MainTasksContainer(data) {
     let tasks = data.map(d => new Task(d.id, d.title, d.isCompleted))
     let nextTask = ""
-    let nextId = 2
+    let nextId = 3
 
 
     // elems
     const mainTasksContainer = document.createElement("main")
-    const pendingTasksSection = document.createElement("section")
-    const pendingTasksHeading = document.createElement("h2")
-    const pendingTasksContainer = document.createElement("div")
-    const completedTasksSection = document.createElement("section")
-    const completedTasksHeading = document.createElement("h2")
-    const completedTasksContainer = document.createElement("div")
+    const pendingTasksSection = createSection("Pending tasks")
+    const completedTasksSection = createSection("Completed tasks")
     const addNewTaskInput = document.createElement("input")
     const addNewTaskButton = document.createElement("button")
 
@@ -27,34 +22,41 @@ export default function MainTasksContainer(data) {
     // build Dom
     mainTasksContainer.appendChild(addNewTaskInput)
     mainTasksContainer.appendChild(addNewTaskButton)
-    mainTasksContainer.appendChild(pendingTasksSection)
-    mainTasksContainer.appendChild(completedTasksSection)
-    pendingTasksSection.appendChild(pendingTasksHeading)
-    pendingTasksSection.appendChild(pendingTasksContainer)
-    completedTasksSection.appendChild(completedTasksHeading)
-    completedTasksSection.appendChild(completedTasksContainer)
+    mainTasksContainer.appendChild(pendingTasksSection.section)
+    mainTasksContainer.appendChild(completedTasksSection.section)
 
     addNewTaskButton.innerText = "Add task"
-    pendingTasksHeading.innerText = "Pending tasks"
-    completedTasksHeading.innerText = "Completed tasks"
 
     //Initial render
     renderPendingTasks()
     renderCompletedTasks()
 
+
+    function createSection(headingText) {
+        const section = document.createElement("section")
+        const heading = document.createElement("h2")
+        const container = document.createElement("div")
+
+        heading.innerText = headingText
+        section.appendChild(heading)
+        section.appendChild(container)
+
+        return { section, container }
+    }
+
     function renderPendingTasks() {
-        clearElemChildren(pendingTasksContainer)
+        clearElemChildren(pendingTasksSection.container)
         const pendingTasks = TaskService.getPendingTasks(tasks)
         pendingTasks.forEach(task => {
-            pendingTasksContainer.appendChild(TodoItem(task, handleTodoChange))
+            pendingTasksSection.container.appendChild(TodoItem(task, handleTodoChange))
         })
     }
 
     function renderCompletedTasks() {
-        clearElemChildren(completedTasksContainer)
+        clearElemChildren(completedTasksSection.container)
         const completedTasks = TaskService.getCompletedTasks(tasks)
         completedTasks.forEach(task => {
-            completedTasksContainer.appendChild(TodoItem(task, handleTodoChange))
+            completedTasksSection.container.appendChild(TodoItem(task, handleTodoChange))
         })
     }
 
@@ -84,7 +86,6 @@ export default function MainTasksContainer(data) {
 
 
     function handleAddTaskClick() {
-        console.log(tasks)
 
         // Add new task to tasks
 
@@ -105,7 +106,6 @@ export default function MainTasksContainer(data) {
     }
 
     addNewTaskInput.addEventListener("input", handleAddTaskInput)
-
     addNewTaskButton.addEventListener("click", handleAddTaskClick)
     /* document.querySelector(`[data-todo="0"]`) */
 

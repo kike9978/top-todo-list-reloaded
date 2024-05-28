@@ -1,3 +1,5 @@
+
+
 export default class TaskService {
     static getPendingTasks(tasks) {
 
@@ -6,6 +8,10 @@ export default class TaskService {
 
     static getCompletedTasks(tasks) {
         return tasks.filter(t => t.getIsCompleted() === true)
+    }
+
+    static setNewTask(task) {
+
     }
 
 
