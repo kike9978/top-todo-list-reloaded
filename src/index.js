@@ -1,121 +1,55 @@
 
 import "./styles/style.css"
-import TodoItem from "./components/TodoItem";
-import Task from "./models/Task"
-import TaskService from "./services/taskService";
+import MainTasksContainer from "./components/TasksContainer"
 
-const data = [
-    {
-        id: 0,
-        title: "hola",
-        isCompleted: false
-    },
-    {
-        id: 1,
-        title: "Adios",
-        isCompleted: true
-    },
-]
-let tasks = data.map(d => new Task(d.id, d.title, d.isCompleted))
-let nextTask = ""
-let nextId = 2
+const data = {
+    tasks: [
+        {
+            id: 0,
+            title: "hola",
+            isCompleted: false
+        },
+        {
+            id: 1,
+            title: "Adios",
+            isCompleted: true
+        },
+        {
+            id: 2,
+            title: "Otra tarea",
+            isCompleted: true
+        },
+    ],
+
+    projects: [
+        {
+            id: 0,
+            title: "Proyecto 1",
+            assignedTasksIds: [0, 2]
+
+        }
+    ]
+}
 
 
+const currentTasks = data.tasks.filter(task => data.projects[0].assignedTasksIds.indexOf(task.id) >= 0)
 // elems
 const body = document.querySelector("body")
-const pendingTasksSection = document.createElement("section")
-const pendingTasksHeading = document.createElement("h2")
-const pendingTasksContainer = document.createElement("div")
-const completedTasksSection = document.createElement("section")
-const completedTasksHeading = document.createElement("h2")
-const completedTasksContainer = document.createElement("div")
-const addNewTaskInput = document.createElement("input")
-const addNewTaskButton = document.createElement("button")
 
+const projectsSidebar = document.createElement("aside")
 
+body.appendChild(projectsSidebar)
 
-// build Dom
-body.appendChild(addNewTaskInput)
-body.appendChild(addNewTaskButton)
-body.appendChild(pendingTasksSection)
-body.appendChild(completedTasksSection)
-pendingTasksSection.appendChild(pendingTasksHeading)
-pendingTasksSection.appendChild(pendingTasksContainer)
-completedTasksSection.appendChild(completedTasksHeading)
-completedTasksSection.appendChild(completedTasksContainer)
+body.appendChild(MainTasksContainer(currentTasks))
 
+function ProjectItem(project) {
+    const article = document.createElement("article")
+    article.innerHTML = `
+        <p>${project.title}</p>
+    
+    `
 
-addNewTaskButton.innerText = "Add task"
-pendingTasksHeading.innerText = "Pending tasks"
-completedTasksHeading.innerText = "Completed tasks"
-
-
-//Initial render
-renderPendingTasks()
-renderCompletedTasks()
-
-
-function renderPendingTasks() {
-    clearElemChildren(pendingTasksContainer)
-    const pendingTasks = TaskService.getPendingTasks(tasks)
-    pendingTasks.forEach(task => {
-        pendingTasksContainer.appendChild(TodoItem(task, handleTodoChange))
-    })
-}
-function renderCompletedTasks() {
-    clearElemChildren(completedTasksContainer)
-    const completedTasks = TaskService.getCompletedTasks(tasks)
-    completedTasks.forEach(task => {
-        completedTasksContainer.appendChild(TodoItem(task, handleTodoChange))
-    })
+    return article
 }
 
-function clearElemChildren(el) {
-    el.innerHTML = ""
-}
-
-function handleTodoChange(value, taskId) {
-
-    tasks = tasks.map(t => {
-        if (taskId === t.getId()) {
-            return new Task(taskId, t.getTitle(), value)
-        }
-        else {
-            return t
-        }
-    }
-    )
-
-
-    updateTasks()
-}
-
-function handleAddTaskInput(e) {
-    nextTask = e.target.value
-}
-
-
-function handleAddTaskClick() {
-
-    // Add new task to tasks
-
-    if (nextId.trim() === "") return;
-
-    tasks = [new Task(nextId++, nextTask, false), ...tasks]
-
-    // Trigger a rerender
-    // Update task list UI
-    renderPendingTasks()
-    nextTask = ""
-    addNewTaskInput.value = "";
-}
-
-function updateTasks() {
-    renderPendingTasks()
-    renderCompletedTasks()
-}
-
-addNewTaskInput.addEventListener("input", handleAddTaskInput)
-
-addNewTaskButton.addEventListener("click", handleAddTaskClick)
-/* document.querySelector(`[data-todo="0"]`) */
+data.projects.forEach(project => projectsSidebar.appendChild(ProjectItem(project)))
