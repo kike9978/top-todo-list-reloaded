@@ -1,4 +1,4 @@
-
+import data from "../data/data"
 
 export default class TaskService {
     static getPendingTasks(tasks) {
@@ -12,6 +12,16 @@ export default class TaskService {
 
     static setNewTask(task) {
 
+    }
+    static updateTask(taskId, newTask) {
+        data.tasks = data.tasks.map(t => {
+            if (taskId === t.id) {
+                return { ...t, ...newTask }
+            }
+            else {
+                return t
+            }
+        })
     }
 
 

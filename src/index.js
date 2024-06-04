@@ -3,41 +3,8 @@ import "./styles/style.css"
 import MainTasksContainer from "./components/TasksContainer"
 import ProjectService from "./services/projectService"
 import Project from "./models/Project"
+import data from "./data/data"
 
-const data = {
-    tasks: [
-        {
-            id: 0,
-            title: "hola",
-            isCompleted: false
-        },
-        {
-            id: 1,
-            title: "Adios",
-            isCompleted: true
-        },
-        {
-            id: 2,
-            title: "Otra tarea",
-            isCompleted: true
-        },
-    ],
-
-    projects: [
-        {
-            id: 0,
-            title: "Proyecto 1",
-            assignedTasksIds: [0, 2]
-
-        },
-        {
-            id: 1,
-            title: "Proyecto 2",
-            assignedTasksIds: [1]
-
-        },
-    ]
-}
 
 
 
@@ -81,3 +48,4 @@ function updateTaskDisplay() {
     body.replaceChild(newMainTasksContainer, mainTasksContainer)
 
 }
+

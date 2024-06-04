@@ -1,11 +1,12 @@
 import TodoItem from "./TodoItem";
 import Task from "../models/Task";
 import TaskService from "../services/taskService";
+import data from "../data/data";
 
 
 
-export default function MainTasksContainer(data) {
-    let tasks = data.map(d => new Task(d.id, d.title, d.isCompleted))
+export default function MainTasksContainer(initialTasks) {
+    let tasks = initialTasks.map(d => new Task(d.id, d.title, d.isCompleted))
     let nextTask = ""
     let nextId = 3
 
@@ -64,17 +65,14 @@ export default function MainTasksContainer(data) {
         el.innerHTML = ""
     }
 
-    function handleTodoChange(value, taskId) {
+    function handleTodoChange(value, currentTask) {
+        const taskId = currentTask.getId()
 
-        tasks = tasks.map(t => {
-            if (taskId === t.getId()) {
-                return new Task(taskId, t.getTitle(), value)
-            }
-            else {
-                return t
-            }
-        }
-        )
+        TaskService.updateTask(taskId, new Task(taskId, currentTask.getTitle(), value))
+
+
+        console.log("hola")
+        console.log(data)
 
 
         updateTasks()
@@ -91,7 +89,8 @@ export default function MainTasksContainer(data) {
 
         if (nextTask.trim() === "") return;
 
-        tasks = [new Task(nextId++, nextTask, false), ...tasks]
+        data.tasks = [new Task(nextId++, nextTask, false), ...tasks]
+
 
         // Trigger a rerender
         // Update task list UI
@@ -107,7 +106,6 @@ export default function MainTasksContainer(data) {
 
     addNewTaskInput.addEventListener("input", handleAddTaskInput)
     addNewTaskButton.addEventListener("click", handleAddTaskClick)
-    /* document.querySelector(`[data-todo="0"]`) */
 
 
 
