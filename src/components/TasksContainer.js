@@ -70,12 +70,11 @@ export default function MainTasksContainer(initialTasks) {
 
         TaskService.updateTask(taskId, new Task(taskId, currentTask.getTitle(), value))
 
-
         console.log("hola")
         console.log(data)
 
 
-        updateTasks()
+        updateTasksUI()
     }
 
     function handleAddTaskInput(e) {
@@ -89,7 +88,7 @@ export default function MainTasksContainer(initialTasks) {
 
         if (nextTask.trim() === "") return;
 
-        data.tasks = [new Task(nextId++, nextTask, false), ...tasks]
+        TaskService.createTask(new Task(nextId++, nextTask, false), 0)
 
 
         // Trigger a rerender
@@ -99,7 +98,8 @@ export default function MainTasksContainer(initialTasks) {
         addNewTaskInput.value = "";
     }
 
-    function updateTasks() {
+    function updateTasksUI() {
+        console.log("adios")
         renderPendingTasks()
         renderCompletedTasks()
     }

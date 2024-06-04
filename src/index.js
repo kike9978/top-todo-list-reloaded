@@ -8,7 +8,7 @@ import data from "./data/data"
 
 
 
-const projects = data.projects.map(project => new Project(project.id, project.title, project.assignedTasksIds))
+let projects = data.projects.map(project => new Project(project.id, project.title, project.assignedTasksIds))
 let currentTasks = getCurrentProjectTasks()
 // elems
 const body = document.querySelector("body")
@@ -40,8 +40,15 @@ function ProjectItem(project) {
 projects.forEach(project => projectsSidebar.appendChild(ProjectItem(project)))
 
 function updateTaskDisplay() {
+    projects = data.projects.map(project => new Project(project.id, project.title, project.assignedTasksIds))
     const currentProject = projects[ProjectService.getCurrentProjectId()];
     const currentTasks = data.tasks.filter(task => currentProject.assignedTasksIds.includes(task.id))
+    console.table(currentTasks)
+    console.table(data.tasks)
+    console.log(currentProject.assignedTasksIds)
+    console.log(currentProject)
+    console.log(data.projects[0])
+
     const mainTasksContainer = document.querySelector("main")
     const newMainTasksContainer = MainTasksContainer(currentTasks)
     console.log(body.children)
