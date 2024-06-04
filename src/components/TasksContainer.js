@@ -2,13 +2,14 @@ import TodoItem from "./TodoItem";
 import Task from "../models/Task";
 import TaskService from "../services/taskService";
 import data from "../data/data";
+import ProjectService from "../services/projectService";
+import generateId from "../utils/generateId";
 
 
 
 export default function MainTasksContainer(initialTasks) {
     let tasks = initialTasks.map(d => new Task(d.id, d.title, d.isCompleted))
     let nextTask = ""
-    let nextId = 3
 
 
     // elems
@@ -88,8 +89,9 @@ export default function MainTasksContainer(initialTasks) {
 
         if (nextTask.trim() === "") return;
 
-        TaskService.createTask(new Task(nextId++, nextTask, false), 0)
-
+        TaskService.createTask(new Task(generateId(), nextTask, false), ProjectService.getCurrentProjectId())
+        console.log(ProjectService.getCurrentProjectId())
+        console.log(data)
 
         // Trigger a rerender
         // Update task list UI
