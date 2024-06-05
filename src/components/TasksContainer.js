@@ -4,11 +4,12 @@ import TaskService from "../services/taskService";
 import data from "../data/data";
 import ProjectService from "../services/projectService";
 import generateId from "../utils/generateId";
+import { getCurrentProjectTasks } from "..";
 
 
 
 export default function MainTasksContainer(initialTasks) {
-    let tasks = initialTasks.map(d => new Task(d.id, d.title, d.isCompleted))
+    let tasks = getCurrentProjectTasks().map(d => new Task(d.id, d.title, d.isCompleted))
     let nextTask = ""
 
 
@@ -90,21 +91,26 @@ export default function MainTasksContainer(initialTasks) {
         if (nextTask.trim() === "") return;
 
         TaskService.createTask(new Task(generateId(), nextTask, false), ProjectService.getCurrentProjectId())
-        console.log(ProjectService.getCurrentProjectId())
-        console.log(data)
 
         // Trigger a rerender
         // Update task list UI
+        tasks = getCurrentProjectTasks().map(d => new Task(d.id, d.title, d.isCompleted))
+        console.log(ProjectService.getCurrentProjectId())
+        console.log(data)
+        console.log("current tasks ", getCurrentProjectTasks())
+        console.log(tasks)
         renderPendingTasks()
         nextTask = ""
         addNewTaskInput.value = "";
+
     }
 
     function updateTasksUI() {
-        console.log("adios")
         renderPendingTasks()
         renderCompletedTasks()
     }
+
+
 
     addNewTaskInput.addEventListener("input", handleAddTaskInput)
     addNewTaskButton.addEventListener("click", handleAddTaskClick)

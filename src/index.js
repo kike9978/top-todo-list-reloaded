@@ -18,7 +18,7 @@ body.appendChild(projectsSidebar)
 body.appendChild(MainTasksContainer(currentTasks))
 
 function getCurrentProjectTasks() {
-    return data.tasks.filter(task => projects[ProjectService.getCurrentProjectId()].assignedTasksIds.includes(task.id))
+    return data.tasks.filter(task => data.projects[ProjectService.getCurrentProjectId()].assignedTasksIds.includes(task.id))
 }
 
 function ProjectItem(project) {
@@ -56,3 +56,4 @@ function updateTaskDisplay() {
 
 }
 
+export { getCurrentProjectTasks }
