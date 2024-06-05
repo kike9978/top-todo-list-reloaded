@@ -1,5 +1,5 @@
 import ProjectService from "../services/projectService"
-import { updateTaskDisplay } from ".."
+import { updateTaskDisplay } from "../UIRenderer"
 
 export default function ProjectItem(project) {
     const article = document.createElement("article")
