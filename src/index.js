@@ -4,7 +4,7 @@ import MainTasksContainer from "./components/TasksContainer"
 import ProjectService from "./services/projectService"
 import Project from "./models/Project"
 import data from "./data/data"
-
+import ProjectItem from "./components/ProjectItem"
 
 
 
@@ -20,24 +20,6 @@ body.appendChild(MainTasksContainer(currentTasks))
 function getCurrentProjectTasks() {
     return data.tasks.filter(task => data.projects[ProjectService.getCurrentProjectId()].assignedTasksIds.includes(task.id))
 }
-
-function ProjectItem(project) {
-    const article = document.createElement("article")
-    article.innerHTML = `
-        <p>${project.title}</p>
-        <p>${project.assignedTasksIds.length}</p>
-    `
-    article.addEventListener("click", () => {
-        ProjectService.setCurrentProjectId(project.id)
-        console.log(ProjectService.getCurrentProjectId())
-        updateTaskDisplay()
-
-    })
-
-    return article
-}
-
-projects.forEach(project => projectsSidebar.appendChild(ProjectItem(project)))
 
 function updateTaskDisplay() {
     projects = data.projects.map(project => new Project(project.id, project.title, project.assignedTasksIds))
@@ -56,4 +38,8 @@ function updateTaskDisplay() {
 
 }
 
-export { getCurrentProjectTasks }
+projects.forEach(project => projectsSidebar.appendChild(ProjectItem(project)))
+
+
+
+export { getCurrentProjectTasks, updateTaskDisplay }
