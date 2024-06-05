@@ -74,7 +74,7 @@ export default function MainTasksContainer(initialTasks) {
 
         console.log("hola")
         console.log(data)
-
+        tasks = getCurrentProjectTasks().map(d => new Task(d.id, d.title, d.isCompleted))
 
         updateTasksUI()
     }
@@ -95,10 +95,6 @@ export default function MainTasksContainer(initialTasks) {
         // Trigger a rerender
         // Update task list UI
         tasks = getCurrentProjectTasks().map(d => new Task(d.id, d.title, d.isCompleted))
-        console.log(ProjectService.getCurrentProjectId())
-        console.log(data)
-        console.log("current tasks ", getCurrentProjectTasks())
-        console.log(tasks)
         renderPendingTasks()
         nextTask = ""
         addNewTaskInput.value = "";
