@@ -4,12 +4,14 @@ import TaskService from "../services/taskService";
 import data from "../data/data";
 import ProjectService from "../services/projectService";
 import generateId from "../utils/generateId";
-import { getCurrentProjectTasks, updateProjectsDisplay } from "..";
 
 
 
-export default function MainTasksContainer() {
-    let tasks = getCurrentProjectTasks().map(d => new Task(d.id, d.title, d.isCompleted))
+export default function TasksContainer() {
+    let tasks = data.tasks.filter(task => data.projects[ProjectService.getCurrentProjectId()].assignedTasksIds.includes(task.id))
+
+
+    data.projects.findIndex
     let nextTask = ""
 
 
@@ -115,6 +117,6 @@ export default function MainTasksContainer() {
 
 
 
-
     return mainTasksContainer
 }
+

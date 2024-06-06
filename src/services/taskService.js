@@ -43,11 +43,11 @@ export default class TaskService {
 
     static getPendingTasks(tasks) {
 
-        return tasks.filter(d => d.getIsCompleted() === false)
+        return tasks.filter(d => d.isCompleted === false)
     }
 
     static getCompletedTasks(tasks) {
-        return tasks.filter(t => t.getIsCompleted() === true)
+        return tasks.filter(t => t.isCompleted === true)
     }
 
     static updateTask(taskId, newTask) {

@@ -1,12 +1,12 @@
 export default function TodoItem(task, onChange) {
     const article = document.createElement("article")
-    article.setAttribute("data-task", task.getId())
+    article.setAttribute("data-task", task.id)
 
     article.innerHTML = `
 
     <label > 
-    <input type="checkbox" ${task.getIsCompleted() ? "checked" : ""}> 
-    ${task.getTitle()}
+    <input type="checkbox" ${task.isCompleted ? "checked" : ""}> 
+    ${task.title}
     <label/>
     `
 

@@ -1,15 +1,18 @@
+import data from "../data/data"
+import Project from "../models/Project"
+
 export default class ProjectService {
 
     constructor() {
-        this.myProjects = ["hola", "adios"]
+        this.myProjects = data.projects.map(project => new Project(project.id, project.title, project.assignedTasksIds))
     }
 
-    getProjcets() {
+    getProjects() {
         return this.myProjects
     }
 
-    createProject(title) {
-        this.myProjects = [...this.myProjects, title]
+    createProject(project) {
+        this.myProjects = [...this.myProjects, project]
     }
 
     deleteProject(title) {

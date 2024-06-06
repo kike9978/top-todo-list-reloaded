@@ -1,5 +1,4 @@
 import ProjectService from "../services/projectService"
-import { updateTaskDisplay } from "../UIRenderer"
 
 export default function ProjectItem(project) {
     const article = document.createElement("article")
@@ -11,7 +10,7 @@ export default function ProjectItem(project) {
         ProjectService.setCurrentProjectId(project.id)
         console.log(ProjectService.getCurrentProjectId())
 
-        updateTaskDisplay()
+
 
     })
 
