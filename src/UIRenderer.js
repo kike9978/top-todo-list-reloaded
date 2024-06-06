@@ -11,16 +11,18 @@ export default class UIRenderer {
     initUI() {
         this.body = document.querySelector("body")
         this.projectContainer = document.querySelector("aside")
-        this.body.appendChild(this.projectContainer)
-        this.tasksContainer = TasksContainer()
-        this.body.appendChild(this.tasksContainer)
-        this.button = document.querySelector("button")
+        this.tasksContainer = document.querySelector("main")
+        this.button = document.createElement("button")
         this.body.appendChild(this.button)
         this.button.innerText = "Imprimir"
     }
     initEventListeners() {
 
-        this.button.addEventListener("click", () => this.displayProjects())
+        this.button.addEventListener("click", () => {
+            this.controller.controlUpdateProjectTitle(0, "Carnaval de Veracruz")
+            this.controller.control
+            this.controller.controlProjectDisplay()
+        })
 
     }
 
@@ -41,6 +43,14 @@ export default class UIRenderer {
 
         this.body.replaceChild(newAsideProjectContainer, asideProjectContainer)
         this.projectContainer = newAsideProjectContainer
+    }
+
+    displayTasks(tasks) {
+        const mainTaskContainer = document.querySelector("main")
+        const newTaskContainer = TasksContainer(tasks)
+
+        this.body.replaceChild(newTaskContainer, mainTaskContainer)
+        this.tasksContainer = newTaskContainer
     }
 
 }

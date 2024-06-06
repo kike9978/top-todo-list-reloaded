@@ -13,11 +13,17 @@ export default class AppController {
     }
     init() {
         this.controlProjectDisplay()
+        this.controlTaskDisplay()
     }
 
+
+    controlTaskDisplay() {
+        const myTasks = this.taskService.getTasks()
+        this.view.displayTasks(myTasks)
+    }
     controlProjectDisplay() {
+        this.upd
         const myProjects = this.projectService.getProjects()
-        console.log(myProjects)
         this.view.displayProjects(myProjects)
     }
     controlGetProjects() {
@@ -26,6 +32,10 @@ export default class AppController {
 
     contolGetTasks() {
         this.taskService.getTasks()
+    }
+
+    controlUpdateProjectTitle(projectId, newTitle) {
+        this.projectService.updateProjectTitle(projectId, newTitle)
     }
 
     controlCreateProject(projectId) {

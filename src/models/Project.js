@@ -24,4 +24,10 @@ export default class Project {
     removeAssignedTaskId(taskId) {
         this.assignedTasksIds = this.assignedTasksIds.filter(id => id !== taskId)
     }
+
+    setTitle(newTitle) {
+        this.title = newTitle
+    }
+
+
 }

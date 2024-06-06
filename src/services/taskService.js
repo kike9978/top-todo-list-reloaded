@@ -4,7 +4,7 @@ import Task from "../models/Task"
 
 export default class TaskService {
     constructor() {
-        this.myTodos = []
+        this.myTodos = data.tasks
     }
 
     getTasks() {

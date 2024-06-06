@@ -19,6 +19,26 @@ export default class ProjectService {
         this.myProjects = this.myProjects.filter(p => title !== p)
     }
 
+    updateProject(projectId, newProject) {
+        this.myProjects = this.myProjects.map(p => {
+            if (p.id === projectId) {
+                return new Project(projectId, newProject.title, newProject.assignedTasksIds)
+            }
+            else {
+                return p
+            }
+        })
+    }
+
+    updateProjectTitle(projectId, newTitle) {
+
+        const projectToUpdate = this.myProjects.find(p => p.id === projectId)
+        const updatedProject = new Project(projectId, newTitle, projectToUpdate.assignedTasksIds)
+
+        this.updateProject(projectId, updatedProject)
+
+    }
+
     static currentProjectId = 0
 
     static getCurrentProjectId() {
