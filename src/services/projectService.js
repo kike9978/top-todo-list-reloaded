@@ -19,6 +19,10 @@ export default class ProjectService {
         this.myProjects = this.myProjects.filter(p => title !== p)
     }
 
+    getProjectbyId(projectId) {
+        return this.myProjects.find(p => p.id === projectId)
+    }
+
     updateProject(projectId, newProject) {
         this.myProjects = this.myProjects.map(p => {
             if (p.id === projectId) {
@@ -32,7 +36,7 @@ export default class ProjectService {
 
     updateProjectTitle(projectId, newTitle) {
 
-        const projectToUpdate = this.myProjects.find(p => p.id === projectId)
+        const projectToUpdate = this.getProjectbyId(projectId)
         const updatedProject = new Project(projectId, newTitle, projectToUpdate.assignedTasksIds)
 
         this.updateProject(projectId, updatedProject)

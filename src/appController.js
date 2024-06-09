@@ -5,12 +5,11 @@ export default class AppController {
         this.taskService = taskService;
         this.projectService = projectService;
         this.view.controller = this
+        this.currentProjectId = null
+        this.newTask = ""
 
     }
 
-    printHola() {
-        console.log("hola")
-    }
     init() {
         this.controlProjectDisplay()
         this.controlTaskDisplay()
@@ -19,10 +18,9 @@ export default class AppController {
 
     controlTaskDisplay() {
         const myTasks = this.taskService.getTasks()
-        this.view.displayTasks(myTasks)
+        this.view.displayTasksContainer(myTasks)
     }
     controlProjectDisplay() {
-        this.upd
         const myProjects = this.projectService.getProjects()
         this.view.displayProjects(myProjects)
     }
@@ -38,8 +36,54 @@ export default class AppController {
         this.projectService.updateProjectTitle(projectId, newTitle)
     }
 
+    controlUpdateTask(taskId, taskData) {
+        this.taskService.updateTask(taskId, taskData)
+    }
+
     controlCreateProject(projectId) {
         this.projectService.createProject(projectId)
         this.view.controlProject
+    }
+    controlTest() {
+        this.view.taskContainer.test()
+    }
+
+    controlToggleTask(taskId) {
+        this.taskService.toggleTask(taskId)
+        const pendingTasks = this.taskService.getTasks()
+        const completedTasks = this.taskService.getTasks()
+        this.view.displayPendingTasks(pendingTasks)
+        this.view.displayCompletedTasks(completedTasks)
+    }
+
+    handleTaskChange(taskId, taskData) {
+        this.taskService.updateTask(taskId, taskData)
+        this.updatePendingTasks()
+    }
+
+    handleAddTaskInput(newTask) {
+        this.newTask = newTask
+    }
+
+    handleAddTaskClick() {
+        if (this.newTask === "") {
+            return
+        }
+        console.log("new task: ", this.newTask)
+        this.newTask = ""
+
+    }
+
+
+    updatePendingTasks() {
+
+        const pendingTasks = this.taskService.getPendingTasks()
+        this.view.updatePendingTasks(pendingTasks, this.handleTaskChange.bind(this));
+    }
+
+    addNewTask(taskData, projectId) {
+        this.taskService.createTask(taskData)
+        this.projectService.addTaskToProject(projectId, taskData.id)
+        this.updatePendingTasks()
     }
 }

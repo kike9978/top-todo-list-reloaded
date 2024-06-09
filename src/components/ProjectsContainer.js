@@ -2,9 +2,18 @@
 import ProjectItem from "./ProjectItem"
 
 
-export default function ProjectsContainer(projects) {
-    const projectsSidebar = document.createElement("aside")
-    projects.forEach(project => projectsSidebar.appendChild(ProjectItem(project)))
-    return projectsSidebar
+export default class ProjectsContainer {
+    constructor(projects, handleProjectClick) {
+        this.projects = projects
+        this.handleProjectClick = handleProjectClick
+    }
+
+    createProjectContainer() {
+        this.projectSidebar = document.createElement("aside")
+        this.projects.forEach(project => this.projectSidebar.appendChild(ProjectItem(project, this.handleProjectClick)))
+        return this.projectSidebar
+    }
+
+
 }
 

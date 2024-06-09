@@ -29,7 +29,7 @@ export default class TaskService {
         }
     }
 
-    updateTodo(taskId, taskData) {
+    updateTask(taskId, taskData) {
         this.myTodos = this.myTodos.map(t => {
             if (taskId === t.id) {
                 return new Task(taskData.id, taskData.title, taskData.isCompleted)
