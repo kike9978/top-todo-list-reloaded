@@ -35,8 +35,12 @@ export default class ProjectService {
     }
 
     addTaskToProject(taskId, projectId) {
+        console.log("addTaskToProject")
 
-        data.projects = data.projects.map(project => {
+        console.log(taskId)
+        console.log(projectId)
+
+        this.myProjects = this.myProjects.map(project => {
             if (project.id === projectId) {
                 return { ...project, assignedTasksIds: [...project.assignedTasksIds, taskId] }
             }
@@ -59,16 +63,6 @@ export default class ProjectService {
 
         this.updateProject(projectId, updatedProject)
 
-    }
-
-    static currentProjectId = 0
-
-    static getCurrentProjectId() {
-        return ProjectService.currentProjectId
-    }
-
-    static setCurrentProjectId(nextId) {
-        ProjectService.currentProjectId = nextId
     }
 
 }

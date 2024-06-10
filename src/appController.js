@@ -1,3 +1,4 @@
+import generateId from "./utils/generateId";
 
 export default class AppController {
     constructor(view, taskService, projectService) {
@@ -6,7 +7,7 @@ export default class AppController {
         this.projectService = projectService;
         this.view.controller = this
         this.currentProjectId = 0
-        this.newTask = ""
+        this.newTaskText = ""
 
     }
 
@@ -83,21 +84,23 @@ export default class AppController {
     }
 
     handleAddTaskInput(newTask) {
-        this.newTask = newTask
+        this.newTaskText = newTask
     }
 
     handleAddTaskClick() {
-        if (this.newTask === "") {
+        if (this.newTaskText === "") {
             return
         }
-        console.log("new task: ", this.newTask)
-        this.newTask = ""
-
-        this.addNewTask(this.taskService.createTask({ id: 3, title: "test", isCompleted: false }), 0)
+        const nextId = generateId()
+        const newTask = { id: nextId, title: this.newTaskText, isCompleted: false }
+        this.addNewTask(newTask, 0)
+        console.log(this.taskService.myTodos)
+        this.newTaskText = ""
+        console.log(this.projectService.getProjectbyId(this.currentProjectId))
+        console.log(this.getCurrentProjectTasks())
         this.controlProjectDisplay()
 
     }
-
     updatePendingTasks(tasks) {
 
         const pendingTasks = this.taskService.getPendingTasks(tasks)
@@ -107,8 +110,6 @@ export default class AppController {
     addNewTask(taskData, projectId) {
         this.taskService.createTask(taskData)
         this.projectService.addTaskToProject(taskData.id, projectId)
-
-
         const currentProjectTasksIds = this.projectService.getCurrentProjectTasksIds(projectId)
         const currentProjectTasks = this.taskService.getCurrentProjectTasks(currentProjectTasksIds)
         this.updatePendingTasks(currentProjectTasks)
