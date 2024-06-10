@@ -93,7 +93,7 @@ export default class AppController {
         }
         const nextId = generateId()
         const newTask = { id: nextId, title: this.newTaskText, isCompleted: false }
-        this.addNewTask(newTask, 0)
+        this.addNewTask(newTask, this.currentProjectId)
         console.log(this.taskService.myTodos)
         this.newTaskText = ""
         console.log(this.projectService.getProjectbyId(this.currentProjectId))

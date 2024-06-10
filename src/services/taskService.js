@@ -13,7 +13,7 @@ export default class TaskService {
 
     createTask(newTaskData) {
         const newTask = new Task(newTaskData)
-        this.myTodos = [...this.myTodos, newTask]
+        this.myTodos = [newTask, ...this.myTodos]
 
         return newTask
     }

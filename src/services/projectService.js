@@ -35,10 +35,7 @@ export default class ProjectService {
     }
 
     addTaskToProject(taskId, projectId) {
-        console.log("addTaskToProject")
 
-        console.log(taskId)
-        console.log(projectId)
 
         this.myProjects = this.myProjects.map(project => {
             if (project.id === projectId) {
