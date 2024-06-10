@@ -34,6 +34,25 @@ export default class ProjectService {
         })
     }
 
+    addTaskToProject(taskId, projectId) {
+
+        data.projects = data.projects.map(project => {
+            if (project.id === projectId) {
+                return { ...project, assignedTasksIds: [...project.assignedTasksIds, taskId] }
+            }
+            else {
+                return project
+            }
+        })
+
+    }
+
+    getCurrentProjectTasksIds(projectId) {
+        const currentProjectTasksIds = this.getProjectbyId(projectId).assignedTasksIds
+        console.log("hola")
+        return currentProjectTasksIds
+    }
+
     updateProjectTitle(projectId, newTitle) {
 
         const projectToUpdate = this.getProjectbyId(projectId)

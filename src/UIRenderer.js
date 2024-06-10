@@ -4,28 +4,33 @@ import TasksContainer from "./components/TasksContainer"
 export default class UIRenderer {
 
     constructor() {
-
+        this.body = document.querySelector("body")
         this.initUI()
-        this.initEventListeners()
     }
 
     initUI() {
-        this.body = document.querySelector("body")
-        this.projectContainer = document.querySelector("aside")
-        this.tasksContainer = document.querySelector("main")
-        this.button = document.createElement("button")
-        this.body.appendChild(this.button)
-        this.button.innerText = "Imprimir"
-    }
+        this.createProjectContainer()
+        this.createTasksContainer()
 
-    initEventListeners() {
 
-        this.button.addEventListener("click", () => {
-            this.controller.controlUpdateProjectTitle(0, "Carnaval de Veracruz")
-            this.controller.controlProjectDisplay()
-        })
+
 
     }
+
+    createProjectContainer() {
+        if (!this.projectContainer) {
+            this.projectContainer = document.createElement("aside")
+            this.body.appendChild(this.projectContainer)
+
+        }
+    }
+    createTasksContainer() {
+        if (!this.tasksContainer) {
+            this.tasksContainer = document.createElement("main")
+            this.body.appendChild(this.tasksContainer)
+        }
+    }
+
 
 
     handleProjectClick() {
@@ -56,41 +61,40 @@ export default class UIRenderer {
         this.projectContainer = newAsideProjectContainer
     }
 
-    displayPendingTasks(pendingTasks) {
-        const pendingTaskContainer = document.querySelector("[data-container:pending-tasks]")
-        pendingTasks.forEach(t => {
-            this.tasksContainer
-        })
-    }
-    displayCompletedTasks(completedTasks) {
-
-    }
-
     displayProjects(projects) {
+        this.createProjectContainer()
         const newProjectContainerInstance = new ProjectsContainer(projects, this.handleProjectClick.bind(this))
         const newProjectContainer = newProjectContainerInstance.createProjectContainer()
         this.body.replaceChild(newProjectContainer, this.projectContainer)
         this.projectContainer = newProjectContainer
     }
 
-    displayTasksContainer(tasks) {
-        const taskContainerInstance = new TasksContainer(tasks,
+    displayTasksContainer(pendingTasks, completedTasks) {
+        this.createTasksContainer();
+        const taskContainerInstance = new TasksContainer(
+            pendingTasks,
+            completedTasks,
             this.controller.handleTaskChange.bind(this.controller),
             this.controller.handleAddTaskInput.bind(this.controller),
             this.controller.handleAddTaskClick.bind(this.controller)
         )
         const newTaskContainer = taskContainerInstance.createTaskContainer();
 
-        const mainTaskContainer = document.querySelector("main")
-
-        this.body.replaceChild(newTaskContainer, mainTaskContainer)
+        this.body.replaceChild(newTaskContainer, this.tasksContainer)
+        this.taskContainerInstance = taskContainerInstance
         this.tasksContainer = newTaskContainer
     }
 
-    updatePendingTasks(pendingTasks, onChange) {
-        const pendingTasksContainer = document.querySelector("[data-container:pending-tasks]");
-        pendingTasksContainer.innerHtml = ""
-        pendingTasks.forEach(t => pendingTasksContainer.appendChild())
+    updatePendingTasks(pendingTasks) {
+        if (this.taskContainerInstance) {
+            this.taskContainerInstance.updatePendingTasks(pendingTasks)
+        }
+    }
+
+    updateCompletdTasks(completedTasks) {
+        if (this.taskContainerInstance) {
+            this.taskContainerInstance.updateCompletedTasks(completedTasks)
+        }
     }
 
 }

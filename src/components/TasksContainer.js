@@ -4,16 +4,13 @@ import generateId from "../utils/generateId";
 
 
 export default class TasksContainer {
-    constructor(tasks, handleTodoChange, handleAddTaskInput, handleAddTaskClick) {
-        this.tasks = tasks;
+    constructor(pendingTasks, completedTasks, handleTodoChange, handleAddTaskInput, handleAddTaskClick) {
+        this.pendingTasks = pendingTasks;
+        this.completedTasks = completedTasks;
         this.handleTodoChange = handleTodoChange;
         this.handleAddTaskInput = handleAddTaskInput;
         this.handleAddTaskClick = handleAddTaskClick;
-
-        this.nextTask = ""
-
     }
-
 
     createTaskContainer() {
         this.mainTasksContainer = document.createElement("main")
@@ -31,6 +28,8 @@ export default class TasksContainer {
         this.addNewTaskButton.innerText = "Add task"
 
         this.initEventListeners()
+        this.displayPendingTasks(this.pendingTasks)
+        this.displayCompletedTasks(this.completedTasks)
 
         return this.mainTasksContainer
 
@@ -45,7 +44,6 @@ export default class TasksContainer {
         )
     }
 
-
     createSection(headingText) {
         const section = document.createElement("section")
         const heading = document.createElement("h2")
@@ -58,7 +56,7 @@ export default class TasksContainer {
         return { section, container }
     }
 
-    updatePendingTasks(pendingTasks) {
+    displayPendingTasks(pendingTasks) {
         const pendingTasksContainer = this.pendingTasksSection.container;
         pendingTasksContainer.innerHTML = ""
         pendingTasks.forEach(task => {
@@ -69,7 +67,15 @@ export default class TasksContainer {
     displayCompletedTasks(completedTasks) {
         const completedTasksContainer = this.completedTasksSection.container;
         completedTasksContainer.innerHTML = "";
-        completedTasks.forEach(task => completedTasks.appendChild(TodoItem(task, this.handleTodoChange)))
+        completedTasks.forEach(task => completedTasksContainer.appendChild(TodoItem(task, this.handleTodoChange)))
+    }
+
+    updatePendingTasks(pendingTasks) {
+        this.displayPendingTasks(pendingTasks)
+    }
+
+    updateCompletedTasks(completedTasks) {
+        this.displayCompletedTasks(completedTasks)
     }
 
     /* //Initial render
@@ -130,4 +136,3 @@ export default class TasksContainer {
     
      */
 }
-

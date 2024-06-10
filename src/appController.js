@@ -17,13 +17,18 @@ export default class AppController {
 
 
     controlTaskDisplay() {
-        const myTasks = this.taskService.getTasks()
-        this.view.displayTasksContainer(myTasks)
+        const pendingTasks = this.taskService.getTasks()
+        const completedTasks = this.taskService.getTasks()
+        this.view.displayTasksContainer(pendingTasks, completedTasks)
     }
+
+
     controlProjectDisplay() {
         const myProjects = this.projectService.getProjects()
         this.view.displayProjects(myProjects)
     }
+
+
     controlGetProjects() {
         this.projectService.getProjects()
     }
@@ -72,18 +77,24 @@ export default class AppController {
         console.log("new task: ", this.newTask)
         this.newTask = ""
 
+        this.addNewTask(this.taskService.createTask({ id: 3, title: "test", isCompleted: false }), 0)
+        this.controlProjectDisplay()
+
     }
 
+    updatePendingTasks(tasks) {
 
-    updatePendingTasks() {
-
-        const pendingTasks = this.taskService.getPendingTasks()
+        const pendingTasks = this.taskService.getPendingTasks(tasks)
         this.view.updatePendingTasks(pendingTasks, this.handleTaskChange.bind(this));
     }
 
     addNewTask(taskData, projectId) {
         this.taskService.createTask(taskData)
-        this.projectService.addTaskToProject(projectId, taskData.id)
-        this.updatePendingTasks()
+        this.projectService.addTaskToProject(taskData.id, projectId)
+
+
+        const currentProjectTasksIds = this.projectService.getCurrentProjectTasksIds(projectId)
+        const currentProjecTasks = this.taskService.getCurrentProjectTasks(currentProjectTasksIds)
+        this.updatePendingTasks(currentProjecTasks)
     }
 }

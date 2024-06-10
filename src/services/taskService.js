@@ -40,9 +40,12 @@ export default class TaskService {
         })
     }
 
+    getCurrentProjectTasks(currentProjectIds) {
+        return this.myTodos.filter(task => currentProjectIds.includes(task.id))
+    }
 
-    static getPendingTasks(tasks) {
 
+    getPendingTasks(tasks) {
         return tasks.filter(d => d.isCompleted === false)
     }
 
