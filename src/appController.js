@@ -116,7 +116,6 @@ export default class AppController {
 
     handleProjectClick(projectId) {
         this.currentProjectId = projectId
-        const currentTasks = this.getCurrentProjectTasks()
         this.controlTaskDisplay()
     }
 
