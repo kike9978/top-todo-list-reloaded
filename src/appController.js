@@ -5,7 +5,7 @@ export default class AppController {
         this.taskService = taskService;
         this.projectService = projectService;
         this.view.controller = this
-        this.currentProjectId = null
+        this.currentProjectId = 0
         this.newTask = ""
 
     }
@@ -17,9 +17,14 @@ export default class AppController {
 
 
     controlTaskDisplay() {
-        const pendingTasks = this.taskService.getTasks()
-        const completedTasks = this.taskService.getTasks()
-        this.view.displayTasksContainer(pendingTasks, completedTasks)
+        if (this.currentProjectId !== null) {
+            const currentProjectIds = this.projectService.getCurrentProjectTasksIds(this.currentProjectId)
+            console.log(currentProjectIds)
+            const tasks = this.taskService.getCurrentProjectTasks(currentProjectIds)
+            const pendingTasks = this.taskService.getPendingTasks(tasks)
+            const completedTasks = this.taskService.getCompletedTasks(tasks)
+            this.view.displayTasksContainer(pendingTasks, completedTasks)
+        }
     }
 
 
@@ -55,8 +60,9 @@ export default class AppController {
 
     controlToggleTask(taskId) {
         this.taskService.toggleTask(taskId)
-        const pendingTasks = this.taskService.getTasks()
-        const completedTasks = this.taskService.getTasks()
+        const tasks = this.taskService.getTasks()
+        const pendingTasks = this.taskService.getPendingTasks(tasks)
+        const completedTasks = this.taskService.getCompletedTasks(tasks)
         this.view.displayPendingTasks(pendingTasks)
         this.view.displayCompletedTasks(completedTasks)
     }
