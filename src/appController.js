@@ -18,13 +18,19 @@ export default class AppController {
 
     controlTaskDisplay() {
         if (this.currentProjectId !== null) {
-            const currentProjectIds = this.projectService.getCurrentProjectTasksIds(this.currentProjectId)
-            console.log(currentProjectIds)
-            const tasks = this.taskService.getCurrentProjectTasks(currentProjectIds)
-            const pendingTasks = this.taskService.getPendingTasks(tasks)
-            const completedTasks = this.taskService.getCompletedTasks(tasks)
-            this.view.displayTasksContainer(pendingTasks, completedTasks)
+            const currentTasks = this.getCurrentProjectTasksSeparated()
+            this.view.displayTasksContainer(currentTasks.pendingTasks, currentTasks.completedTasks)
         }
+    }
+
+    getCurrentProjectTasksSeparated() {
+        const currentProjectIds = this.projectService.getCurrentProjectTasksIds(this.currentProjectId)
+        const tasks = this.taskService.getCurrentProjectTasks(currentProjectIds)
+        const pendingTasks = this.taskService.getPendingTasks(tasks)
+        const completedTasks = this.taskService.getCompletedTasks(tasks)
+        console.log()
+
+        return { pendingTasks, completedTasks }
     }
 
 
@@ -68,8 +74,12 @@ export default class AppController {
     }
 
     handleTaskChange(taskId, taskData) {
-        this.taskService.updateTask(taskId, taskData)
-        this.updatePendingTasks()
+        const updatedTask = {
+            ...taskData, isCompleted: !taskData.isCompleted
+        }
+        this.taskService.updateTask(taskId, updatedTask)
+        const currentTasks = this.getCurrentProjectTasksSeparated()
+        this.view.displayTasksContainer(currentTasks.pendingTasks, currentTasks.completedTasks)
     }
 
     handleAddTaskInput(newTask) {
@@ -100,7 +110,18 @@ export default class AppController {
 
 
         const currentProjectTasksIds = this.projectService.getCurrentProjectTasksIds(projectId)
-        const currentProjecTasks = this.taskService.getCurrentProjectTasks(currentProjectTasksIds)
-        this.updatePendingTasks(currentProjecTasks)
+        const currentProjectTasks = this.taskService.getCurrentProjectTasks(currentProjectTasksIds)
+        this.updatePendingTasks(currentProjectTasks)
+    }
+
+    handleProjectClick(projectId) {
+        this.currentProjectId = projectId
+        const currentTasks = this.getCurrentProjectTasks()
+        this.updatePendingTasks(currentTasks)
+    }
+
+    getCurrentProjectTasks() {
+        const currentProjectTasksIds = this.projectService.getCurrentProjectTasksIds(this.currentProjectId)
+        return this.taskService.getCurrentProjectTasks(currentProjectTasksIds)
     }
 }

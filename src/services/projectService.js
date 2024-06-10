@@ -49,7 +49,6 @@ export default class ProjectService {
 
     getCurrentProjectTasksIds(projectId) {
         const currentProjectTasksIds = this.getProjectbyId(projectId).assignedTasksIds
-        console.log("hola")
         return currentProjectTasksIds
     }
 

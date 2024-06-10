@@ -22,8 +22,10 @@ export default class TaskService {
         this.myTodos = this.myTodos.filter(t => t.id !== taskId)
     }
 
-    getTodoById(taskId) {
+    getTaskById(taskId) {
+        console.log("taskId: ", taskId)
         const task = this.myTodos.find(t => t.id === taskId)
+        console.log("getTaskById")
         if (task) {
             return task
         }
@@ -32,7 +34,7 @@ export default class TaskService {
     updateTask(taskId, taskData) {
         this.myTodos = this.myTodos.map(t => {
             if (taskId === t.id) {
-                return new Task(taskData.id, taskData.title, taskData.isCompleted)
+                return new Task(taskData)
             }
             else {
                 return t
@@ -46,7 +48,6 @@ export default class TaskService {
 
 
     getPendingTasks(tasks) {
-        console.log("hola")
         return tasks.filter(t => !t.isCompleted)
     }
 

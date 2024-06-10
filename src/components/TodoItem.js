@@ -12,6 +12,6 @@ export default function TodoItem(task, onChange) {
 
     const checkbox = article.querySelector("input")
 
-    checkbox.addEventListener("change", (e) => onChange(e.target.checked, task))
+    checkbox.addEventListener("change", () => onChange(task.id, task))
     return article
 }

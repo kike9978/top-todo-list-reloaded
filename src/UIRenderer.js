@@ -11,10 +11,6 @@ export default class UIRenderer {
     initUI() {
         this.createProjectContainer()
         this.createTasksContainer()
-
-
-
-
     }
 
     createProjectContainer() {
@@ -33,10 +29,6 @@ export default class UIRenderer {
 
 
 
-    handleProjectClick() {
-        this.projectService.setCurrentProjectId(project.id)
-    }
-
     handleTodoChange(value, currentTask) {
 
         this.controller.controlChangeIsCompleted()
@@ -46,30 +38,25 @@ export default class UIRenderer {
 
         TaskService.updateTask(taskId, new Task(taskId, currentTask.getTitle(), value))
 
-        console.log("hola")
-        console.log(data)
         tasks = getCurrentProjectTasks().map(d => new Task(d.id, d.title, d.isCompleted))
 
         updateTasksUI()
     }
     updateProjectsDisplay(projects) {
-
-        const asideProjectContainer = document.querySelector("aside")
-        const newAsideProjectContainer = ProjectsContainer(projects, this.handleProjectClick)
-
-        this.body.replaceChild(newAsideProjectContainer, asideProjectContainer)
-        this.projectContainer = newAsideProjectContainer
+        this.displayProjects(projects)
     }
 
     displayProjects(projects) {
         this.createProjectContainer()
-        const newProjectContainerInstance = new ProjectsContainer(projects, this.handleProjectClick.bind(this))
+        const newProjectContainerInstance = new ProjectsContainer(projects, this.controller.handleProjectClick.bind(this.controller))
         const newProjectContainer = newProjectContainerInstance.createProjectContainer()
         this.body.replaceChild(newProjectContainer, this.projectContainer)
         this.projectContainer = newProjectContainer
     }
 
     displayTasksContainer(pendingTasks, completedTasks) {
+        console.log(pendingTasks)
+
         this.createTasksContainer();
         const taskContainerInstance = new TasksContainer(
             pendingTasks,
