@@ -55,7 +55,6 @@ export default class UIRenderer {
     }
 
     displayTasksContainer(pendingTasks, completedTasks) {
-        console.log(pendingTasks)
 
         this.createTasksContainer();
         const taskContainerInstance = new TasksContainer(

@@ -5,6 +5,7 @@ export default function ProjectItem(project, handleProjectClick) {
         <p>${project.assignedTasksIds.length}</p>
     `
 
+    article.className = "cursor-pointer hover:font-bold"
     article.addEventListener("click", () => handleProjectClick(project.id))
 
     return article
