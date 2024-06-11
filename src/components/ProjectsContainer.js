@@ -12,11 +12,15 @@ export default class ProjectsContainer {
 
     createProjectContainer() {
         this.projectSidebar = document.createElement("aside")
-        this.projectSidebar.className = "flex flex-col gap-2"
+
+        this.projectSidebar.className = "flex flex-col gap-2 bg-gray-50 h-full"
         this.projects.forEach(project => this.projectSidebar.appendChild(ProjectItem(project, this.handleProjectClick, this.currentProjectId)))
 
         this.createProjectButton = document.createElement("button")
         this.createProjectButton.innerText = "Crear Proyecto"
+        this.createProjectButton.className = "p-2 rounded bg-pink-500 text-white hover:bg-pink-700 mx-2 disabled:hidden"
+
+
         this.createProjectButton.addEventListener("click", () => {
             const newProjectInput = this.createNewProjectInput()
             console.log("hola")
