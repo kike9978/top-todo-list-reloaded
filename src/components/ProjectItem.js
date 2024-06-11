@@ -3,7 +3,7 @@ export default function ProjectItem(project, handleProjectClick, currentProjectI
     article.innerHTML = `
         <span>${project.title}</span>
         <span class="rounded-full bg-slate-200 inline-flex justify-center items-center size-5">${project.assignedTasksIds.length}</span>
-    `
+        `
 
     article.className = "cursor-pointer hover:bg-pink-100 p-3 rounded flex justify-between"
     article.addEventListener("click", () => {
@@ -16,6 +16,7 @@ export default function ProjectItem(project, handleProjectClick, currentProjectI
         article.classList.add("bg-pink-50", "text-pink-600")
 
     }
+
 
 
     return article

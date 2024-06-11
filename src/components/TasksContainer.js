@@ -18,6 +18,8 @@ export default class TasksContainer {
         this.addNewTaskInput = document.createElement("input")
         this.addNewTaskButton = document.createElement("button")
 
+        this.addNewTaskInput.placeholder = "Recolectar papas"
+
         // build Dom
         this.mainTasksContainer.appendChild(this.addNewTaskInput)
         this.mainTasksContainer.appendChild(this.addNewTaskButton)

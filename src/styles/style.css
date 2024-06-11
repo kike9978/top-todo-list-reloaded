@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.todo-item {
+
+    > :last-child {
+        display: none;
+    }
+
+    &:hover {
+        > :last-child {
+            display: flex;
+        }
+    }
+}
