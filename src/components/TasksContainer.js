@@ -1,5 +1,4 @@
 import TodoItem from "./TodoItem";
-import generateId from "../utils/generateId";
 
 
 
@@ -50,6 +49,7 @@ export default class TasksContainer {
         const container = document.createElement("div")
 
         heading.innerText = headingText
+        heading.classList.add("font-semibold")
         section.appendChild(heading)
         section.appendChild(container)
 

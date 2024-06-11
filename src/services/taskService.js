@@ -1,5 +1,4 @@
 import data from "../data/data"
-
 import Task from "../models/Task"
 
 export default class TaskService {

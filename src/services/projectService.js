@@ -12,7 +12,7 @@ export default class ProjectService {
     }
 
     createProject(project) {
-        this.myProjects = [...this.myProjects, project]
+        this.myProjects = [...this.myProjects, new Project(project.id, project.title, [])]
     }
 
     deleteProject(title) {
