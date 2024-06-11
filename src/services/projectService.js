@@ -47,6 +47,21 @@ export default class ProjectService {
         })
 
     }
+    removeTaskFromProject(taskId, projectId) {
+        this.myProjects = this.myProjects.map(project => {
+            if (project.id === projectId) {
+
+                const newAssignedTasksIds = project.assignedTasksIds.filter(id => {
+                    return id !== taskId
+                })
+
+                return { ...project, assignedTasksIds: newAssignedTasksIds }
+            }
+            else {
+                return project
+            }
+        })
+    }
 
     getCurrentProjectTasksIds(projectId) {
         const currentProjectTasksIds = this.getProjectbyId(projectId).assignedTasksIds
