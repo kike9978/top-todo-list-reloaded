@@ -66,7 +66,8 @@ export default class UIRenderer {
             completedTasks,
             this.controller.handleTaskChange.bind(this.controller),
             this.controller.handleAddTaskInput.bind(this.controller),
-            this.controller.handleAddTaskClick.bind(this.controller)
+            this.controller.handleAddTaskClick.bind(this.controller),
+            this.controller.handleDeleteTaskClick.bind(this.controller)
         )
         const newTaskContainer = taskContainerInstance.createTaskContainer();
 

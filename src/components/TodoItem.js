@@ -1,4 +1,4 @@
-export default function TodoItem(task, onChange) {
+export default function TodoItem(task, onChange, handleDeleteTaskClick) {
     const article = document.createElement("article")
     article.setAttribute("data-task", task.id)
     article.className = "bg-slate-50 rounded flex justify-between relative todo-item"
@@ -16,7 +16,10 @@ export default function TodoItem(task, onChange) {
         </div>
     `
     const elimButton = article.querySelectorAll("button")[0]
-    elimButton.addEventListener("click", () => console.log("Eliminar"))
+    elimButton.addEventListener("click", () => {
+        console.log("Eliminar")
+        handleDeleteTaskClick(task.id)
+    })
     const editButton = article.querySelectorAll("button")[1]
     editButton.addEventListener("click", () => console.log("Editar"))
 

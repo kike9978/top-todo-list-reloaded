@@ -3,12 +3,13 @@ import TodoItem from "./TodoItem";
 
 
 export default class TasksContainer {
-    constructor(pendingTasks, completedTasks, handleTodoChange, handleAddTaskInput, handleAddTaskClick) {
+    constructor(pendingTasks, completedTasks, handleTodoChange, handleAddTaskInput, handleAddTaskClick, handleDeleteTaskClick) {
         this.pendingTasks = pendingTasks;
         this.completedTasks = completedTasks;
         this.handleTodoChange = handleTodoChange;
         this.handleAddTaskInput = handleAddTaskInput;
         this.handleAddTaskClick = handleAddTaskClick;
+        this.handleDeleteTaskClick = handleDeleteTaskClick;
     }
 
     createTaskContainer() {
@@ -62,14 +63,14 @@ export default class TasksContainer {
         const pendingTasksContainer = this.pendingTasksSection.container;
         pendingTasksContainer.innerHTML = ""
         pendingTasks.forEach(task => {
-            pendingTasksContainer.appendChild(TodoItem(task, this.handleTodoChange))
+            pendingTasksContainer.appendChild(TodoItem(task, this.handleTodoChange, this.handleDeleteTaskClick))
         })
     }
 
     displayCompletedTasks(completedTasks) {
         const completedTasksContainer = this.completedTasksSection.container;
         completedTasksContainer.innerHTML = "";
-        completedTasks.forEach(task => completedTasksContainer.appendChild(TodoItem(task, this.handleTodoChange)))
+        completedTasks.forEach(task => completedTasksContainer.appendChild(TodoItem(task, this.handleTodoChange, this.handleDeleteTaskClick)))
     }
 
     updatePendingTasks(pendingTasks) {

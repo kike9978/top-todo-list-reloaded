@@ -17,7 +17,7 @@ export default class TaskService {
         return newTask
     }
 
-    deleteTodo(taskId) {
+    deleteTask(taskId) {
         this.myTodos = this.myTodos.filter(t => t.id !== taskId)
     }
 

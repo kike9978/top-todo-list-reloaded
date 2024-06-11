@@ -132,4 +132,11 @@ export default class AppController {
         const currentProjectTasksIds = this.projectService.getCurrentProjectTasksIds(this.currentProjectId)
         return this.taskService.getCurrentProjectTasks(currentProjectTasksIds)
     }
+
+    handleDeleteTaskClick(taskId) {
+        console.log(taskId)
+        this.taskService.deleteTask(taskId)
+        this.controlTaskDisplay()
+        //delete task id from project
+    }
 }
