@@ -48,7 +48,11 @@ export default class UIRenderer {
 
     displayProjects(projects) {
         this.createProjectContainer()
-        const newProjectContainerInstance = new ProjectsContainer(projects, this.controller.handleProjectClick.bind(this.controller), this.controller.currentProjectId)
+        const newProjectContainerInstance = new ProjectsContainer(
+            projects,
+            this.controller.handleProjectClick.bind(this.controller),
+            this.controller.currentProjectId,
+            this.controller.handleCreateProjectClick.bind(this.controller))
         const newProjectContainer = newProjectContainerInstance.createProjectContainer()
         this.body.replaceChild(newProjectContainer, this.projectContainer)
         this.projectContainer = newProjectContainer

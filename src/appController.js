@@ -120,6 +120,14 @@ export default class AppController {
         this.controlTaskDisplay()
     }
 
+    handleCreateProjectClick(project) {
+        const nextId = generateId()
+
+        const newProject = { id: nextId, title: project, assignedTasksIds: [] }
+        this.controlCreateProject(newProject)
+        this.controlProjectDisplay()
+    }
+
     getCurrentProjectTasks() {
         const currentProjectTasksIds = this.projectService.getCurrentProjectTasksIds(this.currentProjectId)
         return this.taskService.getCurrentProjectTasks(currentProjectTasksIds)

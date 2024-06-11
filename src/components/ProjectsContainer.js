@@ -3,10 +3,11 @@ import ProjectItem from "./ProjectItem"
 
 
 export default class ProjectsContainer {
-    constructor(projects, handleProjectClick, currentProjectId) {
+    constructor(projects, handleProjectClick, currentProjectId, handleCreateProjectClick) {
         this.projects = projects
         this.handleProjectClick = handleProjectClick
         this.currentProjectId = currentProjectId
+        this.handleCreateProjectClick = handleCreateProjectClick
     }
 
     createProjectContainer() {
@@ -50,6 +51,7 @@ export default class ProjectsContainer {
             console.log(this)
             console.log(this.newProject)
             newProjectInput.value = ""
+            this.handleCreateProjectClick(this.newProject)
             this.removeProjectContainer()
         })
         cancelButton.addEventListener("click", () => this.removeProjectContainer())
