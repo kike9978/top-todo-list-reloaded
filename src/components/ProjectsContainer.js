@@ -17,8 +17,8 @@ export default class ProjectsContainer {
         this.projects.forEach(project => this.projectSidebar.appendChild(ProjectItem(project, this.handleProjectClick, this.currentProjectId)))
 
         this.createProjectButton = document.createElement("button")
-        this.createProjectButton.innerText = "Crear Proyecto"
-        this.createProjectButton.className = "p-2 rounded bg-pink-500 text-white hover:bg-pink-700 mx-2 disabled:hidden"
+        this.createProjectButton.innerText = "+ Crear Proyecto"
+        this.createProjectButton.className = "p-2 rounded hover:bg-slate-200 mx-2 disabled:hidden"
 
 
         this.createProjectButton.addEventListener("click", () => {

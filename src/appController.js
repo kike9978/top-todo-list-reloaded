@@ -122,7 +122,7 @@ export default class AppController {
 
     handleCreateProjectClick(project) {
         const nextId = generateId()
-
+        this.currentProjectId = nextId
         const newProject = { id: nextId, title: project, assignedTasksIds: [] }
         this.controlCreateProject(newProject)
         this.controlProjectDisplay()
@@ -138,6 +138,6 @@ export default class AppController {
         this.taskService.deleteTask(taskId)
         this.projectService.removeTaskFromProject(taskId, this.currentProjectId)
         this.controlTaskDisplay()
-        //delete task id from project
+        this.controlProjectDisplay()
     }
 }

@@ -27,7 +27,9 @@ export default class TasksContainer {
         this.mainTasksContainer.appendChild(this.pendingTasksSection.section)
         this.mainTasksContainer.appendChild(this.completedTasksSection.section)
 
-        this.addNewTaskButton.innerText = "Add task"
+        this.addNewTaskButton.innerText = "+ Add task"
+
+        this.addNewTaskButton.className = "text-pink-500"
 
         this.initEventListeners()
         this.displayPendingTasks(this.pendingTasks)
