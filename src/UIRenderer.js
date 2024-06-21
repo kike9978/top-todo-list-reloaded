@@ -1,5 +1,5 @@
-import ProjectsContainer from "./components/ProjectsContainer"
 import TasksContainer from "./components/TasksContainer"
+import SideMenu from "./components/SideMenu"
 
 export default class UIRenderer {
 
@@ -9,21 +9,28 @@ export default class UIRenderer {
     }
 
     initUI() {
-        this.createProjectContainer()
+        this.createSideMenu()
         this.createTasksContainer()
     }
 
-    createProjectContainer() {
-        if (!this.projectContainer) {
-            this.projectContainer = document.createElement("aside")
-            this.body.appendChild(this.projectContainer)
-
-        }
-    }
+    /*  createProjectContainer() {
+         if (!this.projectContainer) {
+             this.projectContainer = document.createElement("aside")
+             this.body.appendChild(this.projectContainer)
+ 
+         }
+     } */
     createTasksContainer() {
         if (!this.tasksContainer) {
             this.tasksContainer = document.createElement("main")
             this.body.appendChild(this.tasksContainer)
+        }
+    }
+
+    createSideMenu() {
+        if (!this.sideMenu) {
+            this.sideMenu = document.createElement("aside")
+            this.body.appendChild(this.sideMenu)
         }
     }
 
@@ -42,22 +49,22 @@ export default class UIRenderer {
 
         updateTasksUI()
     }
-    updateProjectsDisplay(projects) {
-        this.displayProjects(projects)
-    }
+    /*  updateProjectsDisplay(projects) {
+         this.displayProjects(projects)
+     } */
 
-    displayProjects(projects) {
-        this.createProjectContainer()
-        const newProjectContainerInstance = new ProjectsContainer(
-            projects,
-            this.controller.handleProjectClick.bind(this.controller),
-            this.controller.currentProjectId,
-            this.controller.handleCreateProjectClick.bind(this.controller))
-        const newProjectContainer = newProjectContainerInstance.createProjectContainer()
-        this.body.replaceChild(newProjectContainer, this.projectContainer)
-        this.projectContainer = newProjectContainer
-    }
-
+    /*    displayProjects(projects) {
+           this.createProjectContainer()
+           const newProjectContainerInstance = new ProjectsContainer(
+               projects,
+               this.controller.handleProjectClick.bind(this.controller),
+               this.controller.currentProjectId,
+               this.controller.handleCreateProjectClick.bind(this.controller))
+           const newProjectContainer = newProjectContainerInstance.createProjectContainer()
+           this.body.replaceChild(newProjectContainer, this.projectContainer)
+           this.projectContainer = newProjectContainer
+       }
+    */
     displayTasksContainer(pendingTasks, completedTasks) {
 
         this.createTasksContainer();
@@ -74,6 +81,16 @@ export default class UIRenderer {
         this.body.replaceChild(newTaskContainer, this.tasksContainer)
         this.taskContainerInstance = taskContainerInstance
         this.tasksContainer = newTaskContainer
+    }
+
+    displaySideMenu() {
+        this.createSideMenu();
+        console.table(this.controller.projectsAndLists)
+        const sideMenuInstance = new SideMenu(this.controller.projectsAndLists)
+        const newSideMenu = sideMenuInstance.createSideMenu()
+        this.body.replaceChild(newSideMenu, this.sideMenu)
+        this.sideMenuInstance = sideMenuInstance
+        this.sideMenu = newSideMenu
     }
 
     updatePendingTasks(pendingTasks) {

@@ -41,8 +41,14 @@ export default class TaskService {
         })
     }
 
-    getCurrentProjectTasks(currentProjectIds) {
-        return this.myTodos.filter(task => currentProjectIds.includes(task.id))
+    /*  getCurrentProjectTasks(projectTaskListsIds) {
+         
+ 
+         return this.myTodos.filter(task => projectTasksIds.includes(task.id))
+     } */
+
+    getTaskListTasks(tasksListTasksIds) {
+        return this.myTodos.filter(task => tasksListTasksIds.includes(task.id))
     }
 
 

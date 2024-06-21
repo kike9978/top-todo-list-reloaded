@@ -1,8 +1,8 @@
 export default class Project {
-    constructor(id, title, assignedTasksIds) {
+    constructor(id, title, assignedListIds) {
         this.id = id;
         this.title = title;
-        this.assignedTasksIds = assignedTasksIds
+        this.assignedListIds = assignedListIds
     }
 
     getId() {
@@ -13,16 +13,16 @@ export default class Project {
         return this.title
     }
 
-    getAssignedTasksIds() {
-        return this.assignedTasksIds
+    getAssignedListIds() {
+        return this.assignedListIds
     }
 
     addAssignTaskId(taskId) {
-        this.assignedTasksIds = [this.assignedTasksIds, taskId]
+        this.assignedListIds = [this.assignedListIds, taskId]
     }
 
     removeAssignedTaskId(taskId) {
-        this.assignedTasksIds = this.assignedTasksIds.filter(id => id !== taskId)
+        this.assignedListIds = this.assignedListIds.filter(id => id !== taskId)
     }
 
     setTitle(newTitle) {

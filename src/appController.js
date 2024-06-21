@@ -1,20 +1,54 @@
 import generateId from "./utils/generateId";
 
 export default class AppController {
-    constructor(view, taskService, projectService) {
+    constructor(view, taskService, projectService, taskListService) {
         this.view = view;
         this.taskService = taskService;
         this.projectService = projectService;
+        this.taskListService = taskListService
         this.view.controller = this
         this.currentProjectId = 0
         this.newTaskText = ""
+        this.currentTaskListId = 0
+        this.projectsAndLists = []
+        this.projectsAndListsOrder = [
+            {
+                type: "project",
+                id: 0,
+
+            },
+            {
+                type: "taskList",
+                id: 0
+            },
+            {
+                type: "project",
+                id: 1,
+            }
+        ]
+
 
     }
+
+
 
     init() {
-        this.controlProjectDisplay()
+        /*  this.controlProjectDisplay() */
+        this.generateProjectAndListArr()
         this.controlTaskDisplay()
+        this.controlSideMenuDisplay()
     }
+
+    generateProjectAndListArr() {
+        this.projectsAndLists = this.projectsAndListsOrder.map(item => {
+
+            if (item.type === "project") {
+                return { ...this.projectService.getProjectbyId(item.id), type: "project" }
+            }
+            return { ...this.taskListService.getListById(item.id), type: "list" }
+        })
+    }
+
 
 
     controlTaskDisplay() {
@@ -24,22 +58,27 @@ export default class AppController {
         }
     }
 
+    controlSideMenuDisplay() {
+        console.log(this.projectsAndLists)
+        this.view.displaySideMenu(this.projectsAndLists)
+    }
+
+
     getCurrentProjectTasksSeparated() {
-        const currentProjectIds = this.projectService.getCurrentProjectTasksIds(this.currentProjectId)
-        const tasks = this.taskService.getCurrentProjectTasks(currentProjectIds)
+        console.log(this.taskListService)
+        const currentTaskListsTasksIds = this.taskListService.getListById(this.currentTaskListId).getAssignedTasksIds()
+        const tasks = this.taskService.getTaskListTasks(currentTaskListsTasksIds)
         const pendingTasks = this.taskService.getPendingTasks(tasks)
         const completedTasks = this.taskService.getCompletedTasks(tasks)
-        console.log()
-
         return { pendingTasks, completedTasks }
     }
 
 
-    controlProjectDisplay() {
-        const myProjects = this.projectService.getProjects()
-        this.view.displayProjects(myProjects)
-    }
-
+    /*     controlProjectDisplay() {
+            const myProjects = this.projectService.getProjects()
+            this.view.displayProjects(myProjects)
+        }
+     */
 
     controlGetProjects() {
         this.projectService.getProjects()

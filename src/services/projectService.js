@@ -4,7 +4,7 @@ import Project from "../models/Project"
 export default class ProjectService {
 
     constructor() {
-        this.myProjects = data.projects.map(project => new Project(project.id, project.title, project.assignedTasksIds))
+        this.myProjects = data.projects.map(project => new Project(project.id, project.title, project.assignedListIds))
     }
 
     getProjects() {
@@ -26,7 +26,7 @@ export default class ProjectService {
     updateProject(projectId, newProject) {
         this.myProjects = this.myProjects.map(p => {
             if (p.id === projectId) {
-                return new Project(projectId, newProject.title, newProject.assignedTasksIds)
+                return new Project(projectId, newProject.title, newProject.assignedListIds)
             }
             else {
                 return p
@@ -39,7 +39,7 @@ export default class ProjectService {
 
         this.myProjects = this.myProjects.map(project => {
             if (project.id === projectId) {
-                return { ...project, assignedTasksIds: [...project.assignedTasksIds, taskId] }
+                return { ...project, assignedListIds: [...project.assignedListIds, taskId] }
             }
             else {
                 return project
@@ -51,11 +51,11 @@ export default class ProjectService {
         this.myProjects = this.myProjects.map(project => {
             if (project.id === projectId) {
 
-                const newAssignedTasksIds = project.assignedTasksIds.filter(id => {
+                const newAssignedTasksIds = project.assignedListIds.filter(id => {
                     return id !== taskId
                 })
 
-                return { ...project, assignedTasksIds: newAssignedTasksIds }
+                return { ...project, assignedListIds: newAssignedTasksIds }
             }
             else {
                 return project
@@ -63,15 +63,21 @@ export default class ProjectService {
         })
     }
 
-    getCurrentProjectTasksIds(projectId) {
-        const currentProjectTasksIds = this.getProjectbyId(projectId).assignedTasksIds
+    /* getCurrentProjectTasksIds(projectId) {
+        const currentProjectTasksIds = this.getProjectbyId(projectId).assignedListIds
         return currentProjectTasksIds
+    } */
+
+    getProjectTaskListsIds(projectId) {
+        const currentProject = this.getProjectbyId(projectId)
+        const projectTasksListsIds = currentProject.assignedListIds
+        return projectTasksListsIds
     }
 
     updateProjectTitle(projectId, newTitle) {
 
         const projectToUpdate = this.getProjectbyId(projectId)
-        const updatedProject = new Project(projectId, newTitle, projectToUpdate.assignedTasksIds)
+        const updatedProject = new Project(projectId, newTitle, projectToUpdate.assignedListIds)
 
         this.updateProject(projectId, updatedProject)
 

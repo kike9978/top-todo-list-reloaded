@@ -21,15 +21,35 @@ const data = {
         {
             id: 0,
             title: "🦧 Proyecto 1",
-            assignedTasksIds: [0, 2]
+            assignedListIds: [0]
 
         },
         {
             id: 1,
             title: "🦐 Proyecto 2",
-            assignedTasksIds: [1]
+            assignedListIds: [2]
 
         },
-    ]
+    ],
+    lists: [
+        {
+            id: 0,
+            title: "Lista 1",
+            assignedTasksIds: [0, 2]
+        },
+        {
+
+            id: 1,
+            title: "Lista 2",
+            assignedTasksIds: [1]
+        },
+        {
+
+            id: 2,
+            title: "Lista 3",
+            assignedTasksIds: []
+        }
+
+    ],
 }
 export default data
