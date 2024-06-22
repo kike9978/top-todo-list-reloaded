@@ -54,9 +54,10 @@ export default class AppController {
     controlTaskDisplay() {
         if (this.currentProjectId !== null) {
             const currentTasks = this.getCurrentProjectTasksSeparated()
-            this.view.displayTasksContainer(currentTasks.pendingTasks, currentTasks.completedTasks)
+            this.view.displayTasksContainer(currentTasks.pendingTasks, currentTasks.completedTasks, this.taskListService.getListById(this.currentTaskListId).title)
         }
     }
+
 
     controlSideMenuDisplay() {
         console.log(this.projectsAndLists)
@@ -119,7 +120,7 @@ export default class AppController {
         }
         this.taskService.updateTask(taskId, updatedTask)
         const currentTasks = this.getCurrentProjectTasksSeparated()
-        this.view.displayTasksContainer(currentTasks.pendingTasks, currentTasks.completedTasks)
+        this.view.displayTasksContainer(currentTasks.pendingTasks, currentTasks.completedTasks, this.taskListService.getListById(this.currentTaskListId).title)
     }
 
     handleAddTaskInput(newTask) {

@@ -3,17 +3,19 @@ import TodoItem from "./TodoItem";
 
 
 export default class TasksContainer {
-    constructor(pendingTasks, completedTasks, handleTodoChange, handleAddTaskInput, handleAddTaskClick, handleDeleteTaskClick) {
+    constructor(pendingTasks, completedTasks, handleTodoChange, handleAddTaskInput, handleAddTaskClick, handleDeleteTaskClick, taskListTitle) {
         this.pendingTasks = pendingTasks;
         this.completedTasks = completedTasks;
         this.handleTodoChange = handleTodoChange;
         this.handleAddTaskInput = handleAddTaskInput;
         this.handleAddTaskClick = handleAddTaskClick;
         this.handleDeleteTaskClick = handleDeleteTaskClick;
+        this.taskListTitle = taskListTitle
     }
 
     createTaskContainer() {
         this.mainTasksContainer = document.createElement("main")
+        this.title = document.createElement("h1")
         this.pendingTasksSection = this.createSection("Pending tasks")
         this.completedTasksSection = this.createSection("Completed tasks")
         this.addNewTaskInput = document.createElement("input")
@@ -22,11 +24,13 @@ export default class TasksContainer {
         this.addNewTaskInput.placeholder = "Recolectar papas"
 
         // build Dom
+        this.mainTasksContainer.appendChild(this.title)
         this.mainTasksContainer.appendChild(this.addNewTaskInput)
         this.mainTasksContainer.appendChild(this.addNewTaskButton)
         this.mainTasksContainer.appendChild(this.pendingTasksSection.section)
         this.mainTasksContainer.appendChild(this.completedTasksSection.section)
 
+        this.title.innerText = this.taskListTitle ?? "Título de lista"
         this.addNewTaskButton.innerText = "+ Add task"
 
         this.addNewTaskButton.className = "text-pink-500"
