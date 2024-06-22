@@ -1,6 +1,11 @@
 
 import ProjectItem from "./ProjectItem"
 
+const ITEM_TYPE = Object.freeze({
+    project: "project",
+    list: "list"
+})
+
 
 export default class ProjectsAndListsContainer {
     constructor(projectsAndLists, handleProjectClick, currentProjectId, handleCreateProjectClick) {
@@ -14,7 +19,7 @@ export default class ProjectsAndListsContainer {
         this.projectsAndListsContainer = document.createElement("section")
         this.projectsAndListsContainer.className = ""
         this.projectsAndLists.forEach(item => {
-            if (item.type === "project") {
+            if (item.type === ITEM_TYPE.project) {
                 this.projectsAndListsContainer.appendChild(ProjectItem(item, this.handleProjectClick, this.currentProjectId))
                 return
             }
