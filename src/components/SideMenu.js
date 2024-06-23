@@ -11,14 +11,25 @@ export default class SideMenu {
         this.sideBar = document.createElement("aside")
         this.sideBar.innerText = "hola"
 
+        const buttonRows = document.createElement("div")
+        this.createListButton = document.createElement("button")
+
         this.sideBar.className = "flex flex-col gap-2 bg-gray-50 h-full"
         this.projectsAndListsContainer = this.createProjectsAndListsContainer()
         this.sideBar.appendChild(this.projectsAndListsContainer)
 
+        buttonRows.appendChild(this.createListButton)
+        buttonRows.classList.add("flex")
+
+        this.createListButton.innerText = "+ Create list"
+        this.createListButton.classList.add("p-2", "rounded", "hover:bg-slate-200", "mx-2", "disabled:hidden")
+
 
         this.createProjectButton = document.createElement("button")
-        this.createProjectButton.innerText = "+ Crear Proyecto"
+        this.createProjectButton.innerText = "+ "
         this.createProjectButton.className = "p-2 rounded hover:bg-slate-200 mx-2 disabled:hidden"
+
+        this.sideBar.appendChild(buttonRows)
 
 
         this.createProjectButton.addEventListener("click", () => {
@@ -27,7 +38,7 @@ export default class SideMenu {
             this.sideBar.insertBefore(newProjectInput, this.createProjectButton)
             this.createProjectButton.disabled = true
         })
-        this.sideBar.appendChild(this.createProjectButton)
+        buttonRows.appendChild(this.createProjectButton)
         return this.sideBar
     }
 
