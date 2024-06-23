@@ -59,4 +59,3 @@ export default class ProjectsAndListsContainer {
         return this.projectsAndListsContainer.childNodes
     }
 }
-

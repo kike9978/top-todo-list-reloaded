@@ -11,15 +11,15 @@ export default class SideMenu {
         this.sideBar = document.createElement("aside")
         this.sideBar.innerText = "hola"
 
-        const buttonRows = document.createElement("div")
+        this.buttonRows = document.createElement("div")
         this.createListButton = document.createElement("button")
 
         this.sideBar.className = "flex flex-col gap-2 bg-gray-50 h-full"
         this.projectsAndListsContainer = this.createProjectsAndListsContainer()
         this.sideBar.appendChild(this.projectsAndListsContainer)
 
-        buttonRows.appendChild(this.createListButton)
-        buttonRows.classList.add("flex")
+        this.buttonRows.appendChild(this.createListButton)
+        this.buttonRows.classList.add("flex")
 
         this.createListButton.innerText = "+ Create list"
         this.createListButton.classList.add("p-2", "rounded", "hover:bg-slate-200", "mx-2", "disabled:hidden")
@@ -29,16 +29,15 @@ export default class SideMenu {
         this.createProjectButton.innerText = "+ "
         this.createProjectButton.className = "p-2 rounded hover:bg-slate-200 mx-2 disabled:hidden"
 
-        this.sideBar.appendChild(buttonRows)
+        this.sideBar.appendChild(this.buttonRows)
 
 
         this.createProjectButton.addEventListener("click", () => {
             const newProjectInput = this.createNewProjectInput()
-            console.log("hola")
-            this.sideBar.insertBefore(newProjectInput, this.createProjectButton)
+            this.sideBar.insertBefore(newProjectInput, this.buttonRows)
             this.createProjectButton.disabled = true
         })
-        buttonRows.appendChild(this.createProjectButton)
+        this.buttonRows.appendChild(this.createProjectButton)
         return this.sideBar
     }
 
@@ -65,6 +64,40 @@ export default class SideMenu {
         this.body.replaceChild(newSideMenu, this.sideMenu)
         this.sideMenuInstance = sideMenuInstance
         this.sideMenu = newSideMenu
+    }
+
+    createNewProjectInput() {
+
+        this.projectInputContainer = document.createElement("div")
+        const newProjectInput = document.createElement("input")
+        const cancelButton = document.createElement("button");
+        const submitButton = document.createElement("button")
+
+        cancelButton.innerText = "x"
+        submitButton.innerText = "Create"
+
+        this.projectInputContainer.appendChild(newProjectInput)
+        this.projectInputContainer.appendChild(cancelButton)
+        this.projectInputContainer.appendChild(submitButton)
+
+        newProjectInput.addEventListener("change", (e) => {
+            this.newProject = e.target.value
+        })
+        submitButton.addEventListener("click", () => {
+            if (!this.newProject) {
+                return
+            }
+            console.log(this)
+            console.log(this.newProject)
+            newProjectInput.value = ""
+            this.handleCreateProjectClick(this.newProject)
+            this.removeProjectContainer()
+        })
+        cancelButton.addEventListener("click", () => this.removeProjectContainer())
+
+
+
+        return this.projectInputContainer
     }
 
 
