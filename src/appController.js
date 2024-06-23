@@ -31,7 +31,6 @@ export default class AppController {
     }
 
 
-
     init() {
         /*  this.controlProjectDisplay() */
         this.generateProjectAndListArr()
@@ -75,11 +74,7 @@ export default class AppController {
     }
 
 
-    /*     controlProjectDisplay() {
-            const myProjects = this.projectService.getProjects()
-            this.view.displayProjects(myProjects)
-        }
-     */
+
 
     controlGetProjects() {
         this.projectService.getProjects()
@@ -133,7 +128,7 @@ export default class AppController {
         }
         const nextId = generateId()
         const newTask = { id: nextId, title: this.newTaskText, isCompleted: false }
-        this.addNewTask(newTask, this.currentProjectId)
+        this.addNewTask(newTask, this.currentTaskListId)
         console.log(this.taskService.myTodos)
         this.newTaskText = ""
         console.log(this.projectService.getProjectbyId(this.currentProjectId))
@@ -147,9 +142,10 @@ export default class AppController {
         this.view.updatePendingTasks(pendingTasks, this.handleTaskChange.bind(this));
     }
 
-    addNewTask(taskData, projectId) {
+    addNewTask(taskData, taskListId) {
         this.taskService.createTask(taskData)
-        this.projectService.addTaskToProject(taskData.id, projectId)
+        this.taskListService.addTaskToProject(taskData.id, taskListId)
+        const currentTaskListTasksIds = this.taskListService.getTaskListTasks
         const currentProjectTasksIds = this.projectService.getCurrentProjectTasksIds(projectId)
         const currentProjectTasks = this.taskService.getCurrentProjectTasks(currentProjectTasksIds)
         this.updatePendingTasks(currentProjectTasks)
@@ -165,7 +161,19 @@ export default class AppController {
         this.currentProjectId = nextId
         const newProject = { id: nextId, title: project, assignedTasksIds: [] }
         this.controlCreateProject(newProject)
-        this.controlProjectDisplay()
+        this.projectsAndListsOrder = [...this.projectsAndListsOrder, { type: "project", id: nextId }]
+        this.generateProjectAndListArr()
+        console.log(this.projectService.getProjects())
+        console.log(this.projectsAndLists)
+        this.controlUpdateProjectsAndListsContainer()
+    }
+    /*  controlProjectDisplay() {
+         const myProjects = this.projectService.getProjects()
+         this.view.displayProjects(myProjects)
+     } */
+
+    controlUpdateProjectsAndListsContainer() {
+        this.view.updateProjectsAndListsContainer()
     }
 
     getCurrentProjectTasks() {

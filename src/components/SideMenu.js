@@ -2,8 +2,9 @@ import ProjectsAndListsContainer from "./ProjectsAndListsContainer"
 
 export default class SideMenu {
 
-    constructor(projectsAndLists) {
+    constructor(projectsAndLists, handleCreateProjectClick) {
         this.projectsAndLists = projectsAndLists
+        this.handleCreateProjectClick = handleCreateProjectClick
 
     }
 
@@ -42,10 +43,10 @@ export default class SideMenu {
     }
 
     createProjectsAndListsContainer() {
-        const projectsAndListsContainerInstance = new ProjectsAndListsContainer(
+        this.projectsAndListsContainerInstance = new ProjectsAndListsContainer(
             this.projectsAndLists
         )
-        const newProjectsAndListsContainer = projectsAndListsContainerInstance.createProjectAndlistsContainer()
+        const newProjectsAndListsContainer = this.projectsAndListsContainerInstance.createProjectAndlistsContainer()
         return newProjectsAndListsContainer
     }
 
@@ -91,14 +92,23 @@ export default class SideMenu {
             console.log(this.newProject)
             newProjectInput.value = ""
             this.handleCreateProjectClick(this.newProject)
-            this.removeProjectContainer()
+            this.removeNewProjectInputContainer()
         })
-        cancelButton.addEventListener("click", () => this.removeProjectContainer())
+        cancelButton.addEventListener("click", () => this.removeNewProjectInputContainer())
 
 
 
         return this.projectInputContainer
     }
+
+    removeNewProjectInputContainer() {
+        console.log("input removed")
+
+        // this.projectsAndListsContainer.removeChild(this.projectInputContainer)
+        this.createProjectButton.disabled = false
+
+    }
+
 
 
 }

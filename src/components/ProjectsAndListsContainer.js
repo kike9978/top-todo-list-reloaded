@@ -18,6 +18,11 @@ export default class ProjectsAndListsContainer {
     createProjectAndlistsContainer() {
         this.projectsAndListsContainer = document.createElement("section")
         this.projectsAndListsContainer.className = ""
+        this.populateItems()
+        return this.projectsAndListsContainer
+    }
+
+    populateItems() {
         this.projectsAndLists.forEach(item => {
             if (item.type === ITEM_TYPE.project) {
                 this.projectsAndListsContainer.appendChild(ProjectItem(item, this.handleProjectClick, this.currentProjectId))
@@ -30,21 +35,11 @@ export default class ProjectsAndListsContainer {
             }
 
         })
-
-
-
-
-
-        return this.projectsAndListsContainer
     }
-
-
 
     removeProjectContainer() {
         console.log("hola")
-
-        this.projectsAndListsContainer.removeChild(this.projectInputContainer)
-        this.createProjectButton.disabled = false
+        this.projectsAndListsContainer.innerHTML = ""
 
     }
 
@@ -53,9 +48,18 @@ export default class ProjectsAndListsContainer {
     }
 
 
-
-
     getProjectsItems() {
         return this.projectsAndListsContainer.childNodes
+    }
+
+    sayHello() {
+        console.count("hola")
+    }
+
+    updateProjectsAndListsContainer(projectsAndLists) {
+        this.removeProjectContainer()
+        this.projectsAndLists = projectsAndLists
+        this.populateItems()
+
     }
 }

@@ -87,7 +87,9 @@ export default class UIRenderer {
     displaySideMenu() {
         this.createSideMenu();
         console.table(this.controller.projectsAndLists)
-        const sideMenuInstance = new SideMenu(this.controller.projectsAndLists)
+        const sideMenuInstance = new SideMenu(
+            this.controller.projectsAndLists,
+            this.controller.handleCreateProjectClick.bind(this.controller))
         const newSideMenu = sideMenuInstance.createSideMenu()
         this.body.replaceChild(newSideMenu, this.sideMenu)
         this.sideMenuInstance = sideMenuInstance
@@ -104,6 +106,11 @@ export default class UIRenderer {
         if (this.taskContainerInstance) {
             this.taskContainerInstance.updateCompletedTasks(completedTasks)
         }
+    }
+
+    updateProjectsAndListsContainer() {
+        console.count("hola")
+        this.sideMenuInstance.projectsAndListsContainerInstance.updateProjectsAndListsContainer(this.controller.projectsAndLists)
     }
 
 }

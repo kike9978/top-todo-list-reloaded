@@ -20,6 +20,12 @@ export default class ListService {
         return this.myLists
     }
 
+    getTaskListTasksIds(taskListId) {
+        const tasksList = this.getListById(taskListId)
+        const taskListTasksIds = tasksList.getAssignedTasksIds()
+        return taskListTasksIds
+    }
+
     getListById(listId) {
         const list = this.myLists.find(list => list.id === listId)
         if (list) {
