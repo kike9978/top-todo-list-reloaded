@@ -146,7 +146,7 @@ export default class AppController {
         this.taskService.createTask(taskData)
         this.taskListService.addTaskToList(taskData.id, taskListId)
         const currentTaskListTasksIds = this.taskListService.getTaskListTasksIds(this.currentTaskListId)
-        console.log(currentTaskListTasksIds)
+        console.log("currentTasks: ", currentTaskListTasksIds)
         this.updatePendingTasks(currentTaskListTasksIds)
     }
 
