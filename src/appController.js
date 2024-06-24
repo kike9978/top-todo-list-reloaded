@@ -183,8 +183,9 @@ export default class AppController {
     handleDeleteTaskClick(taskId) {
         console.log(taskId)
         this.taskService.deleteTask(taskId)
-        this.projectService.removeTaskFromProject(taskId, this.currentProjectId)
+        this.taskListService.removeTaskFromList(taskId, this.currentTaskListId)
+        console.log(this.taskListService.getListById(this.currentProjectId))
         this.controlTaskDisplay()
-        this.controlProjectDisplay()
+        this.controlUpdateProjectsAndListsContainer()
     }
 }

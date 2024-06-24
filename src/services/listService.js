@@ -47,6 +47,24 @@ export default class ListService {
             }
         })
     }
+    removeTaskFromList(taskId, listId) {
+
+
+        this.myLists = this.myLists.map(list => {
+            if (list.id === listId) {
+
+                const newAssignedTasksIds = list.assignedTasksIds.filter(id => {
+                    return id !== taskId
+                })
+
+                return new TaskList({ ...list, assignedTasksIds: newAssignedTasksIds })
+            }
+            else {
+                return list
+            }
+        })
+
+    }
 
 
 
