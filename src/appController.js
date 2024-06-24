@@ -146,9 +146,12 @@ export default class AppController {
         this.taskService.createTask(taskData)
         this.taskListService.addTaskToList(taskData.id, taskListId)
         const currentTaskListTasksIds = this.taskListService.getTaskListTasksIds(this.currentTaskListId)
-        console.log("currentTasks: ", currentTaskListTasksIds)
-        this.updatePendingTasks(currentTaskListTasksIds)
+        const currentTaskListTasks = this.taskService.getTaskListTasks(currentTaskListTasksIds)
+        console.log("currentTasks: ", currentTaskListTasks)
+        this.updatePendingTasks(currentTaskListTasks)
     }
+
+
 
     handleProjectClick(projectId) {
         this.currentProjectId = projectId
