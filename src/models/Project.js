@@ -1,5 +1,5 @@
 export default class Project {
-    constructor(id, title, assignedListIds) {
+    constructor({ id, title, assignedListIds }) {
         this.id = id;
         this.title = title;
         this.assignedListIds = assignedListIds

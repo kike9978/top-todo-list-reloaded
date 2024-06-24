@@ -4,7 +4,7 @@ import Project from "../models/Project"
 export default class ProjectService {
 
     constructor() {
-        this.myProjects = data.projects.map(project => new Project(project.id, project.title, project.assignedListIds))
+        this.myProjects = data.projects.map(project => new Project({ assignedListIds: project.assignedListIds, id: project.id, title: project.title }))
     }
 
     getProjects() {
@@ -12,7 +12,7 @@ export default class ProjectService {
     }
 
     createProject(project) {
-        this.myProjects = [...this.myProjects, new Project(project.id, project.title, [])]
+        this.myProjects = [...this.myProjects, new Project({ id: project.id, title: project.title, assignedListIds: [] })]
     }
 
     deleteProject(title) {
@@ -26,7 +26,7 @@ export default class ProjectService {
     updateProject(projectId, newProject) {
         this.myProjects = this.myProjects.map(p => {
             if (p.id === projectId) {
-                return new Project(projectId, newProject.title, newProject.assignedListIds)
+                return new Project({ id: projectId, title: newProject.title, assignedListIds: newProject.assignedListIds })
             }
             else {
                 return p
@@ -39,7 +39,7 @@ export default class ProjectService {
 
         this.myProjects = this.myProjects.map(project => {
             if (project.id === projectId) {
-                return { ...project, assignedListIds: [...project.assignedListIds, taskId] }
+                return new Project({ ...project, assignedListIds: [...project.assignedListIds, taskId] })
             }
             else {
                 return project
@@ -55,7 +55,7 @@ export default class ProjectService {
                     return id !== taskId
                 })
 
-                return { ...project, assignedListIds: newAssignedTasksIds }
+                return new Project({ ...project, assignedListIds: newAssignedTasksIds })
             }
             else {
                 return project
@@ -77,7 +77,7 @@ export default class ProjectService {
     updateProjectTitle(projectId, newTitle) {
 
         const projectToUpdate = this.getProjectbyId(projectId)
-        const updatedProject = new Project(projectId, newTitle, projectToUpdate.assignedListIds)
+        const updatedProject = new Project({ id: projectId, title: newTitle, assignedListIds: projectToUpdate.assignedListIds })
 
         this.updateProject(projectId, updatedProject)
 

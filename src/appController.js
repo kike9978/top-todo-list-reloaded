@@ -129,11 +129,11 @@ export default class AppController {
         const nextId = generateId()
         const newTask = { id: nextId, title: this.newTaskText, isCompleted: false }
         this.addNewTask(newTask, this.currentTaskListId)
-        console.log(this.taskService.myTodos)
+        console.log("myTodos: ", this.taskService.myTodos)
         this.newTaskText = ""
         console.log(this.projectService.getProjectbyId(this.currentProjectId))
-        console.log(this.getCurrentProjectTasks())
-        this.controlProjectDisplay()
+        /* console.log(this.getCurrentProjectTasks()) */
+        this.view.updateProjectsAndListsContainer()
 
     }
     updatePendingTasks(tasks) {
@@ -144,11 +144,10 @@ export default class AppController {
 
     addNewTask(taskData, taskListId) {
         this.taskService.createTask(taskData)
-        this.taskListService.addTaskToProject(taskData.id, taskListId)
-        const currentTaskListTasksIds = this.taskListService.getTaskListTasks
-        const currentProjectTasksIds = this.projectService.getCurrentProjectTasksIds(projectId)
-        const currentProjectTasks = this.taskService.getCurrentProjectTasks(currentProjectTasksIds)
-        this.updatePendingTasks(currentProjectTasks)
+        this.taskListService.addTaskToList(taskData.id, taskListId)
+        const currentTaskListTasksIds = this.taskListService.getTaskListTasksIds(this.currentTaskListId)
+        console.log(currentTaskListTasksIds)
+        this.updatePendingTasks(currentTaskListTasksIds)
     }
 
     handleProjectClick(projectId) {

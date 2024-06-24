@@ -1,8 +1,8 @@
 class TaskList {
-    constructor({ id, title, assignedTaskIds }) {
+    constructor({ id, title, assignedTasksIds }) {
         this.id = id;
         this.title = title;
-        this.assignedTaskIds = assignedTaskIds || []
+        this.assignedTasksIds = assignedTasksIds || []
     }
 
     getId() {
@@ -13,7 +13,7 @@ class TaskList {
         return this.title
     }
     getAssignedTasksIds() {
-        return this.assignedTaskIds
+        return this.assignedTasksIds
     }
 
 }
