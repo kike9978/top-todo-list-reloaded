@@ -1,10 +1,8 @@
 
 import ProjectItem from "./ProjectItem"
+import ListItem from "./ListItem"
+import { ITEM_TYPE } from "../types"
 
-const ITEM_TYPE = Object.freeze({
-    project: "project",
-    list: "list"
-})
 
 
 export default class ProjectsAndListsContainer {
@@ -29,9 +27,8 @@ export default class ProjectsAndListsContainer {
                 return
             }
             else {
-                const el = document.createElement("p")
-                el.innerText = item.title
-                this.projectsAndListsContainer.appendChild(el)
+
+                this.projectsAndListsContainer.appendChild(ListItem(item))
             }
 
         })

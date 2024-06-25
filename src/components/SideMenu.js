@@ -1,4 +1,5 @@
 import ProjectsAndListsContainer from "./ProjectsAndListsContainer"
+import { ITEM_TYPE } from "../types"
 
 export default class SideMenu {
 
@@ -33,8 +34,15 @@ export default class SideMenu {
         this.sideBar.appendChild(this.buttonRows)
 
 
+        this.createListButton.addEventListener("click", () => {
+            const newListInput = this.createNewItemInput(ITEM_TYPE.list)
+            this.sideBar.insertBefore(newListInput, this.buttonRows)
+            this.createListButton.disabled = true
+            console.log("hola")
+        })
+
         this.createProjectButton.addEventListener("click", () => {
-            const newProjectInput = this.createNewProjectInput()
+            const newProjectInput = this.createNewItemInput(ITEM_TYPE.project)
             this.sideBar.insertBefore(newProjectInput, this.buttonRows)
             this.createProjectButton.disabled = true
         })
@@ -67,44 +75,49 @@ export default class SideMenu {
         this.sideMenu = newSideMenu
     }
 
-    createNewProjectInput() {
+    createNewItemInput(itemType) {
 
         this.projectInputContainer = document.createElement("div")
-        const newProjectInput = document.createElement("input")
+        const newCreationInput = document.createElement("input")
         const cancelButton = document.createElement("button");
         const submitButton = document.createElement("button")
 
         cancelButton.innerText = "x"
         submitButton.innerText = "Create"
 
-        this.projectInputContainer.appendChild(newProjectInput)
+        this.projectInputContainer.appendChild(newCreationInput)
         this.projectInputContainer.appendChild(cancelButton)
         this.projectInputContainer.appendChild(submitButton)
 
-        newProjectInput.addEventListener("change", (e) => {
-            this.newProject = e.target.value
+        newCreationInput.addEventListener("change", (e) => {
+            this.newItemText = e.target.value
         })
+
         submitButton.addEventListener("click", () => {
-            if (!this.newProject) {
+            if (!this.newItemText) {
                 return
             }
             console.log(this)
-            console.log(this.newProject)
-            newProjectInput.value = ""
-            this.handleCreateProjectClick(this.newProject)
-            this.removeNewProjectInputContainer()
+            console.log(this.newItemText)
+            newCreationInput.value = ""
+
+            if (itemType === "project") {
+                this.handleCreateProjectClick(this.newItemText)
+            } else {
+                console.log("soy una lista")
+            }
+            this.removeNewInputContainer()
         })
-        cancelButton.addEventListener("click", () => this.removeNewProjectInputContainer())
 
-
+        cancelButton.addEventListener("click", () => this.removeNewInputContainer())
 
         return this.projectInputContainer
     }
 
-    removeNewProjectInputContainer() {
+    removeNewInputContainer() {
         console.log("input removed")
 
-        // this.projectsAndListsContainer.removeChild(this.projectInputContainer)
+        this.sideBar.removeChild(this.projectInputContainer)
         this.createProjectButton.disabled = false
 
     }

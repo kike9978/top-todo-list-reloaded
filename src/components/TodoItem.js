@@ -1,6 +1,5 @@
 export default function TodoItem(task, onChange, handleDeleteTaskClick) {
     const article = document.createElement("article")
-    article.setAttribute("data-task", task.id)
     article.className = "bg-slate-50 rounded flex justify-between relative todo-item"
 
     article.innerHTML = `
