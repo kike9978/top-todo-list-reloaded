@@ -91,7 +91,8 @@ export default class UIRenderer {
             this.controller.projectsAndLists,
             this.controller.handleCreateProjectClick.bind(this.controller),
             this.controller.handleTaskListClick.bind(this.controller),
-            this.controller.assignedTasksLists
+            this.controller.assignedTasksLists,
+            this.controller.handleCreateListClick.bind(this.controller)
         )
         const newSideMenu = sideMenuInstance.createSideMenu()
         this.body.replaceChild(newSideMenu, this.sideMenu)

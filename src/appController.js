@@ -116,7 +116,6 @@ export default class AppController {
 
     controlCreateProject(projectId) {
         this.projectService.createProject(projectId)
-        this.view.controlProject
     }
     controlTest() {
         this.view.taskContainer.test()
@@ -179,13 +178,24 @@ export default class AppController {
     handleCreateProjectClick(project) {
         const nextId = generateId()
         this.currentProjectId = nextId
-        const newProject = { id: nextId, title: project, assignedTasksIds: [] }
+        const newProject = { id: nextId, title: project, assignedListIds: [] }
         this.controlCreateProject(newProject)
         this.projectsAndListsOrder = [...this.projectsAndListsOrder, { type: "project", id: nextId }]
         this.generateProjectAndListArr()
         this.generateAssignedTasksLists()
-
         this.controlUpdateProjectsAndListsContainer()
+    }
+
+    handleCreateListClick(list) {
+        const nextId = generateId()
+        console.log(list)
+        const newTaskList = { id: nextId, title: list, assignedTasksIds: [] }
+        this.taskListService.createTaskList(newTaskList)
+        this.projectsAndListsOrder = [...this.projectsAndListsOrder, { type: "list", id: nextId }]
+        this.generateProjectAndListArr()
+        this.generateAssignedTasksLists()
+        this.controlUpdateProjectsAndListsContainer()
+        debugger
     }
     /*  controlProjectDisplay() {
          const myProjects = this.projectService.getProjects()

@@ -3,12 +3,12 @@ import { ITEM_TYPE } from "../types"
 
 export default class SideMenu {
 
-    constructor(projectsAndLists, handleCreateProjectClick, handleTaskListClick, assignedTasksLists) {
+    constructor(projectsAndLists, handleCreateProjectClick, handleTaskListClick, assignedTasksLists, handleCreateListClick) {
         this.projectsAndLists = projectsAndLists
         this.handleCreateProjectClick = handleCreateProjectClick
         this.handleTaskListClick = handleTaskListClick
         this.assignedTasksLists = assignedTasksLists
-
+        this.handleCreateListClick = handleCreateListClick
     }
 
     createSideMenu() {
@@ -68,16 +68,6 @@ export default class SideMenu {
         this.projectsAndListsContainer = newProjectsAndListsContainer
     }
 
-
-    displaySideMenu() {
-        this.createSideMenu();
-        const sideMenuInstance = new SideMenu([{ hola: "adios" }])
-        const newSideMenu = sideMenuInstance.createSideMenu()
-        this.body.replaceChild(newSideMenu, this.sideMenu)
-        this.sideMenuInstance = sideMenuInstance
-        this.sideMenu = newSideMenu
-    }
-
     createNewItemInput(itemType) {
 
         this.projectInputContainer = document.createElement("div")
@@ -107,7 +97,7 @@ export default class SideMenu {
             if (itemType === "project") {
                 this.handleCreateProjectClick(this.newItemText)
             } else {
-                console.log("soy una lista")
+                this.handleCreateListClick(this.newItemText)
             }
             this.removeNewInputContainer()
         })
@@ -116,6 +106,8 @@ export default class SideMenu {
 
         return this.projectInputContainer
     }
+
+
 
     removeNewInputContainer() {
         console.log("input removed")
