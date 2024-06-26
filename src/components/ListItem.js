@@ -14,8 +14,8 @@ export default function ListItem(list, handleTaskListClick) {
         `
 
     article.addEventListener("click", () => {
-        console.log("Etscusas")
-        /*  handleTaskListClick(list.id) */
+        console.log("id de lista: ", list.id)
+        handleTaskListClick(list.id)
         article.classList.add("bg-pink-50", "text-pink-600")
     })
 

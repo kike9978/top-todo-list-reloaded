@@ -191,4 +191,10 @@ export default class AppController {
         this.controlTaskDisplay()
         this.controlUpdateProjectsAndListsContainer()
     }
+
+    handleTaskListClick(taskListId) {
+        console.log("Me picaste")
+        this.currentTaskListId = taskListId
+        this.controlTaskDisplay()
+    }
 }
