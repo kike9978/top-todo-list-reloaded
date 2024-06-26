@@ -44,7 +44,16 @@ export default class TasksContainer {
     }
 
     initEventListeners() {
-        this.addNewTaskInput.addEventListener("change", (e) => this.handleAddTaskInput(e.target.value))
+        this.addNewTaskInput.addEventListener("input", (e) => this.handleAddTaskInput(e.target.value))
+        this.addNewTaskInput.addEventListener("keydown", e => {
+            if (e.key === "Enter") {
+                this.handleAddTaskClick()
+                this.addNewTaskInput.value = ""
+            }
+        })
+
+
+
         this.addNewTaskButton.addEventListener("click", () => {
             this.handleAddTaskClick()
             this.addNewTaskInput.value = ""

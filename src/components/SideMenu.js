@@ -36,23 +36,24 @@ export default class SideMenu {
 
 
         this.createListButton.addEventListener("click", () => {
-            const newListInput = this.createNewItemInput(ITEM_TYPE.list)
-            this.sideBar.insertBefore(newListInput, this.buttonRows)
-            this.createListButton.disabled = true
-            this.createProjectButton.disabled = true
-            this.newCreationInput.focus()
-            console.log("hola")
+            this.handleCreateInputClick(ITEM_TYPE.list)
         })
 
         this.createProjectButton.addEventListener("click", () => {
-            const newProjectInput = this.createNewItemInput(ITEM_TYPE.project)
-            this.sideBar.insertBefore(newProjectInput, this.buttonRows)
-            this.createListButton.disabled = true
-            this.createProjectButton.disabled = true
-            this.newCreationInput.focus()
+            this.handleCreateInputClick(ITEM_TYPE.project)
         })
         this.buttonRows.appendChild(this.createProjectButton)
         return this.sideBar
+    }
+
+    handleCreateInputClick(itemType) {
+        const newCreationInput = this.createNewItemInput(itemType)
+        this.sideBar.insertBefore(newCreationInput, this.buttonRows)
+        this.createListButton.disabled = true
+        this.createProjectButton.disabled = true
+        this.newCreationInput.focus()
+
+
     }
 
     createProjectsAndListsContainer() {
@@ -84,16 +85,24 @@ export default class SideMenu {
         this.projectInputContainer.appendChild(cancelButton)
         this.projectInputContainer.appendChild(submitButton)
 
-        this.newCreationInput.addEventListener("change", (e) => {
+        this.newCreationInput.addEventListener("input", (e) => {
             this.newItemText = e.target.value
+
         })
 
-        submitButton.addEventListener("click", () => {
+        this.newCreationInput.addEventListener("keydown", e => {
+            if (e.key === "Enter") {
+                onSubmitClick()
+            }
+        })
+
+        submitButton.addEventListener("click", () => onSubmitClick()
+        )
+        const onSubmitClick = () => {
+            console.log(this)
             if (!this.newItemText) {
                 return
             }
-            console.log(this)
-            console.log(this.newItemText)
             this.newCreationInput.value = ""
 
             if (itemType === "project") {
@@ -102,7 +111,9 @@ export default class SideMenu {
                 this.handleCreateListClick(this.newItemText)
             }
             this.removeNewInputContainer()
-        })
+
+        }
+
 
         cancelButton.addEventListener("click", () => this.removeNewInputContainer())
 
