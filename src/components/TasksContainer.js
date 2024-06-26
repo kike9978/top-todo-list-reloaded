@@ -84,7 +84,7 @@ export default class TasksContainer {
 
         button.addEventListener("click", () => {
             if (this.nextTaskListText !== "") {
-                this.handleUpdtateTaskList(0, this.nextTaskListText)
+                this.handleUpdtateTaskList(this.taskListId, this.nextTaskListText)
             }
         }
         )
