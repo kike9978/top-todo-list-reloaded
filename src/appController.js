@@ -223,4 +223,18 @@ export default class AppController {
         this.currentTaskListId = taskListId
         this.controlTaskDisplay()
     }
+
+    handleUpdtateTaskList(taskListId) {
+
+        const taskToUpdate = this.taskListService.getListById(taskListId)
+        taskToUpdate.title = "hola que hace"
+
+
+        this.taskListService.updateTaskList({ ...taskToUpdate })
+        this.generateProjectAndListArr()
+        this.controlTaskDisplay()
+        this.controlUpdateProjectsAndListsContainer()
+        console.warn("hola")
+        console.log(this.taskListService.getLists())
+    }
 }
