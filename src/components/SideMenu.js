@@ -38,16 +38,18 @@ export default class SideMenu {
         this.createListButton.addEventListener("click", () => {
             const newListInput = this.createNewItemInput(ITEM_TYPE.list)
             this.sideBar.insertBefore(newListInput, this.buttonRows)
-            this.newCreationInput.focus()
             this.createListButton.disabled = true
+            this.createProjectButton.disabled = true
+            this.newCreationInput.focus()
             console.log("hola")
         })
 
         this.createProjectButton.addEventListener("click", () => {
             const newProjectInput = this.createNewItemInput(ITEM_TYPE.project)
             this.sideBar.insertBefore(newProjectInput, this.buttonRows)
-            this.newCreationInput.focus()
+            this.createListButton.disabled = true
             this.createProjectButton.disabled = true
+            this.newCreationInput.focus()
         })
         this.buttonRows.appendChild(this.createProjectButton)
         return this.sideBar
@@ -114,6 +116,7 @@ export default class SideMenu {
 
         this.sideBar.removeChild(this.projectInputContainer)
         this.createProjectButton.disabled = false
+        this.createListButton.disabled = false
 
     }
 

@@ -195,7 +195,6 @@ export default class AppController {
         this.generateProjectAndListArr()
         this.generateAssignedTasksLists()
         this.controlUpdateProjectsAndListsContainer()
-        debugger
     }
     /*  controlProjectDisplay() {
          const myProjects = this.projectService.getProjects()
