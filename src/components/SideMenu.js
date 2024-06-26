@@ -17,7 +17,7 @@ export default class SideMenu {
         this.buttonRows = document.createElement("div")
         this.createListButton = document.createElement("button")
 
-        this.sideBar.className = "flex flex-col gap-2 bg-gray-50 h-full"
+        this.sideBar.className = "flex flex-col gap-2 bg-gray-50 h-full overflow-hidden"
         this.projectsAndListsContainer = this.createProjectsAndListsContainer()
         this.sideBar.appendChild(this.projectsAndListsContainer)
 
