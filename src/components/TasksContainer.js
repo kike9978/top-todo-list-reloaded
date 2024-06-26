@@ -10,7 +10,7 @@ export default class TasksContainer {
         handleAddTaskInput,
         handleAddTaskClick,
         handleDeleteTaskClick,
-        taskListTitle,
+        taskList,
         handleUpdtateTaskList) {
 
         this.pendingTasks = pendingTasks;
@@ -19,8 +19,10 @@ export default class TasksContainer {
         this.handleAddTaskInput = handleAddTaskInput;
         this.handleAddTaskClick = handleAddTaskClick;
         this.handleDeleteTaskClick = handleDeleteTaskClick;
-        this.taskListTitle = taskListTitle;
+        this.taskListTitle = taskList.title;
+        this.taskListId = taskList.id
         this.handleUpdtateTaskList = handleUpdtateTaskList
+        this.nextTaskListText = ""
     }
 
     createTaskContainer() {
@@ -57,8 +59,10 @@ export default class TasksContainer {
         const header = document.createElement("section")
         const title = document.createElement("h2")
         const button = document.createElement("button")
+        const input = document.createElement("input")
 
         header.appendChild(title)
+        header.appendChild(input)
         header.appendChild(button)
 
         header.className = "flex justify-between"
@@ -66,8 +70,22 @@ export default class TasksContainer {
         button.innerText = "⛈️"
         title.innerText = this.taskListTitle ?? "Título de lista"
 
+        input.addEventListener("input", (e) => {
+            this.nextTaskListText = e.target.value
+        })
+
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                if (this.nextTaskListText !== "") {
+                    this.handleUpdtateTaskList(this.taskListId, this.nextTaskListText)
+                }
+            }
+        })
+
         button.addEventListener("click", () => {
-            this.handleUpdtateTaskList(0)
+            if (this.nextTaskListText !== "") {
+                this.handleUpdtateTaskList(0, this.nextTaskListText)
+            }
         }
         )
 

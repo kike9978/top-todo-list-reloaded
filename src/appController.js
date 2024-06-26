@@ -75,7 +75,9 @@ export default class AppController {
     controlTaskDisplay() {
         if (this.currentTaskListId !== null) {
             const currentTasks = this.getCurrentProjectTasksSeparated()
-            this.view.displayTasksContainer(currentTasks.pendingTasks, currentTasks.completedTasks, this.taskListService.getListById(this.currentTaskListId).title)
+            this.view.displayTasksContainer(currentTasks.pendingTasks,
+                currentTasks.completedTasks,
+                { title: this.taskListService.getListById(this.currentTaskListId).title, id: this.currentTaskListId })
         }
     }
 
@@ -224,17 +226,13 @@ export default class AppController {
         this.controlTaskDisplay()
     }
 
-    handleUpdtateTaskList(taskListId) {
+    handleUpdtateTaskList(taskListId, newTaskListTitle = "Pompis") {
 
         const taskToUpdate = this.taskListService.getListById(taskListId)
-        taskToUpdate.title = "hola que hace"
-
-
+        taskToUpdate.title = newTaskListTitle
         this.taskListService.updateTaskList({ ...taskToUpdate })
         this.generateProjectAndListArr()
         this.controlTaskDisplay()
         this.controlUpdateProjectsAndListsContainer()
-        console.warn("hola")
-        console.log(this.taskListService.getLists())
     }
 }
