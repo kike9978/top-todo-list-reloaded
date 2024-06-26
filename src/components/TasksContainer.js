@@ -46,11 +46,9 @@ export default class TasksContainer {
     initEventListeners() {
         this.addNewTaskInput.addEventListener("input", (e) => this.handleAddTaskInput(e.target.value))
         this.addNewTaskInput.addEventListener("keydown", e => {
-            if (e.key === "Enter") {
-                this.handleAddTaskClick()
-                this.addNewTaskInput.value = ""
-            }
+            this.handleInputEnter(e)
         })
+        this.addNewTaskInput.removeEventListener("blur", this.handleInputEnter)
 
 
 
@@ -59,6 +57,13 @@ export default class TasksContainer {
             this.addNewTaskInput.value = ""
         }
         )
+    }
+
+    handleInputEnter(e) {
+        if (e.key === "Enter") {
+            this.handleAddTaskClick()
+            this.addNewTaskInput.value = ""
+        }
     }
 
     createSection(headingText) {
