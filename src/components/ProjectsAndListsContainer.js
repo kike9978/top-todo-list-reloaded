@@ -26,7 +26,7 @@ export default class ProjectsAndListsContainer {
 
         this.projectsAndLists.forEach(item => {
             if (item.type === ITEM_TYPE.project) {
-                const assignedTasksLists = this.assignedTasksLists.find(a => a.projectId === item.id)
+                const assignedTasksLists = this.assignedTasksLists.find(a => a.projectId === item.id).lists
                 this.projectsAndListsContainer.appendChild(ProjectItem(item, this.handleTaskListClick, this.currentProjectId, assignedTasksLists))
                 return
             }

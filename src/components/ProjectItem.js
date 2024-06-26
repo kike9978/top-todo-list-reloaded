@@ -13,7 +13,9 @@ export default function ProjectItem(project, handleTaskListClick, currentProject
 
     article.className = " hover:bg-pink-100 p-3 rounded flex justify-between"
 
-    article.querySelector("details").appendChild(ListItem({ title: "Lista 23", id: 1 }, handleTaskListClick))
+    assignedTasksLists.forEach(taskList => {
+        article.querySelector("details").appendChild(ListItem({ title: taskList.title, id: taskList.id }, handleTaskListClick))
+    })
 
     if (currentProjectId === project.id) {
         article.classList.add("bg-pink-50", "text-pink-600")
