@@ -16,7 +16,7 @@ export default class ProjectsAndListsContainer {
 
     createProjectAndlistsContainer() {
         this.projectsAndListsContainer = document.createElement("section")
-        this.projectsAndListsContainer.className = ""
+        this.projectsAndListsContainer.className = "basis-full overflow-y-auto"
         this.populateItems()
         return this.projectsAndListsContainer
     }

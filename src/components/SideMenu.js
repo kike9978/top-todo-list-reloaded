@@ -12,7 +12,6 @@ export default class SideMenu {
 
     createSideMenu() {
         this.sideBar = document.createElement("aside")
-        this.sideBar.innerText = "hola"
 
         this.buttonRows = document.createElement("div")
         this.createListButton = document.createElement("button")
@@ -38,6 +37,7 @@ export default class SideMenu {
         this.createListButton.addEventListener("click", () => {
             const newListInput = this.createNewItemInput(ITEM_TYPE.list)
             this.sideBar.insertBefore(newListInput, this.buttonRows)
+            this.newCreationInput.focus()
             this.createListButton.disabled = true
             console.log("hola")
         })
@@ -45,6 +45,7 @@ export default class SideMenu {
         this.createProjectButton.addEventListener("click", () => {
             const newProjectInput = this.createNewItemInput(ITEM_TYPE.project)
             this.sideBar.insertBefore(newProjectInput, this.buttonRows)
+            this.newCreationInput.focus()
             this.createProjectButton.disabled = true
         })
         this.buttonRows.appendChild(this.createProjectButton)
@@ -79,18 +80,18 @@ export default class SideMenu {
     createNewItemInput(itemType) {
 
         this.projectInputContainer = document.createElement("div")
-        const newCreationInput = document.createElement("input")
+        this.newCreationInput = document.createElement("input")
         const cancelButton = document.createElement("button");
         const submitButton = document.createElement("button")
 
         cancelButton.innerText = "x"
         submitButton.innerText = "Create"
 
-        this.projectInputContainer.appendChild(newCreationInput)
+        this.projectInputContainer.appendChild(this.newCreationInput)
         this.projectInputContainer.appendChild(cancelButton)
         this.projectInputContainer.appendChild(submitButton)
 
-        newCreationInput.addEventListener("change", (e) => {
+        this.newCreationInput.addEventListener("change", (e) => {
             this.newItemText = e.target.value
         })
 
@@ -100,7 +101,7 @@ export default class SideMenu {
             }
             console.log(this)
             console.log(this.newItemText)
-            newCreationInput.value = ""
+            this.newCreationInput.value = ""
 
             if (itemType === "project") {
                 this.handleCreateProjectClick(this.newItemText)
