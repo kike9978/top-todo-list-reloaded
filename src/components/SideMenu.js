@@ -125,6 +125,4 @@ export default class SideMenu {
 
     }
 
-
-
 }

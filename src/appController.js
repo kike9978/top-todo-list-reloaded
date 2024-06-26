@@ -24,7 +24,11 @@ export default class AppController {
             {
                 type: "project",
                 id: 1,
-            }
+            },
+            {
+                type: "project",
+                id: 2,
+            },
         ]
         this.assignedTasksLists = []
 
@@ -69,7 +73,7 @@ export default class AppController {
 
 
     controlTaskDisplay() {
-        if (this.currentProjectId !== null) {
+        if (this.currentTaskListId !== null) {
             const currentTasks = this.getCurrentProjectTasksSeparated()
             this.view.displayTasksContainer(currentTasks.pendingTasks, currentTasks.completedTasks, this.taskListService.getListById(this.currentTaskListId).title)
         }
@@ -171,10 +175,6 @@ export default class AppController {
 
 
 
-    handleProjectClick(projectId) {
-        this.currentProjectId = projectId
-        this.controlTaskDisplay()
-    }
 
     handleCreateProjectClick(project) {
         const nextId = generateId()
@@ -183,8 +183,8 @@ export default class AppController {
         this.controlCreateProject(newProject)
         this.projectsAndListsOrder = [...this.projectsAndListsOrder, { type: "project", id: nextId }]
         this.generateProjectAndListArr()
-        console.log(this.projectService.getProjects())
-        console.log(this.projectsAndLists)
+        this.generateAssignedTasksLists()
+
         this.controlUpdateProjectsAndListsContainer()
     }
     /*  controlProjectDisplay() {
@@ -205,7 +205,6 @@ export default class AppController {
         console.log(taskId)
         this.taskService.deleteTask(taskId)
         this.taskListService.removeTaskFromList(taskId, this.currentTaskListId)
-        console.log(this.taskListService.getListById(this.currentProjectId))
         this.controlTaskDisplay()
         this.controlUpdateProjectsAndListsContainer()
     }

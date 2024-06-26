@@ -28,7 +28,11 @@ const data = {
             id: 1,
             title: "🦐 Proyecto 2",
             assignedListIds: [2]
-
+        },
+        {
+            id: 2,
+            title: "🦐 Proyecto 3",
+            assignedListIds: []
         },
     ],
     lists: [

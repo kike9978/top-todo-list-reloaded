@@ -23,7 +23,6 @@ export default class ProjectsAndListsContainer {
     }
 
     populateItems() {
-
         this.projectsAndLists.forEach(item => {
             if (item.type === ITEM_TYPE.project) {
                 const assignedTasksLists = this.assignedTasksLists.find(a => a.projectId === item.id).lists
@@ -57,10 +56,12 @@ export default class ProjectsAndListsContainer {
         console.count("hola")
     }
 
-    updateProjectsAndListsContainer(projectsAndLists) {
+    updateProjectsAndListsContainer(projectsAndLists, newAssignedTasksLists) {
         this.removeProjectContainer()
         this.projectsAndLists = projectsAndLists
+        this.assignedTasksLists = newAssignedTasksLists
         this.populateItems()
 
     }
+
 }

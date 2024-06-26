@@ -112,9 +112,11 @@ export default class UIRenderer {
     }
 
     updateProjectsAndListsContainer() {
-        console.count("hola")
-        this.sideMenuInstance.projectsAndListsContainerInstance.updateProjectsAndListsContainer(this.controller.projectsAndLists)
+
+        this.sideMenuInstance.projectsAndListsContainerInstance.updateProjectsAndListsContainer(this.controller.projectsAndLists, this.controller.assignedTasksLists)
     }
+
+
 
 }
 
