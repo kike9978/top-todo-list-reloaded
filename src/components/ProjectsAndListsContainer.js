@@ -6,12 +6,13 @@ import { ITEM_TYPE } from "../types"
 
 
 export default class ProjectsAndListsContainer {
-    constructor(projectsAndLists, handleProjectClick, currentProjectId, handleCreateProjectClick, handleTaskListClick) {
+    constructor(projectsAndLists, handleProjectClick, currentProjectId, handleCreateProjectClick, handleTaskListClick, assignedTasksLists) {
         this.projectsAndLists = projectsAndLists
         this.handleProjectClick = handleProjectClick
         this.currentProjectId = currentProjectId
         this.handleCreateProjectClick = handleCreateProjectClick
         this.handleTaskListClick = handleTaskListClick
+        this.assignedTasksLists = assignedTasksLists
     }
 
     createProjectAndlistsContainer() {
@@ -22,9 +23,11 @@ export default class ProjectsAndListsContainer {
     }
 
     populateItems() {
+
         this.projectsAndLists.forEach(item => {
             if (item.type === ITEM_TYPE.project) {
-                this.projectsAndListsContainer.appendChild(ProjectItem(item, this.handleTaskListClick, this.currentProjectId))
+                const assignedTasksLists = this.assignedTasksLists.find(a => a.projectId === item.id)
+                this.projectsAndListsContainer.appendChild(ProjectItem(item, this.handleTaskListClick, this.currentProjectId, assignedTasksLists))
                 return
             }
             else {

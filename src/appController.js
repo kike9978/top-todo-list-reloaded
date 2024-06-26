@@ -26,6 +26,7 @@ export default class AppController {
                 id: 1,
             }
         ]
+        this.assignedTasksLists = []
 
 
     }
@@ -33,6 +34,7 @@ export default class AppController {
 
     init() {
         /*  this.controlProjectDisplay() */
+        this.generateAssignedTasksLists()
         this.generateProjectAndListArr()
         this.controlTaskDisplay()
         this.controlSideMenuDisplay()
@@ -46,6 +48,22 @@ export default class AppController {
             }
             return { ...this.taskListService.getListById(item.id), type: "list" }
         })
+    }
+
+    generateAssignedTasksLists() {
+        const projects = this.projectService.getProjects();
+
+        const newAssignedTasksLists = projects.map(project => {
+            const currentProjectTasksLists = project.assignedListIds.map(listId => {
+                return this.taskListService.getListById(listId)
+            })
+
+            return { projectId: project.id, lists: currentProjectTasksLists }
+        })
+        console.log("nes assigned tasks lists:", newAssignedTasksLists)
+
+        this.assignedTasksLists = newAssignedTasksLists
+
     }
 
 

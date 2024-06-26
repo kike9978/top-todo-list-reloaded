@@ -3,10 +3,11 @@ import { ITEM_TYPE } from "../types"
 
 export default class SideMenu {
 
-    constructor(projectsAndLists, handleCreateProjectClick, handleTaskListClick) {
+    constructor(projectsAndLists, handleCreateProjectClick, handleTaskListClick, assignedTasksLists) {
         this.projectsAndLists = projectsAndLists
         this.handleCreateProjectClick = handleCreateProjectClick
         this.handleTaskListClick = handleTaskListClick
+        this.assignedTasksLists = assignedTasksLists
 
     }
 
@@ -54,7 +55,7 @@ export default class SideMenu {
 
     createProjectsAndListsContainer() {
         this.projectsAndListsContainerInstance = new ProjectsAndListsContainer(
-            this.projectsAndLists, "", "", "", this.handleTaskListClick
+            this.projectsAndLists, "", "", "", this.handleTaskListClick, this.assignedTasksLists
         )
         const newProjectsAndListsContainer = this.projectsAndListsContainerInstance.createProjectAndlistsContainer()
         return newProjectsAndListsContainer

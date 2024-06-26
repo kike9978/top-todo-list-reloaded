@@ -21,7 +21,7 @@ const data = {
         {
             id: 0,
             title: "🦧 Proyecto 1",
-            assignedListIds: [0]
+            assignedListIds: [1]
 
         },
         {

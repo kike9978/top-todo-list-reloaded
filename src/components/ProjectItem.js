@@ -1,6 +1,6 @@
 import ListItem from "./ListItem"
 
-export default function ProjectItem(project, handleTaskListClick, currentProjectId) {
+export default function ProjectItem(project, handleTaskListClick, currentProjectId, assignedTasksLists) {
     const article = document.createElement("article")
     article.innerHTML = `
         <details>
@@ -19,6 +19,8 @@ export default function ProjectItem(project, handleTaskListClick, currentProject
         article.classList.add("bg-pink-50", "text-pink-600")
 
     }
+    console.log("Proyecto: ", project.id, "lists", assignedTasksLists)
+
 
 
 
