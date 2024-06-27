@@ -235,4 +235,14 @@ export default class AppController {
         this.controlTaskDisplay()
         this.controlUpdateProjectsAndListsContainer()
     }
+
+    handleUpdateProjectInput(projectId, newTitle) {
+        console.log(projectId, newTitle)
+        const projectToUpdate = { ...this.projectService.getProjectbyId(projectId) }
+        projectToUpdate.title = newTitle
+        debugger
+        this.projectService.updateProject(projectToUpdate)
+        this.generateProjectAndListArr()
+        this.controlUpdateProjectsAndListsContainer()
+    }
 }

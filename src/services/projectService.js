@@ -82,5 +82,15 @@ export default class ProjectService {
         this.updateProject(projectId, updatedProject)
 
     }
+    updateProject(projectData) {
+        this.myProjects = this.myProjects.map(project => {
+            if (project.id === projectData.id) {
+                return new Project({ ...projectData })
+            }
+            else {
+                return project
+            }
+        })
+    }
 
 }
