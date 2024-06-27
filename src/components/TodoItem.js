@@ -4,8 +4,13 @@ export default function TodoItem(task, onChange, handleDeleteTaskClick) {
 
     article.innerHTML = `
 
-    <label > 
-        <input type="checkbox" ${task.isCompleted ? "checked" : ""} "> 
+    <label class="cursor-pointer"> 
+        <input type="checkbox" ${task.isCompleted ? "checked" : ""} " class="appearance-none border 
+        border-solid border-blue-400 size-4 rounded-full
+        cursor-pointer inline-grid place-content-center 
+        before:content-[''] before:size-2 before:bg-blue-400 before:scale-0 before:transition-transform before:rounded-full
+        checked:before:scale-100 "> 
+
        <span class="${task.isCompleted ? "line-through text-slate-400" : ""}"> ${task.title}</span>
     </label>
     <div class="h-full justify-center items-center absolute right-2 gap-2">
@@ -35,6 +40,8 @@ export default function TodoItem(task, onChange, handleDeleteTaskClick) {
 
     const checkbox = article.querySelector("input")
 
-    checkbox.addEventListener("change", () => onChange(task.id, task))
+    checkbox.addEventListener("change", () => {
+        onChange(task.id, task)
+    })
     return article
 }

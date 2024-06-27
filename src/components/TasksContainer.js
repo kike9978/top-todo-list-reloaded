@@ -23,6 +23,7 @@ export default class TasksContainer {
         this.taskListId = taskList.id
         this.handleUpdtateTaskList = handleUpdtateTaskList
         this.nextTaskListText = ""
+        this.taskList = taskList
     }
 
     createTaskContainer() {
@@ -68,7 +69,9 @@ export default class TasksContainer {
         header.className = "flex justify-between"
 
         button.innerText = "⛈️"
-        title.innerText = this.taskListTitle ?? "Título de lista"
+        const titleText = this.taskListTitle ?? "Título de lista"
+        title.innerText = titleText
+
 
         input.addEventListener("input", (e) => {
             this.nextTaskListText = e.target.value

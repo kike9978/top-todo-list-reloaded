@@ -138,7 +138,10 @@ export default class AppController {
         }
         this.taskService.updateTask(taskId, updatedTask)
         const currentTasks = this.getCurrentProjectTasksSeparated()
-        this.view.displayTasksContainer(currentTasks.pendingTasks, currentTasks.completedTasks, this.taskListService.getListById(this.currentTaskListId).title)
+        this.view.displayTasksContainer(currentTasks.pendingTasks,
+            currentTasks.completedTasks,
+            { title: this.taskListService.getListById(this.currentTaskListId).title, id: this.currentTaskListId }
+        )
     }
 
     handleAddTaskInput(newTask) {
@@ -240,7 +243,6 @@ export default class AppController {
         console.log(projectId, newTitle)
         const projectToUpdate = { ...this.projectService.getProjectbyId(projectId) }
         projectToUpdate.title = newTitle
-        debugger
         this.projectService.updateProject(projectToUpdate)
         this.generateProjectAndListArr()
         this.controlUpdateProjectsAndListsContainer()
