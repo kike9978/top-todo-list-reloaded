@@ -1,4 +1,4 @@
-export default function TodoItem(task, onChange, handleDeleteTaskClick) {
+export default function TodoItem(task, onChange, handleDeleteTaskClick, assignedProject = null) {
     const article = document.createElement("article")
     article.className = "bg-slate-50 rounded flex justify-between relative todo-item"
 
@@ -9,7 +9,7 @@ export default function TodoItem(task, onChange, handleDeleteTaskClick) {
         border-solid border-blue-400 size-4 rounded-full
         cursor-pointer inline-grid place-content-center 
         before:content-[''] before:size-2 before:bg-blue-400 before:scale-0 before:transition-transform before:rounded-full
-        checked:before:scale-100 "> 
+        hover:before:scale-100 hover:before:bg-blue-300 checked:before:scale-100 "> 
 
        <span class="${task.isCompleted ? "line-through text-slate-400" : ""}"> ${task.title}</span>
     </label>

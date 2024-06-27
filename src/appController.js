@@ -137,11 +137,7 @@ export default class AppController {
             ...taskData, isCompleted: !taskData.isCompleted
         }
         this.taskService.updateTask(taskId, updatedTask)
-        const currentTasks = this.getCurrentProjectTasksSeparated()
-        this.view.displayTasksContainer(currentTasks.pendingTasks,
-            currentTasks.completedTasks,
-            { title: this.taskListService.getListById(this.currentTaskListId).title, id: this.currentTaskListId }
-        )
+        this.controlTaskDisplay()
     }
 
     handleAddTaskInput(newTask) {
@@ -246,5 +242,35 @@ export default class AppController {
         this.projectService.updateProject(projectToUpdate)
         this.generateProjectAndListArr()
         this.controlUpdateProjectsAndListsContainer()
+    }
+
+    handleUpdateListSubmit(listAndProjectAssignationData) {
+        debugger
+
+        const updatedList = this.taskListService.getListById(listAndProjectAssignationData.id)
+        updatedList.title = listAndProjectAssignationData.title
+        this.taskListService.updateTaskList(updatedList)
+        this.projectService.addTaskListToProject(listAndProjectAssignationData.id, Number(listAndProjectAssignationData.assignedProjectId))
+
+        const isInProjectsAndLists = this.projectsAndListsOrder.some(item => {
+            return item.id === listAndProjectAssignationData.id && item.type === "taskList"
+        })
+
+        if (isInProjectsAndLists) {
+            this.removeItemFromProjectsAndListsOrder("taskList", listAndProjectAssignationData.id)
+        }
+        this.generateProjectAndListArr()
+        this.generateAssignedTasksLists()
+        this.controlUpdateProjectsAndListsContainer()
+        debugger
+    }
+
+    removeItemFromProjectsAndListsOrder(type, id) {
+        this.projectsAndListsOrder = this.projectsAndListsOrder.filter(item => {
+
+
+            return !(item.type === type && item.id === id)
+        })
+
     }
 }

@@ -11,7 +11,9 @@ export default class TasksContainer {
         handleAddTaskClick,
         handleDeleteTaskClick,
         taskList,
-        handleUpdtateTaskList) {
+        handleUpdtateTaskList,
+        handleUpdateListSubmit
+    ) {
 
         this.pendingTasks = pendingTasks;
         this.completedTasks = completedTasks;
@@ -23,7 +25,7 @@ export default class TasksContainer {
         this.taskListId = taskList.id
         this.handleUpdtateTaskList = handleUpdtateTaskList
         this.nextTaskListText = ""
-        this.taskList = taskList
+        this.handleUpdateListSubmit = handleUpdateListSubmit
     }
 
     createTaskContainer() {
@@ -86,6 +88,11 @@ export default class TasksContainer {
         })
 
         button.addEventListener("click", () => {
+            const dialog = document.querySelector("dialog")
+
+            dialog.innerHTML = ""
+            dialog.appendChild(this.createEditTaskListForm())
+            dialog.showModal()
             if (this.nextTaskListText !== "") {
                 this.handleUpdtateTaskList(this.taskListId, this.nextTaskListText)
             }
@@ -94,7 +101,47 @@ export default class TasksContainer {
 
 
 
+
+
         return header
+    }
+
+    createEditTaskListForm() {
+        const form = document.createElement("form")
+        form.className = "flex flex-col"
+
+        form.innerHTML = `
+        <h1>Edit Task List</h1>
+        <label>
+        Título
+        <input placeholder="Title" value="${this.taskListTitle}" name="title"/>
+        </label>
+        <label >
+        Project
+            <select name="assignedProjectId">
+            <option value="2">Project 3</option>
+            </select>
+        </label>
+        <button type="button">Cancel</button>
+        <button>Ok</button>
+        `
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault()
+            const newListData = generateNewTaskInfo(e)
+            this.handleUpdateListSubmit({ ...newListData, id: this.taskListId })
+            document.querySelector("dialog").close()
+        })
+
+        form.querySelector("button").addEventListener("click", () => document.querySelector("dialog").close())
+
+        function generateNewTaskInfo(e) {
+            const formData = new FormData(e.target)
+            const formObj = Object.fromEntries(formData.entries())
+            return formObj
+        }
+
+        return form
     }
 
     initEventListeners() {

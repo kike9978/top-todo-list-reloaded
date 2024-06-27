@@ -34,34 +34,34 @@ export default class ProjectService {
         })
     }
 
-    addTaskToProject(taskId, projectId) {
-
-
-        this.myProjects = this.myProjects.map(project => {
-            if (project.id === projectId) {
-                return new Project({ ...project, assignedListIds: [...project.assignedListIds, taskId] })
-            }
-            else {
-                return project
-            }
-        })
-
-    }
-    removeTaskFromProject(taskId, projectId) {
-        this.myProjects = this.myProjects.map(project => {
-            if (project.id === projectId) {
-
-                const newAssignedTasksIds = project.assignedListIds.filter(id => {
-                    return id !== taskId
-                })
-
-                return new Project({ ...project, assignedListIds: newAssignedTasksIds })
-            }
-            else {
-                return project
-            }
-        })
-    }
+    /*  addTaskToProject(taskId, projectId) {
+ 
+ 
+         this.myProjects = this.myProjects.map(project => {
+             if (project.id === projectId) {
+                 return new Project({ ...project, assignedListIds: [...project.assignedListIds, taskId] })
+             }
+             else {
+                 return project
+             }
+         })
+ 
+     }
+     removeTaskFromProject(taskId, projectId) {
+         this.myProjects = this.myProjects.map(project => {
+             if (project.id === projectId) {
+ 
+                 const newAssignedTasksIds = project.assignedListIds.filter(id => {
+                     return id !== taskId
+                 })
+ 
+                 return new Project({ ...project, assignedListIds: newAssignedTasksIds })
+             }
+             else {
+                 return project
+             }
+         })
+     } */
 
     /* getCurrentProjectTasksIds(projectId) {
         const currentProjectTasksIds = this.getProjectbyId(projectId).assignedListIds
@@ -91,6 +91,25 @@ export default class ProjectService {
                 return project
             }
         })
+    }
+
+    findProjectFromListId(listId) {
+        const projectToReturn = this.myProjects.find(project => {
+            return project.assignedListIds.includes(listId)
+        }).id
+        return projectToReturn
+    }
+
+    addTaskListToProject(listId, projectId) {
+        this.myProjects = this.myProjects.map(project => {
+            if (project.id === projectId) {
+                return new Project({ ...project, assignedListIds: [...project.assignedListIds, listId] })
+            }
+            else {
+                return project
+            }
+        })
+
     }
 
 }
