@@ -50,7 +50,7 @@ export default class AppController {
             if (item.type === "project") {
                 return { ...this.projectService.getProjectbyId(item.id), type: "project" }
             }
-            return { ...this.taskListService.getListById(item.id), type: "list" }
+            return { ...this.taskListService.getListById(item.id), type: "taskList" }
         })
     }
 
@@ -192,7 +192,7 @@ export default class AppController {
         console.log(list)
         const newTaskList = { id: nextId, title: list, assignedTasksIds: [] }
         this.taskListService.createTaskList(newTaskList)
-        this.projectsAndListsOrder = [...this.projectsAndListsOrder, { type: "list", id: nextId }]
+        this.projectsAndListsOrder = [...this.projectsAndListsOrder, { type: "taskList", id: nextId }]
         this.generateProjectAndListArr()
         this.generateAssignedTasksLists()
         this.controlUpdateProjectsAndListsContainer()
@@ -245,7 +245,6 @@ export default class AppController {
     }
 
     handleUpdateListSubmit(listAndProjectAssignationData) {
-        debugger
 
         const updatedList = this.taskListService.getListById(listAndProjectAssignationData.id)
         updatedList.title = listAndProjectAssignationData.title
@@ -262,12 +261,10 @@ export default class AppController {
         this.generateProjectAndListArr()
         this.generateAssignedTasksLists()
         this.controlUpdateProjectsAndListsContainer()
-        debugger
     }
 
     removeItemFromProjectsAndListsOrder(type, id) {
         this.projectsAndListsOrder = this.projectsAndListsOrder.filter(item => {
-
 
             return !(item.type === type && item.id === id)
         })
