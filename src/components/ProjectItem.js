@@ -24,16 +24,13 @@ export default function ProjectItem(project, handleTaskListClick, currentProject
 
     article.querySelector("summary").addEventListener("contextmenu", (e) => {
         e.preventDefault()
-        console.log(article.querySelector("span"))
 
         const input = document.createElement("input")
-        console.log(article.querySelector("summary").querySelector("span"))
         article.querySelector("summary").replaceChild(input, article.querySelector("span"))
         input.focus()
 
         input.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
-                console.log(e.target.value)
                 handleUpdateProjectInput(project.id, e.target.value)
 
             }
@@ -48,7 +45,6 @@ export default function ProjectItem(project, handleTaskListClick, currentProject
         article.classList.add("bg-pink-50", "text-pink-600")
 
     }
-    console.log("Proyecto: ", project.id, "lists", assignedTasksLists)
 
 
 

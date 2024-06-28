@@ -89,7 +89,6 @@ export default class UIRenderer {
 
     displaySideMenu() {
         this.createSideMenu();
-        console.table(this.controller.projectsAndLists)
         const sideMenuInstance = new SideMenu(
             this.controller.projectsAndLists,
             this.controller.handleCreateProjectClick.bind(this.controller),

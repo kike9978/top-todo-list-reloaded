@@ -20,18 +20,23 @@ const data = {
     projects: [
         {
             id: 0,
-            title: "🦧 Proyecto 1",
+            title: "🦧 Projects",
             assignedListIds: [1]
 
         },
         {
             id: 1,
-            title: "🦐 Proyecto 2",
+            title: "🦐 Areas",
             assignedListIds: [2]
         },
         {
             id: 2,
-            title: "🦐 Proyecto 3",
+            title: "🍆 Resources",
+            assignedListIds: []
+        },
+        {
+            id: 3,
+            title: "🥬 Archives",
             assignedListIds: []
         },
     ],

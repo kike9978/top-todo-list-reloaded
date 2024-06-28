@@ -21,7 +21,6 @@ export default function TodoItem(task, onChange, handleDeleteTaskClick, assigned
     `
     const elimButton = article.querySelectorAll("button")[0]
     elimButton.addEventListener("click", () => {
-        console.log("Eliminar")
         handleDeleteTaskClick(task.id)
     })
     const editButton = article.querySelectorAll("button")[1]

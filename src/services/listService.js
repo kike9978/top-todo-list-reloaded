@@ -22,8 +22,6 @@ export default class ListService {
 
     getTaskListTasksIds(taskListId) {
         const taskList = this.getListById(taskListId)
-        console.log(taskList)
-        console.log(this.myLists)
         const taskListTasksIds = taskList.getAssignedTasksIds()
         return taskListTasksIds
     }

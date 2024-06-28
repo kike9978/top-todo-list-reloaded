@@ -45,7 +45,6 @@ export default class ProjectsAndListsContainer {
     }
 
     removeProjectContainer() {
-        console.log("hola")
         this.projectsAndListsContainer.innerHTML = ""
 
     }
@@ -60,7 +59,6 @@ export default class ProjectsAndListsContainer {
     }
 
     sayHello() {
-        console.count("hola")
     }
 
     updateProjectsAndListsContainer(projectsAndLists, newAssignedTasksLists) {

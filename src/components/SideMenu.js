@@ -108,7 +108,6 @@ export default class SideMenu {
         submitButton.addEventListener("click", () => onSubmitClick()
         )
         const onSubmitClick = () => {
-            console.log(this)
             if (!this.newItemText) {
                 return
             }
@@ -132,7 +131,6 @@ export default class SideMenu {
 
 
     removeNewInputContainer() {
-        console.log("input removed")
 
         this.sideBar.removeChild(this.projectInputContainer)
         this.createProjectButton.disabled = false

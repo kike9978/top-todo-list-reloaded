@@ -22,9 +22,7 @@ export default class TaskService {
     }
 
     getTaskById(taskId) {
-        console.log("taskId: ", taskId)
         const task = this.myTodos.find(t => t.id === taskId)
-        console.log("getTaskById")
         if (task) {
             return task
         }
