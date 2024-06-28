@@ -31,7 +31,7 @@ export default class TasksContainer {
         this.projects = projects
 
         const parentProject = this.projects.find(project => project.assignedListIds.includes(this.taskListId))
-        this.parentProject = parentProject ? parentProject.id : undefined
+        this.parentProjectId = parentProject ? parentProject.id : ""
     }
 
     createTaskContainer() {
@@ -136,13 +136,19 @@ export default class TasksContainer {
         this.projects.forEach(project => {
 
             form.querySelector("select").innerHTML += `
-            <option value="${project.id}" ${this.parentProject === project.id && "selected"}>${project.title}</option>
+            <option value="${project.id}" ${this.parentProjectId === project.id && "selected"}>${project.title}</option>
             `
         })
 
         form.addEventListener("submit", (e) => {
             e.preventDefault()
+
             const newListData = generateNewTaskInfo(e)
+            if (newListData.title === this.taskListTitle && newListData.assignedProjectId === this.parentProjectId) {
+                console.log("Es igualito")
+                document.querySelector("dialog").close()
+                return
+            }
             this.handleUpdateListSubmit({ ...newListData, id: this.taskListId })
             document.querySelector("dialog").close()
         })
