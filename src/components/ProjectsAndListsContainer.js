@@ -6,7 +6,13 @@ import { ITEM_TYPE } from "../types"
 
 
 export default class ProjectsAndListsContainer {
-    constructor(projectsAndLists, handleProjectClick, currentProjectId, handleCreateProjectClick, handleTaskListClick, assignedTasksLists, handleUpdateProjectInput) {
+    constructor(projectsAndLists,
+        handleProjectClick,
+        currentProjectId,
+        handleCreateProjectClick,
+        handleTaskListClick,
+        assignedTasksLists,
+        handleUpdateProjectInput) {
         this.projectsAndLists = projectsAndLists
         this.handleProjectClick = handleProjectClick
         this.currentProjectId = currentProjectId

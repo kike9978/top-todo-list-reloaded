@@ -73,11 +73,15 @@ export default class AppController {
 
 
     controlTaskDisplay() {
+
         if (this.currentTaskListId !== null) {
             const currentTasks = this.getCurrentProjectTasksSeparated()
-            this.view.displayTasksContainer(currentTasks.pendingTasks,
+            this.view.displayTasksContainer(
+                currentTasks.pendingTasks,
                 currentTasks.completedTasks,
-                { title: this.taskListService.getListById(this.currentTaskListId).title, id: this.currentTaskListId })
+                { title: this.taskListService.getListById(this.currentTaskListId).title, id: this.currentTaskListId },
+                this.projectService.getProjects()
+            )
         }
     }
 

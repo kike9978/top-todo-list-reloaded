@@ -65,7 +65,7 @@ export default class UIRenderer {
            this.projectContainer = newProjectContainer
        }
     */
-    displayTasksContainer(pendingTasks, completedTasks, taskList) {
+    displayTasksContainer(pendingTasks, completedTasks, taskList, projects) {
 
         this.createTasksContainer();
         const taskContainerInstance = new TasksContainer(
@@ -77,7 +77,8 @@ export default class UIRenderer {
             this.controller.handleDeleteTaskClick.bind(this.controller),
             taskList,
             this.controller.handleUpdtateTaskList.bind(this.controller),
-            this.controller.handleUpdateListSubmit.bind(this.controller)
+            this.controller.handleUpdateListSubmit.bind(this.controller),
+            projects
         )
         const newTaskContainer = taskContainerInstance.createTaskContainer();
 

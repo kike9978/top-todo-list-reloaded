@@ -12,7 +12,8 @@ export default class TasksContainer {
         handleDeleteTaskClick,
         taskList,
         handleUpdtateTaskList,
-        handleUpdateListSubmit
+        handleUpdateListSubmit,
+        projects,
     ) {
 
         this.pendingTasks = pendingTasks;
@@ -26,6 +27,7 @@ export default class TasksContainer {
         this.handleUpdtateTaskList = handleUpdtateTaskList
         this.nextTaskListText = ""
         this.handleUpdateListSubmit = handleUpdateListSubmit
+        this.projects = projects
     }
 
     createTaskContainer() {
@@ -119,12 +121,20 @@ export default class TasksContainer {
         <label >
         Project
             <select name="assignedProjectId">
-            <option value="2">Project 3</option>
+            <option value="">None</option>
             </select>
         </label>
         <button type="button">Cancel</button>
         <button>Ok</button>
         `
+
+        this.projects.forEach(project => {
+
+            form.querySelector("select").innerHTML += `
+            <option value="${project.id}">${project.title}</option>
+            `
+
+        })
 
         form.addEventListener("submit", (e) => {
             e.preventDefault()
