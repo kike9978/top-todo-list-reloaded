@@ -6,12 +6,10 @@ export default function ProjectItem(project, handleTaskListClick, currentProject
         <details class="w-full project-item ">
             <summary class="marker:text-pink-500 flex ">
             
-                <div class="inline-flex justify-between flex-grow">
                     <span>
                     ${project.title}
                     </span>
-                    <span class="rounded-full bg-slate-200 inline-flex justify-center items-center size-5">${project.assignedListIds.length}</span>
-                </div>
+                   
                 </summary>
         </details>
         `

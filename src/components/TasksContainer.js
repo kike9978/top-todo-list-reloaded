@@ -29,6 +29,9 @@ export default class TasksContainer {
         this.nextTaskListText = ""
         this.handleUpdateListSubmit = handleUpdateListSubmit
         this.projects = projects
+
+        const parentProject = this.projects.find(project => project.assignedListIds.includes(this.taskListId))
+        this.parentProject = parentProject ? parentProject.id : undefined
     }
 
     createTaskContainer() {
@@ -106,13 +109,7 @@ export default class TasksContainer {
             if (this.nextTaskListText !== "") {
                 this.handleUpdtateTaskList(this.taskListId, this.nextTaskListText)
             }
-        }
-        )
-
-
-
-
-
+        })
         return header
     }
 
@@ -139,9 +136,8 @@ export default class TasksContainer {
         this.projects.forEach(project => {
 
             form.querySelector("select").innerHTML += `
-            <option value="${project.id}">${project.title}</option>
+            <option value="${project.id}" ${this.parentProject === project.id && "selected"}>${project.title}</option>
             `
-
         })
 
         form.addEventListener("submit", (e) => {
