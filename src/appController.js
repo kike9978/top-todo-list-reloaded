@@ -253,10 +253,10 @@ export default class AppController {
             return item.id === listAndProjectAssignationData.id && item.type === "taskList"
         })
         const isChangingToNone = listAndProjectAssignationData.assignedProjectId === "none"
+
         if (isChangingFromNone) {
             this.removeItemFromProjectsAndListsOrder("taskList", listAndProjectAssignationData.id)
-        }
-        if (!isChangingFromNone && isChangingToNone) {
+        } else {
             this.projectService.removeTaskListfromProject(listAndProjectAssignationData.id)
 
         }
@@ -271,11 +271,6 @@ export default class AppController {
                 id: listAndProjectAssignationData.id
             }]
         }
-
-        if (!isChangingToNone && !isChangingFromNone) {
-            this.projectService.removeTaskListfromProject(listAndProjectAssignationData.id)
-        }
-
 
         this.generateProjectAndListArr()
         this.generateAssignedTasksLists()
