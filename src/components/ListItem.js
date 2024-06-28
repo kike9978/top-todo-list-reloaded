@@ -1,3 +1,5 @@
+import { closeSideBar } from "../utils/uiUtils"
+
 export default function ListItem(list, handleTaskListClick) {
 
     const length = "2"
@@ -17,6 +19,7 @@ export default function ListItem(list, handleTaskListClick) {
         console.log("id de lista: ", list.id)
         handleTaskListClick(list.id)
         article.classList.add("bg-pink-50", "text-pink-600")
+        closeSideBar()
     })
 
     return article

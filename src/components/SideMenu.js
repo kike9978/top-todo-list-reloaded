@@ -1,5 +1,6 @@
 import ProjectsAndListsContainer from "./ProjectsAndListsContainer"
 import { ITEM_TYPE } from "../types"
+import { closeSideBar } from "../utils/uiUtils"
 
 export default class SideMenu {
 
@@ -42,13 +43,7 @@ export default class SideMenu {
         this.sideBar.appendChild(this.buttonRows)
 
 
-        this.closeSideButton.addEventListener("click", () => {
-            const root = document.querySelector("#root")
-            root.classList.remove("grid-cols-[100%_1fr]")
-            root.classList.add("grid-cols-[0px_1fr]")
-
-
-        })
+        this.closeSideButton.addEventListener("click", closeSideBar)
         this.createListButton.addEventListener("click", () => {
             this.handleCreateInputClick(ITEM_TYPE.list)
         })

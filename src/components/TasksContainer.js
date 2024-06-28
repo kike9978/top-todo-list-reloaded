@@ -1,4 +1,5 @@
 import TodoItem from "./TodoItem";
+import { openSideBar } from "../utils/uiUtils";
 
 
 
@@ -39,7 +40,12 @@ export default class TasksContainer {
 
         this.addNewTaskInput.placeholder = "Recolectar papas"
 
+        const openSideBarButton = document.createElement("button")
+        openSideBarButton.className = "md:hidden"
+        openSideBarButton.innerText = "Abrir"
+
         // build Dom
+        this.mainTasksContainer.appendChild(openSideBarButton)
         this.mainTasksContainer.appendChild(this.header())
 
         this.mainTasksContainer.appendChild(this.addNewTaskInput)
@@ -55,6 +61,8 @@ export default class TasksContainer {
         this.initEventListeners()
         this.displayPendingTasks(this.pendingTasks)
         this.displayCompletedTasks(this.completedTasks)
+
+        openSideBarButton.addEventListener("click", openSideBar)
 
         return this.mainTasksContainer
 
