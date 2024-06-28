@@ -102,7 +102,7 @@ export default class ProjectService {
 
     addTaskListToProject(listId, projectId) {
         this.myProjects = this.myProjects.map(project => {
-            if (project.id === projectId) {
+            if (project.id === projectId && !project.assignedListIds.includes(listId)) {
                 return new Project({ ...project, assignedListIds: [...project.assignedListIds, listId] })
             }
             else {
@@ -110,6 +110,11 @@ export default class ProjectService {
             }
         })
 
+    }
+
+    removeTaskListfromProject(listId) {
+        const project = this.getProjectbyId(this.findProjectFromListId(listId))
+        project.assignedListIds = project.assignedListIds.filter(id => id !== listId)
     }
 
 }

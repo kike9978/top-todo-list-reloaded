@@ -249,6 +249,7 @@ export default class AppController {
         updatedList.title = listAndProjectAssignationData.title
         this.taskListService.updateTaskList(updatedList)
         this.projectService.addTaskListToProject(listAndProjectAssignationData.id, Number(listAndProjectAssignationData.assignedProjectId))
+        this.projectService.removeTaskListfromProject(listAndProjectAssignationData.id)
 
         const isInProjectsAndLists = this.projectsAndListsOrder.some(item => {
             return item.id === listAndProjectAssignationData.id && item.type === "taskList"
