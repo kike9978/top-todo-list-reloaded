@@ -20,7 +20,7 @@
 
     summary {
 
-        >:before {
+        &:before {
             content: "▷";
         }
     }
@@ -28,7 +28,7 @@
 
 .project-item[open] {
     summary {
-        >:before {
+        &:before {
             content: "▽";
         }
     }

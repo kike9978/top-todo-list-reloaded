@@ -14,12 +14,18 @@ export default class SideMenu {
 
     createSideMenu() {
         this.sideBar = document.createElement("aside")
+        this.closeSideButton = document.createElement("button")
 
         this.buttonRows = document.createElement("div")
         this.createListButton = document.createElement("button")
 
         this.sideBar.className = "flex flex-col gap-2 bg-gray-50 h-full overflow-hidden"
         this.projectsAndListsContainer = this.createProjectsAndListsContainer()
+
+        this.closeSideButton.innerText = "Cerrar"
+        this.closeSideButton.className = "md:hidden"
+
+        this.sideBar.appendChild(this.closeSideButton)
         this.sideBar.appendChild(this.projectsAndListsContainer)
 
         this.buttonRows.appendChild(this.createListButton)
@@ -36,6 +42,13 @@ export default class SideMenu {
         this.sideBar.appendChild(this.buttonRows)
 
 
+        this.closeSideButton.addEventListener("click", () => {
+            const root = document.querySelector("#root")
+            root.classList.remove("grid-cols-[100%_1fr]")
+            root.classList.add("grid-cols-[0px_1fr]")
+
+
+        })
         this.createListButton.addEventListener("click", () => {
             this.handleCreateInputClick(ITEM_TYPE.list)
         })
