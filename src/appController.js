@@ -195,10 +195,12 @@ export default class AppController {
         const nextId = generateId()
         console.log(list)
         const newTaskList = { id: nextId, title: list, assignedTasksIds: [] }
+        this.currentTaskListId = nextId
         this.taskListService.createTaskList(newTaskList)
         this.projectsAndListsOrder = [...this.projectsAndListsOrder, { type: "taskList", id: nextId }]
         this.generateProjectAndListArr()
         this.generateAssignedTasksLists()
+        this.controlTaskDisplay()
         this.controlUpdateProjectsAndListsContainer()
     }
     /*  controlProjectDisplay() {
