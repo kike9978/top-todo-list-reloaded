@@ -4,7 +4,7 @@ import SideMenu from "./components/SideMenu"
 export default class UIRenderer {
 
     constructor() {
-        this.body = document.querySelector("body")
+        this.root = document.querySelector("#root")
         this.initUI()
     }
 
@@ -16,21 +16,21 @@ export default class UIRenderer {
     /*  createProjectContainer() {
          if (!this.projectContainer) {
              this.projectContainer = document.createElement("aside")
-             this.body.appendChild(this.projectContainer)
+             this.root.appendChild(this.projectContainer)
  
          }
      } */
     createTasksContainer() {
         if (!this.tasksContainer) {
             this.tasksContainer = document.createElement("main")
-            this.body.appendChild(this.tasksContainer)
+            this.root.appendChild(this.tasksContainer)
         }
     }
 
     createSideMenu() {
         if (!this.sideMenu) {
             this.sideMenu = document.createElement("aside")
-            this.body.appendChild(this.sideMenu)
+            this.root.appendChild(this.sideMenu)
         }
     }
 
@@ -61,7 +61,7 @@ export default class UIRenderer {
                this.controller.currentProjectId,
                this.controller.handleCreateProjectClick.bind(this.controller))
            const newProjectContainer = newProjectContainerInstance.createProjectContainer()
-           this.body.replaceChild(newProjectContainer, this.projectContainer)
+           this.root.replaceChild(newProjectContainer, this.projectContainer)
            this.projectContainer = newProjectContainer
        }
     */
@@ -82,7 +82,7 @@ export default class UIRenderer {
         )
         const newTaskContainer = taskContainerInstance.createTaskContainer();
 
-        this.body.replaceChild(newTaskContainer, this.tasksContainer)
+        this.root.replaceChild(newTaskContainer, this.tasksContainer)
         this.taskContainerInstance = taskContainerInstance
         this.tasksContainer = newTaskContainer
     }
@@ -99,7 +99,7 @@ export default class UIRenderer {
             this.controller.handleUpdateProjectInput.bind(this.controller)
         )
         const newSideMenu = sideMenuInstance.createSideMenu()
-        this.body.replaceChild(newSideMenu, this.sideMenu)
+        this.root.replaceChild(newSideMenu, this.sideMenu)
         this.sideMenuInstance = sideMenuInstance
         this.sideMenu = newSideMenu
     }

@@ -3,13 +3,16 @@ import ListItem from "./ListItem"
 export default function ProjectItem(project, handleTaskListClick, currentProjectId, assignedTasksLists, handleUpdateProjectInput) {
     const article = document.createElement("article")
     article.innerHTML = `
-        <details>
-            <summary>
-            <span>
-            ${project.title}
-            <span/>
-            <span class="rounded-full bg-slate-200 inline-flex justify-center items-center size-5">${project.assignedListIds.length}</span>
-            </summary>
+        <details class="w-full project-item ">
+            <summary class="marker:text-pink-500 flex ">
+            
+                <div class="inline-flex justify-between flex-grow">
+                    <span>
+                    ${project.title}
+                    </span>
+                    <span class="rounded-full bg-slate-200 inline-flex justify-center items-center size-5">${project.assignedListIds.length}</span>
+                </div>
+                </summary>
         </details>
         `
 

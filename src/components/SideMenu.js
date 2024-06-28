@@ -23,7 +23,7 @@ export default class SideMenu {
         this.sideBar.appendChild(this.projectsAndListsContainer)
 
         this.buttonRows.appendChild(this.createListButton)
-        this.buttonRows.classList.add("flex")
+        this.buttonRows.classList.add("flex", "justify-between")
 
         this.createListButton.innerText = "+ Create list"
         this.createListButton.classList.add("p-2", "rounded", "hover:bg-slate-200", "mx-2", "disabled:hidden")
