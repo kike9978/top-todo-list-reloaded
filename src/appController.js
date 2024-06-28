@@ -248,19 +248,39 @@ export default class AppController {
         const updatedList = this.taskListService.getListById(listAndProjectAssignationData.id)
         updatedList.title = listAndProjectAssignationData.title
         this.taskListService.updateTaskList(updatedList)
-        this.projectService.addTaskListToProject(listAndProjectAssignationData.id, Number(listAndProjectAssignationData.assignedProjectId))
-        this.projectService.removeTaskListfromProject(listAndProjectAssignationData.id)
 
-        const isInProjectsAndLists = this.projectsAndListsOrder.some(item => {
+        const isChangingFromNone = this.projectsAndListsOrder.some(item => {
             return item.id === listAndProjectAssignationData.id && item.type === "taskList"
         })
-
-        if (isInProjectsAndLists) {
+        const isChangingToNone = listAndProjectAssignationData.assignedProjectId === "none"
+        if (isChangingFromNone) {
             this.removeItemFromProjectsAndListsOrder("taskList", listAndProjectAssignationData.id)
         }
+        if (!isChangingFromNone && isChangingToNone) {
+            this.projectService.removeTaskListfromProject(listAndProjectAssignationData.id)
+
+        }
+
+        if (!isChangingToNone) {
+            this.projectService.addTaskListToProject(listAndProjectAssignationData.id, Number(listAndProjectAssignationData.assignedProjectId))
+
+        }
+        else {
+            this.projectsAndListsOrder = [...this.projectsAndListsOrder, {
+                type: "taskList",
+                id: listAndProjectAssignationData.id
+            }]
+        }
+
+        if (!isChangingToNone && !isChangingFromNone) {
+            this.projectService.removeTaskListfromProject(listAndProjectAssignationData.id)
+        }
+
+
         this.generateProjectAndListArr()
         this.generateAssignedTasksLists()
         this.controlUpdateProjectsAndListsContainer()
+
     }
 
     removeItemFromProjectsAndListsOrder(type, id) {

@@ -3,7 +3,7 @@ import ListItem from "./ListItem"
 export default function ProjectItem(project, handleTaskListClick, currentProjectId, assignedTasksLists, handleUpdateProjectInput) {
     const article = document.createElement("article")
     article.innerHTML = `
-        <details class="w-full project-item ">
+        <details class="w-full project-item " open>
             <summary class="marker:text-pink-500 flex ">
             
                     <span>

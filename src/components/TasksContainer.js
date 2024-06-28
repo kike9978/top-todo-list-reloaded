@@ -31,7 +31,7 @@ export default class TasksContainer {
         this.projects = projects
 
         const parentProject = this.projects.find(project => project.assignedListIds.includes(this.taskListId))
-        this.parentProjectId = parentProject ? parentProject.id : ""
+        this.parentProjectId = parentProject ? parentProject.id : "none"
     }
 
     createTaskContainer() {
@@ -126,7 +126,7 @@ export default class TasksContainer {
         <label >
         Project
             <select name="assignedProjectId">
-            <option value="">None</option>
+            <option value="none">None</option>
             </select>
         </label>
         <button type="button">Cancel</button>
