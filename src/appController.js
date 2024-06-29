@@ -54,7 +54,6 @@ export default class AppController {
             const list = this.taskListService.getListById(item.id)
             return { ...list, type: "taskList", pendingTasksLength: this.getTaskListPendingTasks(list.assignedTasksIds).length }
         })
-        debugger
     }
 
     generateAssignedTasksLists() {
@@ -140,8 +139,12 @@ export default class AppController {
             ...taskData, isCompleted: !taskData.isCompleted
         }
         this.taskService.updateTask(taskId, updatedTask)
+        this.generateProjectAndListArr()
+        this.view.updateProjectsAndListsContainer()
         this.controlTaskDisplay()
     }
+
+
 
     handleAddTaskInput(newTask) {
         this.newTaskText = newTask
@@ -155,6 +158,7 @@ export default class AppController {
         const newTask = { id: nextId, title: this.newTaskText, isCompleted: false }
         this.addNewTask(newTask, this.currentTaskListId)
         this.newTaskText = ""
+        this.generateProjectAndListArr()
         this.view.updateProjectsAndListsContainer()
 
     }
