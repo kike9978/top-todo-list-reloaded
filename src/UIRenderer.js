@@ -13,13 +13,6 @@ export default class UIRenderer {
         this.createTasksContainer()
     }
 
-    /*  createProjectContainer() {
-         if (!this.projectContainer) {
-             this.projectContainer = document.createElement("aside")
-             this.root.appendChild(this.projectContainer)
- 
-         }
-     } */
     createTasksContainer() {
         if (!this.tasksContainer) {
             this.tasksContainer = document.createElement("main")
@@ -34,8 +27,6 @@ export default class UIRenderer {
         }
     }
 
-
-
     handleTodoChange(value, currentTask) {
 
         this.controller.controlChangeIsCompleted()
@@ -49,22 +40,7 @@ export default class UIRenderer {
 
         updateTasksUI()
     }
-    /*  updateProjectsDisplay(projects) {
-         this.displayProjects(projects)
-     } */
 
-    /*    displayProjects(projects) {
-           this.createProjectContainer()
-           const newProjectContainerInstance = new ProjectsContainer(
-               projects,
-               this.controller.handleProjectClick.bind(this.controller),
-               this.controller.currentProjectId,
-               this.controller.handleCreateProjectClick.bind(this.controller))
-           const newProjectContainer = newProjectContainerInstance.createProjectContainer()
-           this.root.replaceChild(newProjectContainer, this.projectContainer)
-           this.projectContainer = newProjectContainer
-       }
-    */
     displayTasksContainer(pendingTasks, completedTasks, taskList, projects) {
 
         this.createTasksContainer();
