@@ -37,7 +37,6 @@ export default class ProjectsAndListsContainer {
                 return
             }
             else {
-
                 this.projectsAndListsContainer.appendChild(ListItem(item, this.handleTaskListClick))
             }
 

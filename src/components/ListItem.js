@@ -1,9 +1,8 @@
 import { closeSideBar } from "../utils/uiUtils"
 
 export default function ListItem(list, handleTaskListClick) {
-
-    const length = "2"
-    /* length = list.assignedListIds.length */
+    const assignedTasksIds = list.assignedTasksIds
+    const length = assignedTasksIds ? assignedTasksIds.length : "hola"
     const article = document.createElement("article")
     article.className = "hover:bg-pink-100 p-3 rounded flex justify-between cursor-pointer"
     article.innerHTML = `

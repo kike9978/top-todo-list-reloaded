@@ -16,7 +16,7 @@ export default function TodoItem(task, onChange, handleDeleteTaskClick) {
     <div class="h-full justify-center items-center absolute right-2 gap-2">
     ${createButton("D")}
     ${createButton("E")}
-    <input type="checkbox" > 
+    <input type="checkbox" id="star" class="appearance-none star-checkbox"> 
         </div>
     `
     const elimButton = article.querySelectorAll("button")[0]
@@ -42,5 +42,9 @@ export default function TodoItem(task, onChange, handleDeleteTaskClick) {
     checkbox.addEventListener("change", () => {
         onChange(task.id, task)
     })
+
+    const favoriteCheck = article.querySelector("#star")
+
+
     return article
 }
