@@ -1,14 +1,14 @@
-export default function TodoItem(task, onChange, handleDeleteTaskClick, assignedProject = null) {
+export default function TodoItem(task, onChange, handleDeleteTaskClick) {
     const article = document.createElement("article")
-    article.className = "bg-slate-50 rounded flex justify-between relative todo-item"
+    article.className = "bg-slate-50 rounded flex justify-between relative todo-item h-14 px-3 items-center"
 
     article.innerHTML = `
 
     <label class="cursor-pointer"> 
-        <input type="checkbox" ${task.isCompleted ? "checked" : ""} " class="appearance-none border 
-        border-solid border-blue-400 size-4 rounded-full
+        <input type="checkbox" ${task.isCompleted ? "checked" : ""} " class="appearance-none
+        border-solid border-2  border-blue-400 size-6 rounded-full 
         cursor-pointer inline-grid place-content-center 
-        before:content-[''] before:size-2 before:bg-blue-400 before:scale-0 before:transition-transform before:rounded-full
+        before:content-[''] before:size-3 before:bg-blue-400 before:scale-0 before:transition-transform before:rounded-full
         hover:before:scale-100 hover:before:bg-blue-300 checked:before:scale-100 "> 
 
        <span class="${task.isCompleted ? "line-through text-slate-400" : ""}"> ${task.title}</span>

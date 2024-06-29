@@ -26,7 +26,6 @@ export default class TasksContainer {
         this.taskListTitle = taskList.title;
         this.taskListId = taskList.id
         this.handleUpdtateTaskList = handleUpdtateTaskList
-        this.nextTaskListText = ""
         this.handleUpdateListSubmit = handleUpdateListSubmit
         this.projects = projects
 
@@ -57,9 +56,10 @@ export default class TasksContainer {
         this.mainTasksContainer.appendChild(this.completedTasksSection.section)
 
 
+
         this.addNewTaskButton.innerText = "+ Add task"
         this.addNewTaskButton.className = "text-pink-500"
-        this.mainTasksContainer.className = "basis-full"
+        this.mainTasksContainer.className = "basis-full overflow-y-auto"
 
         this.initEventListeners()
         this.displayPendingTasks(this.pendingTasks)
@@ -72,33 +72,19 @@ export default class TasksContainer {
     }
 
     header() {
-        const header = document.createElement("section")
+        const header = document.createElement("header")
         const title = document.createElement("h2")
         const button = document.createElement("button")
-        const input = document.createElement("input")
 
         header.appendChild(title)
-        header.appendChild(input)
         header.appendChild(button)
 
         header.className = "flex justify-between"
+        title.className = "text-3xl"
 
         button.innerText = "⛈️"
         const titleText = this.taskListTitle ?? "Título de lista"
         title.innerText = titleText
-
-
-        input.addEventListener("input", (e) => {
-            this.nextTaskListText = e.target.value
-        })
-
-        input.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                if (this.nextTaskListText !== "") {
-                    this.handleUpdtateTaskList(this.taskListId, this.nextTaskListText)
-                }
-            }
-        })
 
         button.addEventListener("click", () => {
             const dialog = document.querySelector("dialog")
@@ -106,9 +92,7 @@ export default class TasksContainer {
             dialog.innerHTML = ""
             dialog.appendChild(this.createEditTaskListForm())
             dialog.showModal()
-            if (this.nextTaskListText !== "") {
-                this.handleUpdtateTaskList(this.taskListId, this.nextTaskListText)
-            }
+
         })
         return header
     }
@@ -196,6 +180,9 @@ export default class TasksContainer {
         heading.classList.add("font-semibold")
         section.appendChild(heading)
         section.appendChild(container)
+
+        section.classList.add("px-2")
+        container.classList.add("flex", "flex-col", "gap-1")
 
         return { section, container }
     }
