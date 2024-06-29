@@ -49,16 +49,19 @@ export default class AppController {
         this.projectsAndLists = this.projectsAndListsOrder.map(item => {
 
             if (item.type === "project") {
-                return { ...this.projectService.getProjectbyId(item.id), type: "project" }
+                const project = this.projectService.getProjectbyId(item.id)
+                const lists = project.assignedListIds.map(listId => this.taskListService.getListById(listId))
+                lists.forEach(list => this.setTaskListPendingTasksCount(list.id))
+                return { ...project, type: "project", assignedTasksLists: lists }
             }
             const list = this.taskListService.getListById(item.id)
-            return { ...list, type: "taskList", pendingTasksLength: this.getTaskListPendingTasks(list.assignedTasksIds).length }
+            this.setTaskListPendingTasksCount(item.id)
+            return { ...list, type: "taskList" }
         })
     }
 
     generateAssignedTasksLists() {
         const projects = this.projectService.getProjects();
-
         const newAssignedTasksLists = projects.map(project => {
             const currentProjectTasksLists = project.assignedListIds.map(listId => {
                 return this.taskListService.getListById(listId)
@@ -89,20 +92,12 @@ export default class AppController {
         this.view.displaySideMenu(this.projectsAndLists)
     }
 
-
     getCurrentTasksListTasksSeparated() {
         const currentTaskListsTasksIds = this.taskListService.getListById(this.currentTaskListId).getAssignedTasksIds()
         const tasks = this.taskService.getTaskListTasks(currentTaskListsTasksIds)
         const pendingTasks = this.taskService.getPendingTasks(tasks)
         const completedTasks = this.taskService.getCompletedTasks(tasks)
         return { pendingTasks, completedTasks }
-    }
-
-    getTaskListPendingTasks(listId) {
-        const tasks = this.taskService.getTaskListTasks(listId)
-
-        const pendingTasks = this.taskService.getPendingTasks(tasks)
-        return pendingTasks
     }
 
     controlGetProjects() {
@@ -144,8 +139,6 @@ export default class AppController {
         this.controlTaskDisplay()
     }
 
-
-
     handleAddTaskInput(newTask) {
         this.newTaskText = newTask
     }
@@ -172,6 +165,7 @@ export default class AppController {
         this.taskListService.addTaskToList(taskData.id, taskListId)
         const currentTaskListTasksIds = this.taskListService.getTaskListTasksIds(this.currentTaskListId)
         const currentTaskListTasks = this.taskService.getTaskListTasks(currentTaskListTasksIds)
+
         this.updatePendingTasks(currentTaskListTasks)
     }
 
@@ -197,6 +191,15 @@ export default class AppController {
         this.controlTaskDisplay()
         this.controlUpdateProjectsAndListsContainer()
     }
+
+    setTaskListPendingTasksCount(listId) {
+        debugger
+        const tasks = this.taskService.getTaskListTasks(listId)
+        const pendingTasks = this.taskService.getPendingTasks(tasks)
+        const updatedTaskList = { ...pendingTasks, pendingTasksCount: pendingTasks.length }
+        this.taskListService.updateTaskList(updatedTaskList)
+    }
+
 
     controlUpdateProjectsAndListsContainer() {
         this.view.updateProjectsAndListsContainer()

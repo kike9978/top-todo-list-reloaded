@@ -1,6 +1,6 @@
 import ListItem from "./ListItem"
 
-export default function ProjectItem(project, handleTaskListClick, currentProjectId, assignedTasksLists, handleUpdateProjectInput) {
+export default function ProjectItem(project, handleTaskListClick, currentProjectId, handleUpdateProjectInput) {
     const article = document.createElement("article")
     article.innerHTML = `
         <details class="w-full project-item " open>
@@ -16,16 +16,20 @@ export default function ProjectItem(project, handleTaskListClick, currentProject
 
     article.className = " hover:bg-pink-100 p-3 rounded flex justify-between"
 
-    assignedTasksLists.forEach(taskList => {
-        article.querySelector("details").appendChild(ListItem({ title: taskList.title, id: taskList.id }, handleTaskListClick))
+    project.assignedTasksLists.forEach(taskList => {
+        article.querySelector("details").appendChild(ListItem(taskList, handleTaskListClick))
     })
 
     article.querySelector("summary").addEventListener("contextmenu", (e) => {
         e.preventDefault()
 
         const input = document.createElement("input")
-        article.querySelector("summary").replaceChild(input, article.querySelector("span"))
+        const previousSpan = article.querySelector("span")
+
+        article.querySelector("summary").replaceChild(input, previousSpan)
         input.focus()
+
+        input.classList.add("w-full")
 
         input.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
@@ -35,6 +39,9 @@ export default function ProjectItem(project, handleTaskListClick, currentProject
             if (e.key === "Escape") {
                 input.blur()
             }
+        })
+        input.addEventListener("blur", () => {
+            article.querySelector("summary").replaceChild(previousSpan, input)
         })
 
     })

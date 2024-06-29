@@ -4,11 +4,10 @@ import { closeSideBar } from "../utils/uiUtils"
 
 export default class SideMenu {
 
-    constructor(projectsAndLists, handleCreateProjectClick, handleTaskListClick, assignedTasksLists, handleCreateListClick, handleUpdateProjectInput) {
+    constructor(projectsAndLists, handleCreateProjectClick, handleTaskListClick, handleCreateListClick, handleUpdateProjectInput) {
         this.projectsAndLists = projectsAndLists
         this.handleCreateProjectClick = handleCreateProjectClick
         this.handleTaskListClick = handleTaskListClick
-        this.assignedTasksLists = assignedTasksLists
         this.handleCreateListClick = handleCreateListClick
         this.handleUpdateProjectInput = handleUpdateProjectInput
     }
@@ -67,7 +66,7 @@ export default class SideMenu {
 
     createProjectsAndListsContainer() {
         this.projectsAndListsContainerInstance = new ProjectsAndListsContainer(
-            this.projectsAndLists, "", "", "", this.handleTaskListClick, this.assignedTasksLists, this.handleUpdateProjectInput
+            this.projectsAndLists, "", "", "", this.handleTaskListClick, this.handleUpdateProjectInput
         )
         const newProjectsAndListsContainer = this.projectsAndListsContainerInstance.createProjectAndlistsContainer()
         return newProjectsAndListsContainer

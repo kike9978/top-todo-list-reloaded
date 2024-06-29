@@ -69,7 +69,6 @@ export default class UIRenderer {
             this.controller.projectsAndLists,
             this.controller.handleCreateProjectClick.bind(this.controller),
             this.controller.handleTaskListClick.bind(this.controller),
-            this.controller.assignedTasksLists,
             this.controller.handleCreateListClick.bind(this.controller),
             this.controller.handleUpdateProjectInput.bind(this.controller)
         )

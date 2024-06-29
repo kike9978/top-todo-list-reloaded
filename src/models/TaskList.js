@@ -3,6 +3,7 @@ class TaskList {
         this.id = id;
         this.title = title;
         this.assignedTasksIds = assignedTasksIds || []
+        this.pendingTasksCount = 0
     }
 
     getId() {
@@ -15,6 +16,7 @@ class TaskList {
     getAssignedTasksIds() {
         return this.assignedTasksIds
     }
+
 
 }
 
