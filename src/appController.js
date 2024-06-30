@@ -214,6 +214,7 @@ export default class AppController {
     handleDeleteTaskClick(taskId) {
         this.taskService.deleteTask(taskId)
         this.taskListService.removeTaskFromList(taskId, this.currentTaskListId)
+        this.generateProjectAndListArr()
         this.controlTaskDisplay()
         this.controlUpdateProjectsAndListsContainer()
     }
