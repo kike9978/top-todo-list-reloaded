@@ -54,8 +54,9 @@ export default class AppController {
                 lists.forEach(list => this.setTaskListPendingTasksCount(list.id))
                 return { ...project, type: "project", assignedTasksLists: lists }
             }
-            const list = this.taskListService.getListById(item.id)
             this.setTaskListPendingTasksCount(item.id)
+            const list = this.taskListService.getListById(item.id)
+            debugger
             return { ...list, type: "taskList" }
         })
     }
@@ -193,10 +194,10 @@ export default class AppController {
     }
 
     setTaskListPendingTasksCount(listId) {
-        debugger
-        const tasks = this.taskService.getTaskListTasks(listId)
+        const list = this.taskListService.getListById(listId)
+        const tasks = this.taskService.getTaskListTasks(list.assignedTasksIds)
         const pendingTasks = this.taskService.getPendingTasks(tasks)
-        const updatedTaskList = { ...pendingTasks, pendingTasksCount: pendingTasks.length }
+        const updatedTaskList = { ...list, pendingTasksCount: pendingTasks.length }
         this.taskListService.updateTaskList(updatedTaskList)
     }
 

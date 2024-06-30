@@ -66,6 +66,7 @@ export default class ListService {
 
 
     updateTaskList(listData) {
+
         this.myLists = this.myLists.map(list => {
             if (list.id === listData.id) {
                 return new TaskList({ ...listData })
@@ -74,10 +75,5 @@ export default class ListService {
                 return list
             }
         })
-
     }
-
-
-
-
 }

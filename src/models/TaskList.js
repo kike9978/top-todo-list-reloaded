@@ -1,9 +1,9 @@
 class TaskList {
-    constructor({ id, title, assignedTasksIds }) {
+    constructor({ id, title, assignedTasksIds, pendingTasksCount }) {
         this.id = id;
         this.title = title;
         this.assignedTasksIds = assignedTasksIds || []
-        this.pendingTasksCount = 0
+        this.pendingTasksCount = pendingTasksCount || 0
     }
 
     getId() {
