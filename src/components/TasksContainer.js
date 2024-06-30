@@ -181,8 +181,10 @@ export default class TasksContainer {
         section.appendChild(heading)
         section.appendChild(container)
 
-        section.classList.add("px-2")
+        section.classList.add("px-2", "mb-4")
+        heading.classList.add("mb-2")
         container.classList.add("flex", "flex-col", "gap-1")
+
 
         return { section, container }
     }

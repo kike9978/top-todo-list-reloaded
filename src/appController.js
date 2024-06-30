@@ -56,7 +56,6 @@ export default class AppController {
             }
             this.setTaskListPendingTasksCount(item.id)
             const list = this.taskListService.getListById(item.id)
-            debugger
             return { ...list, type: "taskList" }
         })
     }
@@ -154,6 +153,7 @@ export default class AppController {
         this.newTaskText = ""
         this.generateProjectAndListArr()
         this.view.updateProjectsAndListsContainer()
+        debugger
 
     }
     updatePendingTasks(tasks) {
