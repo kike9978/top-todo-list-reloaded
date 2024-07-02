@@ -1,4 +1,4 @@
-let nextId = 2;
+let nextId = 3;
 
 function generateId() {
     return nextId = ++nextId

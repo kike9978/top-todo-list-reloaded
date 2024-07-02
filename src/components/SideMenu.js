@@ -38,6 +38,7 @@ export default class SideMenu {
         this.createProjectButton = document.createElement("button")
         this.createProjectButton.innerText = "+ "
         this.createProjectButton.className = "p-2 rounded hover:bg-slate-200 mx-2 disabled:hidden"
+        this.createProjectButton.title = "Create Project"
 
         this.sideBar.appendChild(this.buttonRows)
 
@@ -92,6 +93,9 @@ export default class SideMenu {
         this.projectInputContainer.appendChild(this.newCreationInput)
         this.projectInputContainer.appendChild(cancelButton)
         this.projectInputContainer.appendChild(submitButton)
+
+        this.projectInputContainer.classList.add("flex", "gap-2")
+        this.newCreationInput.classList.add("min-w-0")
 
         this.newCreationInput.addEventListener("input", (e) => {
             this.newItemText = e.target.value
