@@ -16,6 +16,7 @@
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.0",
     "loader": "^2.1.1",
+    "playwright": "^1.45.1",
     "postcss": "^8.4.38",
     "postcss-loader": "^8.1.1",
     "style-loader": "^4.0.0",

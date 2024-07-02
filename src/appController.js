@@ -46,13 +46,15 @@ export default class AppController {
     }
 
     generateProjectAndListArr() {
+
         this.projectsAndLists = this.projectsAndListsOrder.map(item => {
 
             if (item.type === "project") {
                 const project = this.projectService.getProjectbyId(item.id)
                 const lists = project.assignedListIds.map(listId => this.taskListService.getListById(listId))
                 lists.forEach(list => this.setTaskListPendingTasksCount(list.id))
-                return { ...project, type: "project", assignedTasksLists: lists }
+                const updatedList = project.assignedListIds.map(listId => this.taskListService.getListById(listId))
+                return { ...project, type: "project", assignedTasksLists: updatedList }
             }
             this.setTaskListPendingTasksCount(item.id)
             const list = this.taskListService.getListById(item.id)
@@ -140,10 +142,12 @@ export default class AppController {
     }
 
     handleAddTaskInput(newTask) {
+
         this.newTaskText = newTask
     }
 
     handleAddTaskClick() {
+
         if (this.newTaskText === "") {
             return
         }
@@ -153,8 +157,6 @@ export default class AppController {
         this.newTaskText = ""
         this.generateProjectAndListArr()
         this.view.updateProjectsAndListsContainer()
-        debugger
-
     }
     updatePendingTasks(tasks) {
         const pendingTasks = this.taskService.getPendingTasks(tasks)
