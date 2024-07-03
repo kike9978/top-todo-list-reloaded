@@ -290,4 +290,18 @@ export default class AppController {
         })
 
     }
+    removeListFromProject(listId, projectId) {
+        this.projectService.removeListFromProject()
+    }
+
+    handleDeleteListClick(listId) {
+        this.taskListService.deleteTaskList(listId)
+        this.removeItemFromProjectsAndListsOrder("taskList", listId)
+        this.currentTaskListId = 1
+        this.projectService.removeTaskListfromProject(listId)
+        this.generateProjectAndListArr()
+        this.generateAssignedTasksLists()
+        this.controlUpdateProjectsAndListsContainer()
+        this.controlTaskDisplay()
+    }
 }

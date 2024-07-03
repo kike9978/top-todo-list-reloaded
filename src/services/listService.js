@@ -34,7 +34,6 @@ export default class ListService {
     }
 
     addTaskToList(taskId, listId) {
-
         this.myLists = this.myLists.map(list => {
             if (list.id === listId) {
                 const updatedTaskList = new TaskList({ ...list, assignedTasksIds: [...list.assignedTasksIds, taskId] })
@@ -46,8 +45,6 @@ export default class ListService {
         })
     }
     removeTaskFromList(taskId, listId) {
-
-
         this.myLists = this.myLists.map(list => {
             if (list.id === listId) {
 
@@ -63,7 +60,6 @@ export default class ListService {
         })
 
     }
-
 
     updateTaskList(listData) {
 

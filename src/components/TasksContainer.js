@@ -15,6 +15,7 @@ export default class TasksContainer {
         handleUpdtateTaskList,
         handleUpdateListSubmit,
         projects,
+        handleDeleteListClick,
     ) {
 
         this.pendingTasks = pendingTasks;
@@ -28,6 +29,7 @@ export default class TasksContainer {
         this.handleUpdtateTaskList = handleUpdtateTaskList
         this.handleUpdateListSubmit = handleUpdateListSubmit
         this.projects = projects
+        this.handleDeleteListClick = handleDeleteListClick
 
         const parentProject = this.projects.find(project => project.assignedListIds.includes(this.taskListId))
         this.parentProjectId = parentProject ? parentProject.id : "none"
@@ -90,7 +92,7 @@ export default class TasksContainer {
         header.className = "flex justify-between"
         title.className = "text-3xl"
 
-        button.innerText = "⛈️"
+        button.innerHTML = MaterialIcon("more_vert")
         const titleText = this.taskListTitle ?? "Título de lista"
         title.innerText = titleText
 
@@ -121,6 +123,7 @@ export default class TasksContainer {
             <option value="none">None</option>
             </select>
         </label>
+        <button type="button">Delete list</button>
         <button type="button">Cancel</button>
         <button>Ok</button>
         `
@@ -145,7 +148,12 @@ export default class TasksContainer {
             document.querySelector("dialog").close()
         })
 
-        form.querySelector("button").addEventListener("click", () => document.querySelector("dialog").close())
+        form.querySelectorAll("button")[0].addEventListener("click", () => {
+            this.handleDeleteListClick(this.taskListId)
+            document.querySelector("dialog").close()
+        }
+        )
+        form.querySelectorAll("button")[1].addEventListener("click", () => document.querySelector("dialog").close())
 
         function generateNewTaskInfo(e) {
             const formData = new FormData(e.target)
@@ -219,61 +227,5 @@ export default class TasksContainer {
         this.displayCompletedTasks(completedTasks)
     }
 
-    /* //Initial render
-    this.renderPendingTasks()
-    this.renderCompletedTasks()
 
-    renderPendingTasks() {
-        clearElemChildren(pendingTasksSection.container)
-        const pendingTasks = TaskService.getPendingTasks(tasks)
-        pendingTasks.forEach(task => {
-            pendingTasksSection.container.appendChild(TodoItem(task, handleTodoChange))
-        })
-    }
-    
-    renderCompletedTasks() {
-        clearElemChildren(completedTasksSection.container)
-        const completedTasks = TaskService.getCompletedTasks(tasks)
-        completedTasks.forEach(task => {
-            completedTasksSection.container.appendChild(TodoItem(task, handleTodoChange))
-        })
-    }
-    
-    clearElemChildren(el) {
-        el.innerHTML = ""
-    }
-    
-    
-    handleAddTaskInput(e) {
-        nextTask = e.target.value
-    }
-    
-    handleAddTaskClick() {
-    
-        // Add new task to tasks
-    
-        if (nextTask.trim() === "") return;
-    
-        TaskService.createTask(new Task(generateId(), nextTask, false), ProjectService.getCurrentProjectId())
-    
-        // Trigger a rerender
-        // Update task list UI
-        tasks = getCurrentProjectTasks().map(d => new Task(d.id, d.title, d.isCompleted))
-        renderPendingTasks()
-        nextTask = ""
-        addNewTaskInput.value = "";
-        updateProjectsDisplay()
-    
-    }
-    
-    updateTasksUI() {
-        renderPendingTasks()
-        renderCompletedTasks()
-    }
-    
-    
-    addNewTaskInput.addEventListener("input", handleAddTaskInput)
-    addNewTaskButton.addEventListener("click", handleAddTaskClick)
-    
-     */
 }

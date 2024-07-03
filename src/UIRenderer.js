@@ -54,7 +54,8 @@ export default class UIRenderer {
             taskList,
             this.controller.handleUpdtateTaskList.bind(this.controller),
             this.controller.handleUpdateListSubmit.bind(this.controller),
-            projects
+            projects,
+            this.controller.handleDeleteListClick.bind(this.controller),
         )
         const newTaskContainer = taskContainerInstance.createTaskContainer();
 

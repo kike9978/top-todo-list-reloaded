@@ -113,8 +113,13 @@ export default class ProjectService {
     }
 
     removeTaskListfromProject(listId) {
-        const project = this.getProjectbyId(this.findProjectFromListId(listId))
-        project.assignedListIds = project.assignedListIds.filter(id => id !== listId)
+        this.myProjects = this.myProjects.map(project => {
+            if (project.assignedListIds.includes(listId)) {
+                return new Project({ ...project, assignedListIds: project.assignedListIds.filter(id => id !== listId) })
+            } else {
+                return project
+            }
+        })
     }
 
 }
