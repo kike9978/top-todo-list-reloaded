@@ -164,12 +164,16 @@ export default class AppController {
     }
 
     addNewTask(taskData, taskListId) {
+        const itAlreadyHasTasks = this.taskListService.getListById(taskListId).assignedTasksIds.length > 0
         this.taskService.createTask(taskData)
         this.taskListService.addTaskToList(taskData.id, taskListId)
         const currentTaskListTasksIds = this.taskListService.getTaskListTasksIds(this.currentTaskListId)
         const currentTaskListTasks = this.taskService.getTaskListTasks(currentTaskListTasksIds)
-
-        this.updatePendingTasks(currentTaskListTasks)
+        if (itAlreadyHasTasks) {
+            this.updatePendingTasks(currentTaskListTasks)
+            return
+        }
+        this.controlTaskDisplay()
     }
 
     handleCreateProjectClick(project) {

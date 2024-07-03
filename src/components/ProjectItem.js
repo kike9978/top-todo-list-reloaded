@@ -4,7 +4,7 @@ export default function ProjectItem(project, handleTaskListClick, currentProject
     const article = document.createElement("article")
     article.innerHTML = `
         <details class="w-full project-item " open>
-            <summary class="marker:text-pink-500 flex ">
+            <summary class="marker:text-pink-500 flex p-3">
             
                     <span>
                     ${project.title}
@@ -14,7 +14,7 @@ export default function ProjectItem(project, handleTaskListClick, currentProject
         </details>
         `
 
-    article.className = " hover:bg-pink-100 p-3 rounded flex justify-between"
+    article.className = " hover:bg-pink-100 rounded flex justify-between"
 
     project.assignedTasksLists.forEach(taskList => {
         article.querySelector("details").appendChild(ListItem(taskList, handleTaskListClick))

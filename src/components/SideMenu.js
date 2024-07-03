@@ -1,6 +1,7 @@
 import ProjectsAndListsContainer from "./ProjectsAndListsContainer"
 import { ITEM_TYPE } from "../types"
 import { closeSideBar } from "../utils/uiUtils"
+import MaterialIcon from "./MaterialIcon"
 
 export default class SideMenu {
 
@@ -22,7 +23,7 @@ export default class SideMenu {
         this.sideBar.className = "flex flex-col gap-2 bg-gray-50 h-full overflow-hidden"
         this.projectsAndListsContainer = this.createProjectsAndListsContainer()
 
-        this.closeSideButton.innerText = "Cerrar"
+        this.closeSideButton.innerHTML = MaterialIcon("menu")
         this.closeSideButton.className = "md:hidden"
 
         this.sideBar.appendChild(this.closeSideButton)

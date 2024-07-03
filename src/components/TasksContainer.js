@@ -1,7 +1,7 @@
 import TodoItem from "./TodoItem";
 import { openSideBar } from "../utils/uiUtils";
-
-
+import MaterialIcon from "./MaterialIcon";
+import EmptyState from "./EmptyState";
 
 export default class TasksContainer {
     constructor(
@@ -44,7 +44,7 @@ export default class TasksContainer {
 
         const openSideBarButton = document.createElement("button")
         openSideBarButton.className = "md:hidden"
-        openSideBarButton.innerText = "Abrir"
+        openSideBarButton.innerHTML = MaterialIcon("menu")
 
         // build Dom
         this.mainTasksContainer.appendChild(openSideBarButton)
@@ -52,20 +52,28 @@ export default class TasksContainer {
 
         this.mainTasksContainer.appendChild(this.addNewTaskInput)
         this.mainTasksContainer.appendChild(this.addNewTaskButton)
-        this.mainTasksContainer.appendChild(this.pendingTasksSection.section)
-        this.mainTasksContainer.appendChild(this.completedTasksSection.section)
 
+        if (this.pendingTasks.length > 0) {
+            this.mainTasksContainer.appendChild(this.pendingTasksSection.section)
+        }
+        if (this.completedTasks.length > 0) {
 
+            this.mainTasksContainer.appendChild(this.completedTasksSection.section)
+        }
 
         this.addNewTaskButton.innerText = "+ Add task"
         this.addNewTaskButton.className = "text-pink-500"
-        this.mainTasksContainer.className = "basis-full overflow-y-auto"
+        this.mainTasksContainer.className = "basis-full overflow-y-auto flex flex-col"
 
         this.initEventListeners()
         this.displayPendingTasks(this.pendingTasks)
         this.displayCompletedTasks(this.completedTasks)
 
         openSideBarButton.addEventListener("click", openSideBar)
+
+        if (!this.completedTasks.length > 0 && !this.pendingTasks.length > 0) {
+            this.mainTasksContainer.appendChild(EmptyState("No hay tareas"))
+        }
 
         return this.mainTasksContainer
 
@@ -149,13 +157,13 @@ export default class TasksContainer {
     }
 
     initEventListeners() {
-        this.addNewTaskInput.addEventListener("input", (e) => this.handleAddTaskInput(e.target.value))
+        this.addNewTaskInput.addEventListener("input", (e) => {
+            this.handleAddTaskInput(e.target.value)
+        })
         this.addNewTaskInput.addEventListener("keydown", e => {
             this.handleInputEnter(e)
         })
         this.addNewTaskInput.removeEventListener("blur", this.handleInputEnter)
-
-
 
         this.addNewTaskButton.addEventListener("click", () => {
             this.handleAddTaskClick()
