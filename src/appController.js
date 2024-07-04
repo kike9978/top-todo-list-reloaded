@@ -1,11 +1,12 @@
 import generateId from "./utils/generateId";
 
 export default class AppController {
-    constructor(view, taskService, projectService, taskListService) {
+    constructor(view, taskService, projectService, taskListService, localStorageService) {
         this.view = view;
         this.taskService = taskService;
         this.projectService = projectService;
         this.taskListService = taskListService
+        this.localStorageService = localStorageService
         this.view.controller = this
         this.currentProjectId = 0
         this.newTaskText = ""
@@ -38,7 +39,6 @@ export default class AppController {
     }
 
     init() {
-        /*  this.controlProjectDisplay() */
         this.generateAssignedTasksLists()
         this.generateProjectAndListArr()
         this.controlTaskDisplay()
