@@ -4,7 +4,6 @@ const data = {
             id: 0,
             title: "hola",
             isCompleted: false,
-            description: "Test descripción"
         },
         {
             id: 1,
@@ -15,7 +14,6 @@ const data = {
             id: 2,
             title: "Otra tarea",
             isCompleted: true,
-            description: "This is a super ultra mega hyper delta jumbo xxxxxxl extra gamma omega alpha large task descriptionThis is a super ultra mega hyper delta jumbo xxxxxxl extra gamma omega alpha large task descriptionThis is a super ultra mega hyper delta jumbo xxxxxxl extra gamma omega alpha large task descriptionThis is a super ultra mega hyper delta jumbo xxxxxxl extra gamma omega alpha large task description"
         },
     ],
 
