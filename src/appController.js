@@ -48,7 +48,6 @@ export default class AppController {
     generateProjectAndListArr() {
 
         this.projectsAndLists = this.projectsAndListsOrder.map(item => {
-
             if (item.type === "project") {
                 const project = this.projectService.getProjectbyId(item.id)
                 const lists = project.assignedListIds.map(listId => this.taskListService.getListById(listId))
@@ -77,15 +76,17 @@ export default class AppController {
     }
 
     controlTaskDisplay() {
-
-        if (this.currentTaskListId !== null) {
+        if (this.currentTaskListId !== null && this.currentTaskListId !== undefined) {
             const currentTasks = this.getCurrentTasksListTasksSeparated()
             this.view.displayTasksContainer(
                 currentTasks.pendingTasks,
                 currentTasks.completedTasks,
-                { title: this.taskListService.getListById(this.currentTaskListId).title, id: this.currentTaskListId },
+                { title: this.taskListService.getListById(this.currentTaskListId).title, id: this.currentTaskListId }
+                ,
                 this.projectService.getProjects()
             )
+        } else {
+            this.view.displayEmptyList()
         }
     }
 
@@ -285,23 +286,22 @@ export default class AppController {
 
     removeItemFromProjectsAndListsOrder(type, id) {
         this.projectsAndListsOrder = this.projectsAndListsOrder.filter(item => {
-
             return !(item.type === type && item.id === id)
         })
 
     }
-    removeListFromProject(listId, projectId) {
-        this.projectService.removeListFromProject()
-    }
-
     handleDeleteListClick(listId) {
-        this.taskListService.deleteTaskList(listId)
+
         this.removeItemFromProjectsAndListsOrder("taskList", listId)
-        this.currentTaskListId = 1
+        const nextTaskList = this.projectsAndListsOrder.find(item => item.type === "taskList")
+        const nextTaskListId = nextTaskList ? nextTaskList.id : undefined
+        this.taskListService.deleteTaskList(listId)
         this.projectService.removeTaskListfromProject(listId)
+        this.currentTaskListId = nextTaskListId
         this.generateProjectAndListArr()
         this.generateAssignedTasksLists()
         this.controlUpdateProjectsAndListsContainer()
         this.controlTaskDisplay()
+
     }
 }

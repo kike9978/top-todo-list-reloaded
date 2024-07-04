@@ -42,7 +42,9 @@ export default class UIRenderer {
     }
 
     displayTasksContainer(pendingTasks, completedTasks, taskList, projects) {
-
+        if (!taskList) {
+            return
+        }
         this.createTasksContainer();
         const taskContainerInstance = new TasksContainer(
             pendingTasks,
@@ -96,6 +98,9 @@ export default class UIRenderer {
         this.sideMenuInstance.projectsAndListsContainerInstance.updateProjectsAndListsContainer(this.controller.projectsAndLists, this.controller.assignedTasksLists)
     }
 
+    displayEmptyList() {
+        this.taskContainerInstance.displayEmptyList()
+    }
 
 
 }

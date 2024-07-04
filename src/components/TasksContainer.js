@@ -140,7 +140,6 @@ export default class TasksContainer {
 
             const newListData = generateNewTaskInfo(e)
             if (newListData.title === this.taskListTitle && newListData.assignedProjectId === this.parentProjectId) {
-                console.log("Es igualito")
                 document.querySelector("dialog").close()
                 return
             }
@@ -217,6 +216,12 @@ export default class TasksContainer {
         const completedTasksContainer = this.completedTasksSection.container;
         completedTasksContainer.innerHTML = "";
         completedTasks.forEach(task => completedTasksContainer.appendChild(TodoItem(task, this.handleTodoChange, this.handleDeleteTaskClick)))
+    }
+
+    displayEmptyList() {
+        this.mainTasksContainer.innerHTML = `
+        <div class="flex items-center justify-center h-full">No List selected</div>
+        `
     }
 
     updatePendingTasks(pendingTasks) {
