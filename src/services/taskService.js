@@ -1,9 +1,10 @@
-import data from "../data/data"
 import Task from "../models/Task"
+import LocalStorage from "../local-storage/localStorage"
 
 export default class TaskService {
     constructor() {
-        this.myTodos = data.tasks.map(task => new Task(task))
+        this.myLocalStorage = new LocalStorage()
+        this.myTodos = JSON.parse(localStorage.getItem("tasks")).map(task => new Task(task))
     }
 
     getTasks() {
@@ -12,13 +13,16 @@ export default class TaskService {
 
     createTask(newTaskData) {
         const newTask = new Task(newTaskData)
-        this.myTodos = [newTask, ...this.myTodos]
-
+        const nextTasks = [newTask, ...this.myTodos]
+        this.myTodos = nextTasks
+        this.myLocalStorage.updateTasks(nextTasks)
         return newTask
     }
 
     deleteTask(taskId) {
-        this.myTodos = this.myTodos.filter(t => t.id !== taskId)
+        const nextTasks = this.myTodos.filter(t => t.id !== taskId)
+        this.myTodos = nextTasks
+        this.myLocalStorage.updateTasks(nextTasks)
     }
 
     getTaskById(taskId) {
@@ -29,7 +33,8 @@ export default class TaskService {
     }
 
     updateTask(taskId, taskData) {
-        this.myTodos = this.myTodos.map(t => {
+
+        const nextTasks = this.myTodos.map(t => {
             if (taskId === t.id) {
                 return new Task(taskData)
             }
@@ -37,13 +42,9 @@ export default class TaskService {
                 return t
             }
         })
+        this.myTodos = nextTasks
+        this.myLocalStorage.updateTasks(nextTasks)
     }
-
-    /*  getCurrentProjectTasks(projectTaskListsIds) {
-         
- 
-         return this.myTodos.filter(task => projectTasksIds.includes(task.id))
-     } */
 
     getTaskListTasks(tasksListTasksIds) {
         return this.myTodos.filter(task => tasksListTasksIds.includes(task.id))

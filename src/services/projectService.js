@@ -1,10 +1,12 @@
-import data from "../data/data"
 import Project from "../models/Project"
+import LocalStorage from "../local-storage/localStorage"
+
 
 export default class ProjectService {
 
     constructor() {
-        this.myProjects = data.projects.map(project => new Project({ assignedListIds: project.assignedListIds, id: project.id, title: project.title }))
+        this.myLocalStorage = new LocalStorage()
+        this.myProjects = JSON.parse(localStorage.getItem("projects")).map(project => new Project({ assignedListIds: project.assignedListIds, id: project.id, title: project.title }))
     }
 
     getProjects() {
@@ -12,11 +14,15 @@ export default class ProjectService {
     }
 
     createProject(project) {
-        this.myProjects = [...this.myProjects, new Project({ id: project.id, title: project.title, assignedListIds: [] })]
+        const nextProjects = [...this.myProjects, new Project({ id: project.id, title: project.title, assignedListIds: [] })]
+        this.myProjects = nextProjects
+        this.myLocalStorage.updateProjects(nextProjects)
     }
 
     deleteProject(title) {
-        this.myProjects = this.myProjects.filter(p => title !== p)
+        const nextProjects = this.myProjects.filter(p => title !== p)
+        this.myProjects = nextProjects
+        this.myLocalStorage.updateProjects(nextProjects)
     }
 
     getProjectbyId(projectId) {
@@ -24,7 +30,7 @@ export default class ProjectService {
     }
 
     updateProject(projectId, newProject) {
-        this.myProjects = this.myProjects.map(p => {
+        const nextProjects = this.myProjects.map(p => {
             if (p.id === projectId) {
                 return new Project({ id: projectId, title: newProject.title, assignedListIds: newProject.assignedListIds })
             }
@@ -32,41 +38,9 @@ export default class ProjectService {
                 return p
             }
         })
+        this.myProjects = nextProjects
+        this.myLocalStorage.updateProjects(nextProjects)
     }
-
-    /*  addTaskToProject(taskId, projectId) {
- 
- 
-         this.myProjects = this.myProjects.map(project => {
-             if (project.id === projectId) {
-                 return new Project({ ...project, assignedListIds: [...project.assignedListIds, taskId] })
-             }
-             else {
-                 return project
-             }
-         })
- 
-     }
-     removeTaskFromProject(taskId, projectId) {
-         this.myProjects = this.myProjects.map(project => {
-             if (project.id === projectId) {
- 
-                 const newAssignedTasksIds = project.assignedListIds.filter(id => {
-                     return id !== taskId
-                 })
- 
-                 return new Project({ ...project, assignedListIds: newAssignedTasksIds })
-             }
-             else {
-                 return project
-             }
-         })
-     } */
-
-    /* getCurrentProjectTasksIds(projectId) {
-        const currentProjectTasksIds = this.getProjectbyId(projectId).assignedListIds
-        return currentProjectTasksIds
-    } */
 
     getProjectTaskListsIds(projectId) {
         const currentProject = this.getProjectbyId(projectId)
@@ -75,15 +49,13 @@ export default class ProjectService {
     }
 
     updateProjectTitle(projectId, newTitle) {
-
         const projectToUpdate = this.getProjectbyId(projectId)
         const updatedProject = new Project({ id: projectId, title: newTitle, assignedListIds: projectToUpdate.assignedListIds })
-
         this.updateProject(projectId, updatedProject)
 
     }
     updateProject(projectData) {
-        this.myProjects = this.myProjects.map(project => {
+        const nextProjects = this.myProjects.map(project => {
             if (project.id === projectData.id) {
                 return new Project({ ...projectData })
             }
@@ -91,6 +63,8 @@ export default class ProjectService {
                 return project
             }
         })
+        this.myProjects = nextProjects
+        this.myLocalStorage.updateProjects(nextProjects)
     }
 
     findProjectFromListId(listId) {
@@ -101,7 +75,8 @@ export default class ProjectService {
     }
 
     addTaskListToProject(listId, projectId) {
-        this.myProjects = this.myProjects.map(project => {
+
+        const nextProjects = this.myProjects.map(project => {
             if (project.id === projectId && !project.assignedListIds.includes(listId)) {
                 return new Project({ ...project, assignedListIds: [...project.assignedListIds, listId] })
             }
@@ -109,11 +84,12 @@ export default class ProjectService {
                 return project
             }
         })
-
+        this.myProjects = nextProjects
+        this.myLocalStorage.updateProjects(nextProjects)
     }
 
     removeTaskListfromProject(listId) {
-        this.myProjects = this.myProjects.map(project => {
+        const nextProjects = this.myProjects.map(project => {
             if (project.assignedListIds.includes(listId)) {
                 const newProject = new Project({ ...project, assignedListIds: project.assignedListIds.filter(id => id !== listId) })
                 return newProject
@@ -121,6 +97,8 @@ export default class ProjectService {
                 return project
             }
         })
+        this.myProjects = nextProjects
+        this.myLocalStorage.updateProjects(nextProjects)
     }
 
 }

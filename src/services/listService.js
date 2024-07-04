@@ -1,19 +1,25 @@
-import data from "../data/data";
 import TaskList from "../models/TaskList";
+import LocalStorage from "../local-storage/localStorage";
 
 export default class ListService {
     constructor() {
-        this.myLists = data.lists.map(list => new TaskList({ id: list.id, title: list.title, assignedTasksIds: list.assignedTasksIds }))
+        this.myLocalStorage = new LocalStorage()
+        this.myLists = JSON.parse(localStorage.getItem("lists")).map(list => new TaskList({ id: list.id, title: list.title, assignedTasksIds: list.assignedTasksIds }))
     }
 
     createTaskList(newList) {
-        this.myLists = [...this.myLists, new TaskList({ id: newList.id, title: newList.title, assignedTasksIds: newList.assignedTasksIds })]
+        const nextLists = [...this.myLists, new TaskList({ id: newList.id, title: newList.title, assignedTasksIds: newList.assignedTasksIds })]
+        this.myLists = nextLists
+        this.myLocalStorage.updateTaskLists(nextLists)
     }
 
     deleteTaskList(listId) {
-        this.myLists = this.myLists.filter(list => {
+
+        const nextLists = this.myLists.filter(list => {
             return list.id !== listId
         })
+        this.myLists = nextLists
+        this.myLocalStorage.updateTaskLists(nextLists)
     }
 
     getLists() {
@@ -34,7 +40,8 @@ export default class ListService {
     }
 
     addTaskToList(taskId, listId) {
-        this.myLists = this.myLists.map(list => {
+
+        const nextLists = this.myLists.map(list => {
             if (list.id === listId) {
                 const updatedTaskList = new TaskList({ ...list, assignedTasksIds: [...list.assignedTasksIds, taskId] })
                 return updatedTaskList
@@ -43,9 +50,12 @@ export default class ListService {
                 return list
             }
         })
+        this.myLists = nextLists
+        this.myLocalStorage.updateTaskLists(nextLists)
     }
     removeTaskFromList(taskId, listId) {
-        this.myLists = this.myLists.map(list => {
+
+        const nextLists = this.myLists.map(list => {
             if (list.id === listId) {
 
                 const newAssignedTasksIds = list.assignedTasksIds.filter(id => {
@@ -58,12 +68,14 @@ export default class ListService {
                 return list
             }
         })
+        this.myLists = nextLists
+        this.myLocalStorage.updateTaskLists(nextLists)
 
     }
 
     updateTaskList(listData) {
 
-        this.myLists = this.myLists.map(list => {
+        const nextLists = this.myLists.map(list => {
             if (list.id === listData.id) {
                 return new TaskList({ ...listData })
             }
@@ -71,5 +83,7 @@ export default class ListService {
                 return list
             }
         })
+        this.myLists = nextLists
+        this.myLocalStorage.updateTaskLists(nextLists)
     }
 }

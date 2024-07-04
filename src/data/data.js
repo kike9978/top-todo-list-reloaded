@@ -60,5 +60,28 @@ const data = {
         },
 
     ],
+    order: [
+        {
+            type: "project",
+            id: 0,
+
+        },
+        {
+            type: "taskList",
+            id: 0
+        },
+        {
+            type: "project",
+            id: 1,
+        },
+        {
+            type: "project",
+            id: 2,
+        },
+        {
+            type: "project",
+            id: 3,
+        },
+    ],
 }
 export default data

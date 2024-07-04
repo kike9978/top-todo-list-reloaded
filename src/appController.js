@@ -12,33 +12,13 @@ export default class AppController {
         this.newTaskText = ""
         this.currentTaskListId = 0
         this.projectsAndLists = []
-        this.projectsAndListsOrder = [
-            {
-                type: "project",
-                id: 0,
-
-            },
-            {
-                type: "taskList",
-                id: 0
-            },
-            {
-                type: "project",
-                id: 1,
-            },
-            {
-                type: "project",
-                id: 2,
-            },
-            {
-                type: "project",
-                id: 3,
-            },
-        ]
+        this.projectsAndListsOrder = []
         this.assignedTasksLists = []
     }
 
     init() {
+        // this.localStorageService.populateWithMockData()
+        this.projectsAndListsOrder = JSON.parse(localStorage.getItem("order"))
         this.generateAssignedTasksLists()
         this.generateProjectAndListArr()
         this.controlTaskDisplay()
@@ -183,9 +163,15 @@ export default class AppController {
         const newProject = { id: nextId, title: project, assignedListIds: [] }
         this.controlCreateProject(newProject)
         this.projectsAndListsOrder = [...this.projectsAndListsOrder, { type: "project", id: nextId }]
+        this.controlUpdateOrder()
         this.generateProjectAndListArr()
         this.generateAssignedTasksLists()
         this.controlUpdateProjectsAndListsContainer()
+    }
+
+    controlUpdateOrder() {
+        this.localStorageService.updateOrder(this.projectsAndListsOrder)
+
     }
 
     handleCreateListClick(list) {
@@ -194,6 +180,7 @@ export default class AppController {
         this.currentTaskListId = nextId
         this.taskListService.createTaskList(newTaskList)
         this.projectsAndListsOrder = [...this.projectsAndListsOrder, { type: "taskList", id: nextId }]
+        this.controlUpdateOrder()
         this.generateProjectAndListArr()
         this.generateAssignedTasksLists()
         this.controlTaskDisplay()
@@ -276,6 +263,7 @@ export default class AppController {
                 type: "taskList",
                 id: listAndProjectAssignationData.id
             }]
+            this.controlUpdateOrder()
         }
 
         this.generateProjectAndListArr()
@@ -288,6 +276,7 @@ export default class AppController {
         this.projectsAndListsOrder = this.projectsAndListsOrder.filter(item => {
             return !(item.type === type && item.id === id)
         })
+        this.controlUpdateOrder()
 
     }
     handleDeleteListClick(listId) {
