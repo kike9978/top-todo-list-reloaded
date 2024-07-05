@@ -12,8 +12,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.6.0",
     "autoprefixer": "^10.4.19",
     "css-loader": "^7.1.2",
+    "eslint": "^9.6.0",
+    "globals": "^15.8.0",
     "html-webpack-plugin": "^5.6.0",
     "loader": "^2.1.1",
     "playwright": "^1.45.1",

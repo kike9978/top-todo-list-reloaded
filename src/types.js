@@ -1,6 +1,6 @@
 const ITEM_TYPE = Object.freeze({
-    project: "project",
-    list: "list"
-})
+  project: "project",
+  list: "list",
+});
 
-export { ITEM_TYPE }
+export { ITEM_TYPE };

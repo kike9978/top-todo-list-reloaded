@@ -1,33 +1,31 @@
 export default class Project {
-    constructor({ id, title, assignedListIds }) {
-        this.id = id;
-        this.title = title;
-        this.assignedListIds = assignedListIds
-    }
+  constructor({ id, title, assignedListIds }) {
+    this.id = id;
+    this.title = title;
+    this.assignedListIds = assignedListIds;
+  }
 
-    getId() {
-        return this.id
-    }
+  getId() {
+    return this.id;
+  }
 
-    getTitle() {
-        return this.title
-    }
+  getTitle() {
+    return this.title;
+  }
 
-    getAssignedListIds() {
-        return this.assignedListIds
-    }
+  getAssignedListIds() {
+    return this.assignedListIds;
+  }
 
-    addAssignTaskId(taskId) {
-        this.assignedListIds = [this.assignedListIds, taskId]
-    }
+  addAssignTaskId(taskId) {
+    this.assignedListIds = [this.assignedListIds, taskId];
+  }
 
-    removeAssignedTaskId(taskId) {
-        this.assignedListIds = this.assignedListIds.filter(id => id !== taskId)
-    }
+  removeAssignedTaskId(taskId) {
+    this.assignedListIds = this.assignedListIds.filter((id) => id !== taskId);
+  }
 
-    setTitle(newTitle) {
-        this.title = newTitle
-    }
-
-
+  setTitle(newTitle) {
+    this.title = newTitle;
+  }
 }
