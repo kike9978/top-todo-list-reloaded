@@ -264,7 +264,7 @@ export default class AppController {
         }
 
         if (!isChangingToNone) {
-            this.projectService.addTaskListToProject(listAndProjectAssignationData.id, Number(listAndProjectAssignationData.assignedProjectId))
+            this.projectService.addTaskListToProject(listAndProjectAssignationData.id, listAndProjectAssignationData.assignedProjectId)
 
         }
         else {
