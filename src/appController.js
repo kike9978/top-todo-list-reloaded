@@ -17,16 +17,25 @@ export default class AppController {
     }
 
     init() {
-        // this.localStorageService.populateWithMockData()
-        this.projectsAndListsOrder = JSON.parse(localStorage.getItem("order"))
+        this.localStorageService.populateWithMockData()
+        this.populateServicesData()
         this.generateAssignedTasksLists()
         this.generateProjectAndListArr()
         this.controlTaskDisplay()
         this.controlSideMenuDisplay()
     }
 
-    generateProjectAndListArr() {
+    initMockData() {
 
+    }
+    populateServicesData() {
+        this.taskListService.populate()
+        this.taskService.populate()
+        this.projectService.populate()
+        this.projectsAndListsOrder = JSON.parse(localStorage.getItem("order"))
+    }
+
+    generateProjectAndListArr() {
         this.projectsAndLists = this.projectsAndListsOrder.map(item => {
             if (item.type === "project") {
                 const project = this.projectService.getProjectbyId(item.id)

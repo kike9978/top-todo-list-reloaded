@@ -9,7 +9,12 @@ export default class LocalStorage {
     }
 
     populateWithMockData() {
-
+        if (localStorage.getItem("projects") ||
+            localStorage.getItem("lists") ||
+            localStorage.getItem("tasks") ||
+            localStorage.getItem("order")) {
+            return
+        }
         localStorage.setItem("projects", JSON.stringify(data.projects))
         localStorage.setItem("lists", JSON.stringify(data.lists))
         localStorage.setItem("tasks", JSON.stringify(data.tasks))

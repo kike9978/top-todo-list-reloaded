@@ -4,8 +4,13 @@ import LocalStorage from "../local-storage/localStorage"
 export default class TaskService {
     constructor() {
         this.myLocalStorage = new LocalStorage()
+        this.myTodos = JSON.parse(localStorage.getItem("tasks")) ? JSON.parse(localStorage.getItem("tasks")).map(task => new Task(task)) : []
+    }
+
+    populate() {
         this.myTodos = JSON.parse(localStorage.getItem("tasks")).map(task => new Task(task))
     }
+
 
     getTasks() {
         return this.myTodos

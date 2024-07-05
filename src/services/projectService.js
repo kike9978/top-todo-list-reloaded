@@ -6,9 +6,13 @@ export default class ProjectService {
 
     constructor() {
         this.myLocalStorage = new LocalStorage()
-        this.myProjects = JSON.parse(localStorage.getItem("projects")).map(project => new Project({ assignedListIds: project.assignedListIds, id: project.id, title: project.title }))
+        this.myProjects = JSON.parse(localStorage.getItem("projects")) ? JSON.parse(localStorage.getItem("projects")).map(project => new Project({ assignedListIds: project.assignedListIds, id: project.id, title: project.title })) : []
     }
 
+
+    populate() {
+        this.myProjects = JSON.parse(localStorage.getItem("projects")).map(project => new Project({ assignedListIds: project.assignedListIds, id: project.id, title: project.title }))
+    }
     getProjects() {
         return this.myProjects
     }

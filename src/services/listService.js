@@ -4,6 +4,10 @@ import LocalStorage from "../local-storage/localStorage";
 export default class ListService {
     constructor() {
         this.myLocalStorage = new LocalStorage()
+        this.myLists = JSON.parse(localStorage.getItem("lists")) ? JSON.parse(localStorage.getItem("lists")).map(list => new TaskList({ id: list.id, title: list.title, assignedTasksIds: list.assignedTasksIds })) : []
+    }
+
+    populate() {
         this.myLists = JSON.parse(localStorage.getItem("lists")).map(list => new TaskList({ id: list.id, title: list.title, assignedTasksIds: list.assignedTasksIds }))
     }
 
