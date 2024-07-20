@@ -14,9 +14,9 @@ export default class AppController {
     this.taskListService = taskListService;
     this.localStorageService = localStorageService;
     this.view.controller = this;
-    this.currentProjectId = 0;
+    this.currentProjectId = "0";
     this.newTaskText = "";
-    this.currentTaskListId = 0;
+    this.currentTaskListId = "0";
     this.projectsAndLists = [];
     this.projectsAndListsOrder = [];
     this.assignedTasksLists = [];

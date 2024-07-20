@@ -89,6 +89,7 @@ export default class ProjectService {
 
   addTaskListToProject(listId, projectId) {
     const nextProjects = this.myProjects.map((project) => {
+      debugger;
       if (
         project.id === projectId &&
         !project.assignedListIds.includes(listId)
